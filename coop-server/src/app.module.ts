@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BranchModule } from './branch/branch.module';
-import { ProductModule } from './product/product.module';
+import { UsersModule } from './modules/users/users.module';
+import { BranchModule } from './modules/branch/branch.module';
+import { ProductModule } from './modules/product/product.module';
 
 @Module({
   imports: [
