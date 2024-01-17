@@ -1,0 +1,15 @@
+### get all users
+GET http://localhost:3000/branch
+
+### create a new user
+POST http://localhost:3000/branch
+Content-Type: application/json
+
+{
+    "firstName": "Thang",
+    "lastName": "Vo",
+    "name": 123
+}
+
+### get detail branch
+GET http://localhost:3000/branch/1
