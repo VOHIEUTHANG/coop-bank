@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty } from '@nestjs/swagger';
 import {
   Entity,
   Column,
@@ -6,7 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn
-} from "typeorm";
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -32,21 +32,21 @@ export class User {
   @Column({ nullable: true })
   deleted_user: string;
 
-  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deleted_at: string;
 
   @Column({ nullable: true })
   created_user: string;
 
-  @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
+  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
   created_at: string;
 
   @Column({ nullable: true })
   updated_user: string;
 
   @UpdateDateColumn({
-    type: "timestamp",
-    onUpdate: "CURRENT_TIMESTAMP(6)"
+    type: 'timestamp',
+    onUpdate: 'CURRENT_TIMESTAMP(6)'
   })
   updated_at: string;
 }
