@@ -1,22 +1,28 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { CreateBranchDto } from './dto/create-branch.dto';
+import { BranchService } from './branch.service';
 
 @Controller('branch')
 export class BranchController {
+  constructor(private readonly branchService: BranchService) {}
+
   @Get()
   getList() {
-    return 'branches data';
+    return this.branchService.findAll();
   }
 
   @Post()
   createBranch(@Body() body: CreateBranchDto) {
-    console.log('🚀 ~ BranchController ~ createBranch ~ body:', body);
-    return 'branches data';
+    return this.branchService.create(body.name);
   }
 
   @Get('/:branch_id')
-  getDetailBranch(@Param('branch_id') branchId: number) {
-    console.log('🚀 ~ BranchController ~ getDetailBranch ~ branchId:', branchId);
-    return 'branches data';
+  async getDetailBranch(@Param('branch_id') branchId: string) {
+    const branch = await this.branchService.findOne(branchId);
+    if (!branch) {
+      throw new NotFoundException('branch not found');
+    }
+
+    return branch;
   }
 }

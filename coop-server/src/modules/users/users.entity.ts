@@ -1,52 +1,25 @@
-import { ApiProperty } from '@nestjs/swagger';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  UpdateDateColumn,
-  DeleteDateColumn
-} from 'typeorm';
+import { AfterInsert, AfterRemove, AfterUpdate, Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @ApiProperty()
+  @PrimaryColumn()
+  username: string;
   @Column()
-  firstName: string;
-
-  @ApiProperty()
+  email: string;
   @Column()
-  lastName: string;
+  password: string;
 
-  @ApiProperty()
-  @Column({ default: true })
-  isActive: boolean;
+  @AfterInsert()
+  logInsert() {
+    console.log('Insert new user:', this);
+  }
+  @AfterUpdate()
+  logUpdate() {
+    console.log('Update user:', this);
+  }
 
-  @ApiProperty()
-  @Column({ default: false })
-  isDeleted: boolean;
-
-  @Column({ nullable: true })
-  deleted_user: string;
-
-  @DeleteDateColumn({ type: 'timestamp', nullable: true })
-  deleted_at: string;
-
-  @Column({ nullable: true })
-  created_user: string;
-
-  @CreateDateColumn({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP(6)' })
-  created_at: string;
-
-  @Column({ nullable: true })
-  updated_user: string;
-
-  @UpdateDateColumn({
-    type: 'timestamp',
-    onUpdate: 'CURRENT_TIMESTAMP(6)'
-  })
-  updated_at: string;
+  @AfterRemove()
+  logRemove() {
+    console.log('Remove user:', this);
+  }
 }
