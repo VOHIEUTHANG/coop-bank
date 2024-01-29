@@ -6,4 +6,6 @@ export class ExposeUserDto {
   password: string;
   @Expose()
   email: string;
+  @Expose()
+  is_admin: boolean;
 }

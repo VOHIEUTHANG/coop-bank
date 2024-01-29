@@ -9,7 +9,6 @@ import {
   Query,
   NotFoundException,
   Session,
-  UseInterceptors,
   UseGuards
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -21,10 +20,8 @@ import { AuthService } from './auth.service';
 import { SigninUserDto } from './dto/signin-user.dto';
 import { User } from './users.entity';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { AuthGuard } from 'src/guards/auth.guard';
 
-@UseInterceptors(CurrentUserInterceptor)
 @Serialize(ExposeUserDto)
 @Controller('auth')
 export class UsersController {

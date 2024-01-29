@@ -1,7 +1,8 @@
 import cookieSession from 'cookie-session';
 
-const CookieSessionMiddleware = cookieSession({
-  keys: ['coop-session-key']
-});
+const CookieSessionMiddleware = (key: string) =>
+  cookieSession({
+    keys: [key]
+  });
 
 export default CookieSessionMiddleware;
