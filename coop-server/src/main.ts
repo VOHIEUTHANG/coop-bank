@@ -1,6 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './modules/app/app.module';
+import { config as dotenvConfig } from 'dotenv';
+import { getEnvPath, enviroment } from './helper/enviroment.helper';
+
+dotenvConfig({ path: getEnvPath() });
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { abortOnError: false });
@@ -14,6 +18,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/', app, document);
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
+  console.log(`Nest app started at http://localhost:${process.env.PORT || 3000} [${enviroment}]`);
 }
 bootstrap();
