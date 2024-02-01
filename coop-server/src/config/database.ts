@@ -16,10 +16,14 @@ const DatabaseConfig = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: ['src/**/*.entity{.ts,.js}'],
-  migrations: ['src/migrations/*{.ts,.js}'],
+  entities: ['dist/**/*.entity{.ts,.js}'],
+  migrations: ['dist/migrations/*{.ts,.js}'],
   autoLoadEntities: true,
-  synchronize: ApplicationConfig.nodenv === NodeEnv.DEVELOPMENT
+  synchronize: [NodeEnv.DEVELOPMENT, NodeEnv.TEST].includes(ApplicationConfig.nodenv),
+  migrationsRun: ApplicationConfig.nodenv === NodeEnv.PRODUCTION,
+  ssl: {
+    rejectUnauthorized: false
+  }
 };
 
 export default registerAs('database', () => {

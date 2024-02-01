@@ -1,8 +1,6 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from '../users/users.module';
-import { BranchModule } from '../branch/branch.module';
-import { ProductModule } from '../product/product.module';
 import { ReportsModule } from '../reports/reports.module';
 import { APP_PIPE } from '@nestjs/core';
 import ValidationPipeMiddleware from 'src/middleware/validation-pipe.middleware';
@@ -22,8 +20,6 @@ import databaseConfig from 'src/config/database';
       useFactory: (configService: ConfigService) => configService.get('database')
     }),
     UsersModule,
-    BranchModule,
-    ProductModule,
     ReportsModule
   ],
   providers: [
