@@ -1,81 +1,55 @@
 import {
   Controller,
   Get,
-  Post,
   Body,
   Patch,
   Param,
   Delete,
   Query,
-  NotFoundException,
-  Session,
-  UseGuards
+  UseInterceptors,
+  ClassSerializerInterceptor,
+  Request
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ExposeUserDto } from './dto/expose-user.dto';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
-import { AuthService } from './auth.service';
-import { SigninUserDto } from './dto/signin-user.dto';
-import { User } from './users.entity';
-import { CurrentUser } from './decorators/current-user.decorator';
-import { AuthGuard } from 'src/guards/auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { FilterUserDto } from './dto/filter-user.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
-@Serialize(ExposeUserDto)
-@Controller('auth')
+@ApiTags('User')
+@UseInterceptors(ClassSerializerInterceptor)
+@ApiBearerAuth()
+@Controller('user')
 export class UsersController {
-  constructor(
-    private usersService: UsersService,
-    private authService: AuthService
-  ) {}
-
-  @UseGuards(AuthGuard)
-  @Get('whoami')
-  whoami(@CurrentUser() user: User) {
-    return user;
-  }
-
-  @Post('signout')
-  async signout(@Session() session: any) {
-    session.username = null;
-  }
-
-  @Post('signup')
-  async signup(@Body() userData: CreateUserDto, @Session() session: any) {
-    const user = await this.authService.signup(userData);
-    session.username = user.username;
-    return user;
-  }
-
-  @Post('signin')
-  async signin(@Body() userData: SigninUserDto, @Session() session: any) {
-    const user = await this.authService.signin(userData);
-    session.username = user.username;
-    return user;
-  }
+  constructor(private usersService: UsersService) {}
 
   @Get()
-  findAll(@Query('email') email: string) {
-    return this.usersService.find({ email });
+  getList(@Query() filter: FilterUserDto) {
+    return this.usersService.find(filter);
   }
 
-  @Get(':username')
-  async findUserByUsername(@Param('username') username: string) {
-    const user = await this.usersService.findOne(username);
-    if (!user) {
-      throw new NotFoundException('User not found !');
-    }
-    return user;
+  @Get('options')
+  getOptions() {
+    return this.usersService.getOptions();
   }
 
-  @Patch(':username')
-  update(@Param('username') username: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(username, updateUserDto);
+  @Get(':userId')
+  getById(@Param('userId') userId: number) {
+    return this.usersService.findOneBy({ user_id: userId });
   }
 
-  @Delete(':username')
-  remove(@Param('username') username: string) {
-    return this.usersService.remove(username);
+  @Patch()
+  update(@Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(updateUserDto);
+  }
+
+  @Patch('change-password')
+  chnagePassword(@Body() changePasswordData: ChangePasswordDto, @Request() req) {
+    return this.usersService.updatePassword(changePasswordData, req.user?.sub);
+  }
+
+  @Delete(':userId')
+  lockUser(@Param('userId') userId: number) {
+    return this.usersService.lock(userId);
   }
 }

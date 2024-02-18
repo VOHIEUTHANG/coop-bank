@@ -1,0 +1,92 @@
+import React, { useCallback, useState, useEffect } from 'react';
+import { defaultPaging, defaultParams } from 'utils/helpers';
+import CustomerFilter from './Section/Filter';
+import BankRepresentativeTable from './Section/Table';
+import { useFormContext } from 'react-hook-form';
+import { getList } from 'services/bank-representative.service';
+
+import styled from 'styled-components';
+
+const ModalWrapper = styled.div`
+  .bw_modal_wrapper {
+    max-height: 80vh;
+    max-width: 80vw;
+  }
+`;
+
+const AddRepresentativeModal = ({ open, onClose }) => {
+  const methods = useFormContext();
+
+  const [params, setParams] = useState(defaultParams);
+  const [dataItem, setDataItem] = useState(defaultPaging);
+  const [loading, setLoading] = useState(true);
+  const [selectedList, setSelectedList] = useState([]);
+
+  const { items = [], itemsPerPage, page, totalItems, totalPages } = dataItem;
+
+  const loadData = useCallback(async () => {
+    setLoading(true);
+    getList(params)
+      .then(setDataItem)
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [params]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const onChange = (params) => {
+    setParams((prev) => ({ ...prev, ...params }));
+  };
+
+  return (
+    <ModalWrapper>
+      <div className={`bw_modal ${open ? 'bw_modal_open' : ''}`} id='bw_addProduct'>
+        <div class='bw_modal_container bw_w1200 bw_modal_wrapper'>
+          <div class='bw_title_modal'>
+            <h3>Danh sách người đại diện</h3>
+            <span class='fi fi-rr-cross-small bw_close_modal' onClick={onClose}></span>
+          </div>
+          <div>
+            <div>
+              <div className='bw_main_wrapp'>
+                <CustomerFilter onChange={onChange} />
+                <BankRepresentativeTable
+                  onChangePage={(page) => {
+                    onChange({ page });
+                  }}
+                  data={items}
+                  totalPages={totalPages}
+                  itemsPerPage={itemsPerPage}
+                  page={page}
+                  totalItems={totalItems}
+                  loading={loading}
+                  closeModal={onClose}
+                  selectedList={selectedList}
+                  setSelectedList={setSelectedList}
+                />
+              </div>
+            </div>
+          </div>
+          <div className='bw_footer_modal' style={{ justifyContent: 'end' }}>
+            <button
+              className='bw_btn bw_btn_success'
+              onClick={() => {
+                methods.setValue('representatives', selectedList);
+                onClose();
+              }}>
+              <span className='fi fi-rr-check'></span> Chọn
+            </button>
+            <button type='button' className='bw_btn_outline' onClick={onClose}>
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </ModalWrapper>
+  );
+};
+
+export default AddRepresentativeModal;

@@ -1,6 +1,5 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
-import { User } from 'src/modules/users/users.entity';
 import { UsersService } from 'src/modules/users/users.service';
 
 declare global {
@@ -17,7 +16,7 @@ export class CurrentUserMiddleware implements NestMiddleware {
   async use(request: Request, res: Response, next: NextFunction) {
     const { username } = request.session || {};
     if (username) {
-      const user = await this.userService.findOne(username);
+      const user = await this.userService.findOneByUsername(username);
       request.currentUser = user;
     }
     return next();

@@ -1,26 +1,28 @@
 import { registerAs } from '@nestjs/config';
 import { config as dotenvConfig } from 'dotenv';
 import Joi from 'joi';
-import { NodeEnv } from '../constant';
 import { getEnvPath } from '../helper/enviroment.helper';
 import JoiValidation from '../helper/joi-validation';
+import { NODE_ENV } from '../constant/applicatoin.constant';
 
 dotenvConfig({ path: getEnvPath() });
 
-export const ApplicationConfig = {
+export const APPLICATION_CONFIG = {
   port: parseInt(process.env.PORT),
   nodenv: process.env.NODE_ENV,
-  cookie_key: process.env.COOKIE_KEY
+  cookie_key: process.env.COOKIE_KEY,
+  jwt_secret: process.env.JWT_SECRET,
+  base_url: process.env.BASE_URL
 };
 
 export default registerAs('application', () => {
   const validatonSchema = Joi.object({
     port: Joi.number().required(),
-    nodenv: Joi.string()
-      .valid(...Object.values(NodeEnv))
-      .valid(),
-    cookie_key: Joi.string().required()
+    nodenv: Joi.string().valid(...Object.values(NODE_ENV)),
+    cookie_key: Joi.string().required(),
+    jwt_secret: Joi.string().required(),
+    base_url: Joi.string().required()
   }).unknown(true);
 
-  return JoiValidation(validatonSchema, ApplicationConfig);
+  return JoiValidation(validatonSchema, APPLICATION_CONFIG);
 });

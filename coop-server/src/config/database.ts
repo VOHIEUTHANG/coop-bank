@@ -4,12 +4,12 @@ import { config as dotenvConfig } from 'dotenv';
 import { getEnvPath } from '../helper/enviroment.helper';
 import Joi from 'joi';
 import JoiValidation from '../helper/joi-validation';
-import { ApplicationConfig } from './application';
-import { NodeEnv } from '../constant';
+import { APPLICATION_CONFIG } from './application';
+import { NODE_ENV } from 'src/constant/applicatoin.constant';
 
 dotenvConfig({ path: getEnvPath() });
 
-const DatabaseConfig = {
+export const DATABASE_CONFIG = {
   type: 'mysql',
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT),
@@ -19,11 +19,8 @@ const DatabaseConfig = {
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/*{.ts,.js}'],
   autoLoadEntities: true,
-  synchronize: [NodeEnv.DEVELOPMENT, NodeEnv.TEST].includes(ApplicationConfig.nodenv),
-  migrationsRun: ApplicationConfig.nodenv === NodeEnv.PRODUCTION,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  synchronize: [NODE_ENV.DEVELOPMENT, NODE_ENV.TEST].includes(APPLICATION_CONFIG.nodenv),
+  migrationsRun: APPLICATION_CONFIG.nodenv === NODE_ENV.PRODUCTION
 };
 
 export default registerAs('database', () => {
@@ -35,7 +32,7 @@ export default registerAs('database', () => {
     database: Joi.string().required()
   }).unknown(true);
 
-  return JoiValidation(validatonSchema, DatabaseConfig);
+  return JoiValidation(validatonSchema, DATABASE_CONFIG);
 });
 
-export const connectionSource = new DataSource(DatabaseConfig as DataSourceOptions);
+export const connectionSource = new DataSource(DATABASE_CONFIG as DataSourceOptions);

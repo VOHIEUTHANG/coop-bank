@@ -1,0 +1,12 @@
+export const OBJECT_TYPE = {
+  PRINCIPAL: 1,
+  INDIVIDUAL: 2,
+  AFFILIATE_UNIT: 3
+};
+
+export const DATE_TYPE = {
+  BIRTH_DATE: 1,
+  FOUNDING_DATE: 2,
+  EFFECTIVE_DATE_FROM: 3,
+  EFFECTIVE_DATE_TO: 4
+};

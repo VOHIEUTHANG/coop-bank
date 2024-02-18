@@ -1,0 +1,132 @@
+import React, { useCallback } from 'react';
+import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { showConfirmModal } from 'actions/global';
+import { deleteAffiliateUnit } from 'services/affiliate-unit.service';
+import DataTable from 'components/shared/DataTable/index';
+import { AffiliateUnitLevelOptions } from '../utils/constants';
+
+const RepresentativeTable = ({
+  loading,
+  data,
+  totalPages,
+  itemsPerPage,
+  page,
+  totalItems,
+  onChangePage,
+  onRefresh,
+}) => {
+  const dispatch = useDispatch();
+  const columns = useMemo(
+    () => [
+      {
+        header: 'STT',
+        classNameHeader: 'bw_text_center',
+        classNameBody: 'bw_text_center',
+        formatter: (_, index) => <span className='bw_text_wrap'>{index + 1}</span>,
+      },
+      {
+        header: 'Tên người đơn vị',
+        classNameHeader: 'bw_text_center',
+        accessor: 'affiliate_unit_name',
+      },
+      {
+        header: 'Mã đơn vị',
+        classNameHeader: 'bw_text_center',
+        accessor: 'affiliate_unit_code',
+      },
+      {
+        header: 'Địa chỉ đơn vị',
+        classNameHeader: 'bw_text_center',
+        accessor: 'affiliate_unit_address',
+      },
+      {
+        header: 'Chức vụ',
+        classNameHeader: 'bw_text_center',
+        formatter: (item, index) => (
+          <span>
+            {AffiliateUnitLevelOptions.find((position) => position.value === item.affiliate_unit_level)?.label ||
+              'Không xác định'}
+          </span>
+        ),
+      },
+      {
+        header: 'Người tạo',
+        accessor: 'created_fullname',
+        classNameHeader: 'bw_text_center',
+        classNameBody: 'bw_text_center',
+      },
+      {
+        header: 'Ngày tạo',
+        accessor: 'created_at',
+        classNameHeader: 'bw_text_center',
+        classNameBody: 'bw_text_center',
+      },
+    ],
+    [],
+  );
+
+  const handleDelete = useCallback(
+    async (Id) => {
+      await deleteAffiliateUnit(Id);
+      onRefresh();
+    },
+    [onRefresh],
+  );
+
+  const actions = useMemo(() => {
+    return [
+      {
+        globalAction: true,
+        icon: 'fi fi-rr-add',
+        type: 'success',
+        content: 'Thêm mới',
+        onClick: () => window._$g.rdr(`affiliate-unit/add`),
+      },
+      {
+        icon: 'fi fi-rr-edit',
+        color: 'blue',
+        title: 'Sửa',
+        onClick: (p) => {
+          window._$g.rdr(`affiliate-unit/edit/${p?.affiliate_unit_id}`);
+        },
+      },
+      {
+        icon: 'fi fi-rr-eye',
+        color: 'green',
+        title: 'Chi tiết',
+        onClick: (p) => {
+          window._$g.rdr(`affiliate-unit/detail/${p?.affiliate_unit_id}`);
+        },
+      },
+      {
+        icon: 'fi fi-rr-trash',
+        color: 'red',
+        title: 'Xóa',
+        onClick: (_, d) =>
+          dispatch(
+            showConfirmModal(['Bạn có thực sự muốn xóa?', 'Bạn sẽ mất dữ liệu này và các dữ liệu liên quan.'], () =>
+              handleDelete([_.affiliate_unit_id]),
+            ),
+          ),
+      },
+    ];
+  }, [dispatch, handleDelete]);
+
+  return (
+    <DataTable
+      loading={loading}
+      columns={columns}
+      data={data}
+      actions={actions}
+      totalPages={totalPages}
+      itemsPerPage={itemsPerPage}
+      page={page}
+      totalItems={totalItems}
+      onChangePage={onChangePage}
+    />
+  );
+};
+
+export default RepresentativeTable;
