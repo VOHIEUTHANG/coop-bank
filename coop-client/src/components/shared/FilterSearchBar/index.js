@@ -15,7 +15,7 @@ const Wrapper = styled.div`
     border-radius: 7px;
     width: 100%;
   }
-  .bw_frm_box .loader__filter__searchbar {
+  .cb_frm_box .loader__filter__searchbar {
     background-color: #ededed;
     background: linear-gradient(
         100deg,
@@ -49,10 +49,10 @@ const FilterSearchBar = ({ title, actions, onSubmit, onClear, colSize = 3, expan
   const parseAction = actions.filter((p) => !p.hidden);
 
   return (
-    <Wrapper className='bw_search_box'>
-      <h3 className='bw_title_search'>
+    <Wrapper className='cb_search_box'>
+      <h3 className='cb_title_search'>
         <span>{title}</span>
-        <span className='bw_close_search' onClick={() => setToggleSearch(!toggleSearch)}>
+        <span className='cb_close_search' onClick={() => setToggleSearch(!toggleSearch)}>
           <i style={{ cursor: 'pointer' }} className='fi fi-rr-angle-small-down'></i>
         </span>
       </h3>
@@ -62,19 +62,19 @@ const FilterSearchBar = ({ title, actions, onSubmit, onClear, colSize = 3, expan
             e.preventDefault();
             methods.handleSubmit(onSubmit)(e);
           }}>
-          <div className='bw_row bw_mt_1 bw_mb_1 '>
+          <div className='cb_row cb_mt_1 cb_mb_1 '>
             {(searchAdvanced ? parseAction : parseAction.slice(0, 12 / colSize)).map((props, index) => {
               const { title, isRequired, component } = props;
               return (
-                <div key={`${props.title}${index}`} className={`bw_col_${colSize}`}>
-                  <div className='bw_frm_box bw_h-100 '>
+                <div key={`${props.title}${index}`} className={`cb_col_${colSize}`}>
+                  <div className='cb_frm_box cb_h-100 '>
                     {loadingLazy ? (
                       <div className='loader__filter__searchbar' />
                     ) : (
                       <>
                         <LabelStyle>
                           {title}
-                          {isRequired && <span className='bw_red'>*</span>}
+                          {isRequired && <span className='cb_red'>*</span>}
                         </LabelStyle>
                         {component}
                       </>
@@ -85,15 +85,15 @@ const FilterSearchBar = ({ title, actions, onSubmit, onClear, colSize = 3, expan
             })}
           </div>
           {!loadingLazy && (
-            <div className='bw_row bw_align_items_center'>
-              <div className='bw_col_6'>
+            <div className='cb_row cb_align_items_center'>
+              <div className='cb_col_6'>
                 {parseAction.length > 12 / colSize && (
-                  <span onClick={() => setSearchAdvanced(!searchAdvanced)} className='bw_btn_more_search'>
+                  <span onClick={() => setSearchAdvanced(!searchAdvanced)} className='cb_btn_more_search'>
                     {!searchAdvanced ? 'Tìm nâng cao' : 'Ẩn bớt'}
                   </span>
                 )}
               </div>
-              <div className='bw_col_6 bw_flex bw_justify_content_right bw_btn_group'>
+              <div className='cb_col_6 cb_flex cb_justify_content_right cb_btn_group'>
                 <button
                   id='filter-search-bar-trigger'
                   type='submit'
@@ -102,7 +102,7 @@ const FilterSearchBar = ({ title, actions, onSubmit, onClear, colSize = 3, expan
                   }}></button>
                 <button
                   id='fitler_search_bar'
-                  className='bw_btn bw_btn_success'
+                  className='cb_btn cb_btn_success'
                   style={{ marginRight: '10px' }}
                   type='button'
                   onClick={methods.handleSubmit(onSubmit)}>
@@ -116,7 +116,7 @@ const FilterSearchBar = ({ title, actions, onSubmit, onClear, colSize = 3, expan
                     });
                     onClear({});
                   }}
-                  className='bw_btn_outline'>
+                  className='cb_btn_outline'>
                   Làm mới
                 </button>
               </div>

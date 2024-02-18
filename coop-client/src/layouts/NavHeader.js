@@ -62,7 +62,7 @@ const NavHeader = () => {
   }, [pathname, routerMap]);
 
   return (
-    <header className='bw_flex bw_align_items_center bw_justify_content_between'>
+    <header className='cb_flex cb_align_items_center cb_justify_content_between'>
       <h1>
         <a>
           <i
@@ -74,15 +74,15 @@ const NavHeader = () => {
             }}
             className='fi fi-rr-angle-circle-left'></i>
         </a>
-        <span id='bw_form_title'>{getPageTitle}</span>
+        <span id='cb_form_title'>{getPageTitle}</span>
       </h1>
-      <div className='bw_right_header'>
+      <div className='cb_right_header'>
         <Badge count={notifyCount} offset={[0, 10]}>
           <button
             onClick={() => {
               dispatch(showNotifyHeader(TYPE_NOTIFY.ANNOUNCE));
             }}
-            className='bw_btn_header'>
+            className='cb_btn_header'>
             <span className={`fi fi-rr-bell`}></span>
           </button>
         </Badge>

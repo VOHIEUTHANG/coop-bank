@@ -69,7 +69,7 @@ function CareActionsV2(props) {
 
   return (
     <StyledCareActionsV2>
-      <div className='bw_care_actions_v2 bw_col_12 bw_flex bw_justify_content_right bw_btn_group'>
+      <div className='cb_care_actions_v2 cb_col_12 cb_flex cb_justify_content_right cb_btn_group'>
         <CheckAccess permission={CUSTOMER_CARE_PERMISSION.ACTIONS}>
           {showExport && (
             <CheckAccess permission={CUSTOMER_CARE_PERMISSION.EXPORT}>

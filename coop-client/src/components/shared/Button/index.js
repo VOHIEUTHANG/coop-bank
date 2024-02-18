@@ -28,11 +28,11 @@ const Button = ({
 
   const className = useMemo(() => {
     if (outline) {
-      return `bw_btn_outline bw_btn_outline_${type}`;
+      return `cb_btn_outline cb_btn_outline_${type}`;
     } else if (table) {
-      return `bw_btn_table bw_${type}`;
+      return `cb_btn_table cb_${type}`;
     } else {
-      return `bw_btn bw_btn_${type}`;
+      return `cb_btn cb_btn_${type}`;
     }
   }, [outline, type]);
 

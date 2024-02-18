@@ -18,17 +18,17 @@ const BankRepresentativeTable = ({
     () => [
       {
         header: 'Tên người đại diện',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'bank_representative_name',
       },
       {
         header: 'Số điện thoại',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'phone_number',
       },
       {
         header: 'Chức vụ',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         formatter: (item, index) => (
           <span>
             {PositionOptions.find((position) => position.value === item.bank_representative_position)?.label ||
@@ -38,12 +38,12 @@ const BankRepresentativeTable = ({
       },
       {
         header: 'Căn cước công dân',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'id_number',
       },
       {
         header: 'Ngày cấp',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'id_issued_date',
       },
     ],

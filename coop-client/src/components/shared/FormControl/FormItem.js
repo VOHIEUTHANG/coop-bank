@@ -29,10 +29,10 @@ const FormItem = ({
 }) => {
   return (
     <Wrapper nonPoiner={disabled} className={className}>
-      <div className={`bw_frm_box ${disabled ? 'bw_disable' : ''} ${style === 'gray' ? 'bw_readonly' : ''}`}>
+      <div className={`cb_frm_box ${disabled ? 'cb_disable' : ''} ${style === 'gray' ? 'cb_readonly' : ''}`}>
         {!hiddenLabel && (
           <LabelStyle>
-            {label} {isRequired && <span className='bw_red'>*</span>}
+            {label} {isRequired && <span className='cb_red'>*</span>}
             {
               <a target={isBlankHref ? '_blank' : ''} href={linkLabelHref}>
                 {labelHref}

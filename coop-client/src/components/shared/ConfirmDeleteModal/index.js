@@ -13,11 +13,11 @@ const ConfirmModal = () => {
   return (
     Array.isArray(confirmMessage) &&
     confirmMessage.length > 0 && (
-      <div className='bw_modal bw_modal_open' id='bw_notice_del'>
-        <div className='bw_modal_container'>
-          <div className='bw_title_modal bw_border_bottom'>
+      <div className='cb_modal cb_modal_open' id='cb_notice_del'>
+        <div className='cb_modal_container'>
+          <div className='cb_title_modal cb_border_bottom'>
             <h3>
-              <span className='bw_icon_notice'>
+              <span className='cb_icon_notice'>
                 <i className='fi fi-rr-bell'></i>
               </span>{' '}
               Thông báo
@@ -26,27 +26,27 @@ const ConfirmModal = () => {
               onClick={() => {
                 dispatch(hideConfirmModal());
               }}
-              className='bw_close_modal fi fi-rr-cross-small'></span>
+              className='cb_close_modal fi fi-rr-cross-small'></span>
           </div>
-          <div className='bw_main_modal bw_text_center'>
+          <div className='cb_main_modal cb_text_center'>
             {confirmMessage.map((p, idx) => (
               <ModalContent key={idx}>{p}</ModalContent>
             ))}
           </div>
-          <div className='bw_footer_modal bw_justify_content_center'>
+          <div className='cb_footer_modal cb_justify_content_center'>
             <button
               onClick={() => {
                 confirmCallback();
                 dispatch(hideConfirmModal());
               }}
-              className='bw_btn bw_btn_danger'>
+              className='cb_btn cb_btn_danger'>
               {labelAccept ?? 'Tôi muốn xóa'}
             </button>
             <button
               onClick={() => {
                 dispatch(hideConfirmModal());
               }}
-              className='bw_btn_outline bw_close_modal'>
+              className='cb_btn_outline cb_close_modal'>
               {labelRefuse ?? 'Quay về'}
             </button>
           </div>

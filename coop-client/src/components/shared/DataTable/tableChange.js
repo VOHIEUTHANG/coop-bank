@@ -155,7 +155,7 @@ const DataTable = ({
                 display: `${typeof hidden === 'function' && hidden(valueRender) ? 'none' : ''}`,
               }}
               title={title}
-              className={`bw_btn_table bw_${color}`}>
+              className={`cb_btn_table cb_${color}`}>
               <i className={`fi ${icon}`}></i>
             </a>
           </CheckAccess>
@@ -271,16 +271,16 @@ const DataTable = ({
 
   return (
     <React.Fragment>
-      <Wrapper className='bw_box_card'>
-        <div className='bw_row bw_mt_2 bw_mb_2 bw_align_items_center'>
-          <div className='bw_col_6'>
+      <Wrapper className='cb_box_card'>
+        <div className='cb_row cb_mt_2 cb_mb_2 cb_align_items_center'>
+          <div className='cb_col_6'>
             {title}
             {Boolean(dataSelect.length) > 0 && (
-              <div className='bw_show_record'>
-                <p className='bw_choose_record'>
+              <div className='cb_show_record'>
+                <p className='cb_choose_record'>
                   {showBulkButton && (
                     <button
-                      className='bw_btn bw_btn_success'
+                      className='cb_btn cb_btn_success'
                       style={{ marginRight: '8px' }}
                       type='button'
                       onClick={() => {
@@ -296,7 +296,7 @@ const DataTable = ({
                   <Delelist
                     id='trigger-delete'
                     hidden={hiddenDeleteClick}
-                    className='bw_red bw_delete'
+                    className='cb_red cb_delete'
                     onClick={() => {
                       handleBulkAction && handleBulkAction(dataSelect, 'delete');
                     }}>
@@ -306,7 +306,7 @@ const DataTable = ({
               </div>
             )}
           </div>
-          <div className='bw_col_6 bw_flex bw_justify_content_right bw_btn_group'>
+          <div className='cb_col_6 cb_flex cb_justify_content_right cb_btn_group'>
             {actions
               ?.filter((p) => p.globalAction && !p.hidden)
               .map((props, i) => (
@@ -321,14 +321,14 @@ const DataTable = ({
               ))}
           </div>
         </div>
-        <div className='bw_table_responsive'>
-          <table className='bw_table' style={{ width: '100%' }}>
+        <div className='cb_table_responsive'>
+          <table className='cb_table' style={{ width: '100%' }}>
             <thead>
               <tr>
                 {!noSelect && (
-                  <th className='bw_sticky bw_check_sticky'>
+                  <th className='cb_sticky cb_check_sticky'>
                     {Boolean(data.filter((o) => !hiddenRowSelect?.(o)).length) && (
-                      <label className='bw_checkbox'>
+                      <label className='cb_checkbox'>
                         <input type='checkbox' onChange={() => handleCheckAll()} checked={totalChecked} />
                         <span></span>
                       </label>
@@ -343,7 +343,7 @@ const DataTable = ({
                       {p?.header}
                     </th>
                   ))}
-                {Boolean(rowAction.length) && <th className='bw_sticky bw_action_table bw_text_center'>Thao tác</th>}
+                {Boolean(rowAction.length) && <th className='cb_sticky cb_action_table cb_text_center'>Thao tác</th>}
               </tr>
             </thead>
 
@@ -370,21 +370,21 @@ const DataTable = ({
           </table>
         </div>
         {!noPaging && (
-          <div className='bw_row bw_mt_2 bw_show_table_page'>
-            <div className='bw_col_6'>
+          <div className='cb_row cb_mt_2 cb_show_table_page'>
+            <div className='cb_col_6'>
               <p>
                 Show {totalShowRecord}/{totalItems} records
               </p>
             </div>
-            <div className='bw_col_6 bw_flex bw_justify_content_right bw_align_items_center'>
-              <div className='bw_nav_table'>
+            <div className='cb_col_6 cb_flex cb_justify_content_right cb_align_items_center'>
+              <div className='cb_nav_table'>
                 <button
                   type='button'
                   disabled={!(currentPage !== 1) || !totalPages}
                   onClick={() => {
                     onChangePage(parseInt(currentPage) - 1);
                   }}
-                  className={totalPages && currentPage !== 1 ? 'bw_active' : ''}>
+                  className={totalPages && currentPage !== 1 ? 'cb_active' : ''}>
                   <span className='fi fi-rr-angle-small-left'></span>
                 </button>
                 <InputNumberStyled
@@ -397,14 +397,14 @@ const DataTable = ({
                   value={currentPage}
                   max={totalPages}
                 />
-                <span className='bw_all_page'>/ {totalPages}</span>
+                <span className='cb_all_page'>/ {totalPages}</span>
                 <button
                   type='button'
                   disabled={parseInt(totalPages) === parseInt(currentPage)}
                   onClick={() => {
                     onChangePage(parseInt(currentPage) + 1);
                   }}
-                  className={!(parseInt(totalPages) === parseInt(currentPage)) ? 'bw_active' : ''}>
+                  className={!(parseInt(totalPages) === parseInt(currentPage)) ? 'cb_active' : ''}>
                   <span className='fi fi-rr-angle-small-right'></span>
                 </button>
               </div>

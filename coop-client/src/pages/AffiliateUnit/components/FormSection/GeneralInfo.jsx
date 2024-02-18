@@ -10,8 +10,8 @@ import FormDatePicker from 'components/shared/FormControl/FormDate';
 const Infomation = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
-      <div className='bw_row'>
-        <div class='bw_col_6'>
+      <div className='cb_row'>
+        <div class='cb_col_6'>
           <FormItem label='Tên đơn vị' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -24,7 +24,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Mã đơn vị' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -37,7 +37,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div className='bw_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Cấp đơn vị' disabled={disabled}>
             <FormSelect
               allowClear
@@ -49,7 +49,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Ngày thành lập' disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -64,7 +64,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Địa chỉ đơn vị' disabled={disabled}>
             <FormInput type='text' field='affiliate_unit_address' placeholder='Nhập địa chỉ đơn vị' />
           </FormItem>

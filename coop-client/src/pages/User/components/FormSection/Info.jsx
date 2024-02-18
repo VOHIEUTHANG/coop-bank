@@ -29,8 +29,8 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
 
   return (
     <Accordion title={title} id={id}>
-      <div className='bw_row'>
-        <div class='bw_col_6'>
+      <div className='cb_row'>
+        <div class='cb_col_6'>
           <FormItem label='Mã nhân viên' isRequired disabled={disabled || !is_add}>
             <FormInput
               type='text'
@@ -43,7 +43,7 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
             />
           </FormItem>
         </div>
-        <div className='bw_col_6'>
+        <div className='cb_col_6'>
           <FormItem disabled={disabled || !is_add} label='Mật khẩu' isRequired>
             <CustomInput>
               <Input.Password
@@ -61,7 +61,7 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
             </CustomInput>
           </FormItem>
         </div>
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Tên nhân viên' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -74,19 +74,19 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Số điện thoại' disabled={disabled}>
             <FormInput type='text' field='phone_number' placeholder='Nhập Số điện thoại' />
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Địa chỉ email' disabled={disabled}>
             <FormInput type='text' field='email' placeholder='Nhập địa chỉ email' />
           </FormItem>
         </div>
 
-        <div className='bw_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Chi nhánh' disabled={disabled}>
             <FormSelect
               allowClear

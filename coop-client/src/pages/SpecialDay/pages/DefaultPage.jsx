@@ -47,7 +47,7 @@ const ListPage = () => {
   };
 
   return (
-    <div class='bw_main_wrapp'>
+    <div class='cb_main_wrapp'>
       <Table
         onChangePage={onChangePage}
         exportExcel={exportExcel}

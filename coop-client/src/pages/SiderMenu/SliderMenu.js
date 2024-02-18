@@ -109,7 +109,7 @@ function SliderMenu(props) {
     <Sider
       trigger={null}
       collapsible
-      className='bw_sidebar'
+      className='cb_sidebar'
       collapsed={collapsed}
       breakpoint='lg'
       width={280}

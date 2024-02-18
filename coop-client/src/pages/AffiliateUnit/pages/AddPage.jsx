@@ -86,7 +86,7 @@ const AddPage = () => {
       icon: 'fi fi-rr-print',
       submit: false,
       content: 'In biểu mẫu',
-      className: 'bw_btn bw_btn_outline bw_btn_outline_success',
+      className: 'cb_btn cb_btn_outline cb_btn_outline_success',
       hidden: !affiliate_unit_id,
       onClick: () => {
         setShowPopup((prev) => !prev);

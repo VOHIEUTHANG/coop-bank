@@ -45,9 +45,9 @@ const AddressSelectAccordion = ({ disabled }) => {
   useEffect(loadWard, [loadWard]);
 
   return (
-    <Accordion title='Địa chỉ' id='bw_address_com'>
-      <div className='bw_row'>
-        <div className='bw_col_4'>
+    <Accordion title='Địa chỉ' id='cb_address_com'>
+      <div className='cb_row'>
+        <div className='cb_col_4'>
           <FormItem disabled={disabled} label='Quốc gia' isRequired>
             <FormSelect
               showSearch
@@ -70,7 +70,7 @@ const AddressSelectAccordion = ({ disabled }) => {
             />
           </FormItem>
         </div>
-        <div className='bw_col_4'>
+        <div className='cb_col_4'>
           <FormItem disabled={!methods.watch('country_id') || disabled} label='Tỉnh/Thành phố' isRequired>
             <FormSelect
               field='province_id'
@@ -91,7 +91,7 @@ const AddressSelectAccordion = ({ disabled }) => {
             />
           </FormItem>
         </div>
-        <div className='bw_col_4'>
+        <div className='cb_col_4'>
           <FormItem disabled={!methods.watch('province_id') || disabled} label='Quận/Huyện' isRequired>
             <FormSelect
               field='district_id'
@@ -111,7 +111,7 @@ const AddressSelectAccordion = ({ disabled }) => {
             />
           </FormItem>
         </div>
-        <div className='bw_col_4'>
+        <div className='cb_col_4'>
           <FormItem disabled={!methods.watch('district_id') || disabled} label='Phường/Xã' isRequired>
             <FormSelect
               field='ward_id'
@@ -127,7 +127,7 @@ const AddressSelectAccordion = ({ disabled }) => {
             />
           </FormItem>
         </div>
-        <div className='bw_col_4'>
+        <div className='cb_col_4'>
           <FormItem disabled={disabled} label='Postal code' isRequired>
             <FormInput
               type='number'
@@ -142,7 +142,7 @@ const AddressSelectAccordion = ({ disabled }) => {
             />
           </FormItem>
         </div>
-        <div className='bw_col_12'>
+        <div className='cb_col_12'>
           <FormItem disabled={disabled} label='Số nhà, tên đường' isRequired>
             <FormInput
               field='address'

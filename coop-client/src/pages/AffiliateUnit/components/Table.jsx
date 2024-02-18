@@ -22,28 +22,28 @@ const RepresentativeTable = ({
     () => [
       {
         header: 'STT',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
-        formatter: (_, index) => <span className='bw_text_wrap'>{index + 1}</span>,
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
+        formatter: (_, index) => <span className='cb_text_wrap'>{index + 1}</span>,
       },
       {
         header: 'Tên người đơn vị',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'affiliate_unit_name',
       },
       {
         header: 'Mã đơn vị',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'affiliate_unit_code',
       },
       {
         header: 'Địa chỉ đơn vị',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'affiliate_unit_address',
       },
       {
         header: 'Chức vụ',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         formatter: (item, index) => (
           <span>
             {AffiliateUnitLevelOptions.find((position) => position.value === item.affiliate_unit_level)?.label ||
@@ -54,14 +54,14 @@ const RepresentativeTable = ({
       {
         header: 'Người tạo',
         accessor: 'created_fullname',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
       },
       {
         header: 'Ngày tạo',
         accessor: 'created_at',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
       },
     ],
     [],

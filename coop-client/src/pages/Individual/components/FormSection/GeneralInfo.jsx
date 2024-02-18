@@ -12,8 +12,8 @@ import { GENDER } from 'pages/BankRepresentative/utils/constants';
 const Infomation = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
-      <div className='bw_row'>
-        <div class='bw_col_6'>
+      <div className='cb_row'>
+        <div class='cb_col_6'>
           <FormItem label='Họ và tên' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -26,7 +26,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div className='bw_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Giới tính' isRequired disabled={disabled}>
             <FormRadioGroup
               field={'gender'}
@@ -42,7 +42,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Ngày sinh' disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -57,7 +57,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Địa chỉ nhà' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -70,7 +70,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Số điện thoại' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -83,13 +83,13 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Nơi công tác' disabled={disabled}>
             <FormInput type='text' field='work_name' placeholder='Nhập nơi công tác' />
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Địa chỉ nơi công tác' disabled={disabled}>
             <FormInput type='text' field='work_address' placeholder='Nhập địa chỉ nơi công tác' />
           </FormItem>

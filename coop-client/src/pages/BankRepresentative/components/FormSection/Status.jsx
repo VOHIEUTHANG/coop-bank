@@ -5,17 +5,17 @@ import FormInput from 'components/shared/FormControl/FormInput';
 
 const Status = ({ disabled }) => {
   return (
-    <Accordion title='Trạng thái' id='bw_mores' isRequired={false}>
-      <div className='bw_row'>
-        <div className='bw_col_12'>
-          <div className='bw_frm_box'>
-            <div className='bw_flex bw_align_items_center bw_lb_sex'>
-              <label className='bw_checkbox'>
+    <Accordion title='Trạng thái' id='cb_mores' isRequired={false}>
+      <div className='cb_row'>
+        <div className='cb_col_12'>
+          <div className='cb_frm_box'>
+            <div className='cb_flex cb_align_items_center cb_lb_sex'>
+              <label className='cb_checkbox'>
                 <FormInput type='checkbox' field='is_active' disabled={disabled} />
                 <span />
                 Kích hoạt
               </label>
-              <label className='bw_checkbox'>
+              <label className='cb_checkbox'>
                 <FormInput type='checkbox' field='is_system' disabled={disabled} />
                 <span />
                 Hệ thống

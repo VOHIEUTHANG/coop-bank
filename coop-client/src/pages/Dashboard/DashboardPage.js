@@ -33,7 +33,7 @@ ChartJS.register(...registerablesJS);
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 const DebitChartStyled = styled.div`
-  .bw_debit_chart {
+  .cb_debit_chart {
     width: 476px;
     height: 476px;
   }
@@ -56,9 +56,9 @@ const DashboardPage = () => {
   const statusOrder = summaryData?.total_order_quarter_now > summaryData?.total_order_quarter_before;
   const statusGoods = summaryData?.total_goods_quarter_now > summaryData?.total_goods_quarter_before;
 
-  const getColor = (value) => (value ? 'bw_green' : 'bw_red');
+  const getColor = (value) => (value ? 'cb_green' : 'cb_red');
   const getUpDown = (value) => (value ? '+' : '-');
-  const getIcon = (value) => (value ? 'bw_image/icon/i__up.svg' : 'bw_image/icon/i__down.svg');
+  const getIcon = (value) => (value ? 'cb_image/icon/i__up.svg' : 'cb_image/icon/i__down.svg');
 
   useEffect(() => {
     const monthNow = new Date().getMonth();
@@ -69,71 +69,71 @@ const DashboardPage = () => {
   }, []);
 
   return (
-    // <div className='bw_main_wrapp'>
-    //   <div className='bw_row'>
-    //     <div className='bw_c2 bw_mt_1'>
-    //       <div className='bw_card_items'>
-    //         <span className='bw_icon_card bw_orange'>
+    // <div className='cb_main_wrapp'>
+    //   <div className='cb_row'>
+    //     <div className='cb_c2 cb_mt_1'>
+    //       <div className='cb_card_items'>
+    //         <span className='cb_icon_card cb_orange'>
     //           <i className='fi fi-rr-dollar'></i>
     //         </span>
     //         <p>Tổng doanh thu (đ)</p>
     //         <h4>
     //           <CountUp end={summaryData?.total_revenue_quarter_now} />
     //         </h4>
-    //         <span className={`bw_trans ${getColor(statusRevenue)} `}>
+    //         <span className={`cb_trans ${getColor(statusRevenue)} `}>
     //           <img src={getIcon(statusRevenue)} alt='' /> {getUpDown(statusRevenue)}{' '}
     //           <CountUp end={summaryData?.revenue_quarter_percent} />%
     //         </span>
     //       </div>
     //     </div>
-    //     <div className='bw_c2 bw_mt_1'>
-    //       <div className='bw_card_items'>
-    //         <span className='bw_icon_card bw_orange'>
+    //     <div className='cb_c2 cb_mt_1'>
+    //       <div className='cb_card_items'>
+    //         <span className='cb_icon_card cb_orange'>
     //           <i className='fi fi-rr-dollar'></i>
     //         </span>
     //         <p>Hoa hồng (đ)</p>
     //         <h4>
     //           <CountUp end={summaryData?.total_commission_quarter_now} />
     //         </h4>
-    //         <span className='bw_trans bw_green'>
+    //         <span className='cb_trans cb_green'>
     //           <img src={getIcon(statusComission)} alt='' /> {getUpDown(statusComission)}{' '}
     //           <CountUp end={summaryData?.comission_quarter_percent} />%
     //         </span>
     //       </div>
     //     </div>
-    //     <div className='bw_c2 bw_mt_1'>
-    //       <div className='bw_card_items'>
-    //         <span className='bw_icon_card bw_red'>
+    //     <div className='cb_c2 cb_mt_1'>
+    //       <div className='cb_card_items'>
+    //         <span className='cb_icon_card cb_red'>
     //           <i className='fi fi-rr-shopping-cart-check'></i>
     //         </span>
     //         <p>Đơn hàng</p>
     //         <h4>
     //           <CountUp end={summaryData?.total_order_quarter_now} />
     //         </h4>
-    //         <span className='bw_trans bw_red'>
+    //         <span className='cb_trans cb_red'>
     //           <img src={getIcon(statusOrder)} alt='' /> {getUpDown(statusOrder)}{' '}
     //           <CountUp end={summaryData?.order_quarter_percent} />%
     //         </span>
     //       </div>
     //     </div>
-    //     <div className='bw_c2 bw_mt_1'>
-    //       <div className='bw_card_items'>
-    //         <span className='bw_icon_card '>
+    //     <div className='cb_c2 cb_mt_1'>
+    //       <div className='cb_card_items'>
+    //         <span className='cb_icon_card '>
     //           <i className='fi fi-rr-smartphone'></i>
     //         </span>
     //         <p>Hàng đang nhập về</p>
     //         <h4>
     //           <CountUp end={summaryData?.total_goods_quarter_now} />
     //         </h4>
-    //         <span className='bw_trans bw_green'>
+    //         <span className='cb_trans cb_green'>
     //           <img src={getIcon(statusGoods)} alt='' /> {getUpDown(statusGoods)}{' '}
     //           <CountUp end={summaryData?.goods_quarter_percent} />%
     //         </span>
     //       </div>
     //     </div>
-    //     <div className='bw_c2 bw_mt_1'>
-    //       <div className='bw_card_items'>
-    //         <span className='bw_icon_card bw_blue'>
+    //     <div className='cb_c2 cb_mt_1'>
+    //       <div className='cb_card_items'>
+    //         <span className='cb_icon_card cb_blue'>
     //           <i className='fi fi-rr-calendar'></i>
     //         </span>
     //         <p>Phép còn</p>
@@ -141,13 +141,13 @@ const DashboardPage = () => {
     //         <span onClick={() => window._$g.rdr(`/off-work`)}>Xem thêm</span>
     //       </div>
     //     </div>
-    //     <div className='bw_col_8 bw_mt_2'>
-    //       <div className='bw_card_items'>
-    //         <div className='bw_row bw_align_items_center'>
-    //           <div className='bw_col_7'>
-    //             <h2 className='bw_title_card'>Báo cáo doanh thu</h2>
+    //     <div className='cb_col_8 cb_mt_2'>
+    //       <div className='cb_card_items'>
+    //         <div className='cb_row cb_align_items_center'>
+    //           <div className='cb_col_7'>
+    //             <h2 className='cb_title_card'>Báo cáo doanh thu</h2>
     //           </div>
-    //           <div className='bw_col_5'>
+    //           <div className='cb_col_5'>
     //             <RangePicker
     //               format='DD/MM/YYYY'
     //               placeholder={['Từ ngày', 'Đến ngày']}
@@ -162,8 +162,8 @@ const DashboardPage = () => {
     //             />
     //           </div>
     //         </div>
-    //         <div className='bw_img_chart bw_mt_1'>
-    //           <div className='bw_number_tu bw_text_center'>
+    //         <div className='cb_img_chart cb_mt_1'>
+    //           <div className='cb_number_tu cb_text_center'>
     //             Tổng doanh thu:{' '}
     //             <b>
     //               <CountUp end={(receiveslipData ?? []).reduce((o, x) => o + x?.total_money ?? 0, 0)} />đ
@@ -174,14 +174,14 @@ const DashboardPage = () => {
     //       </div>
     //     </div>
     //     <CheckAccess permission={'MD_DEBIT_VIEW'}>
-    //       <div className='bw_col_4 bw_mt_2'>
-    //         <div className='bw_card_items'>
-    //           <h2 className='bw_title_card'>
+    //       <div className='cb_col_4 cb_mt_2'>
+    //         <div className='cb_card_items'>
+    //           <h2 className='cb_title_card'>
     //             <span className='fi fi-rr-box'></span> Công nợ
     //           </h2>
     //           <DebitChartStyled>
-    //             <div className='bw_mt_1 bw_border_top bw_box_list_card'>
-    //               <div className='bw_debit_chart'>
+    //             <div className='cb_mt_1 cb_border_top cb_box_list_card'>
+    //               <div className='cb_debit_chart'>
     //                 <DebitChart data={debitData} />
     //               </div>
     //               <a href='/debit'>Xem chi tiết</a>
@@ -190,41 +190,41 @@ const DashboardPage = () => {
     //         </div>
     //       </div>
     //     </CheckAccess>
-    //     {/* <div className='bw_col_6 bw_mt_2'>
-    //       <div className='bw_card_items'>
-    //         <div className='bw_row bw_align_items_center'>
-    //           <div className='bw_col_7'>
-    //             <h2 className='bw_title_card'>Lợi nhuận</h2>
+    //     {/* <div className='cb_col_6 cb_mt_2'>
+    //       <div className='cb_card_items'>
+    //         <div className='cb_row cb_align_items_center'>
+    //           <div className='cb_col_7'>
+    //             <h2 className='cb_title_card'>Lợi nhuận</h2>
     //           </div>
-    //           <div className='bw_col_5'>
-    //             <div className='bw_show_date' id='bw_choose_calendar'>
+    //           <div className='cb_col_5'>
+    //             <div className='cb_show_date' id='cb_choose_calendar'>
     //               <span className='fi fi-rr-calendar'></span> 01/10/2022 - 30/10/2022
     //             </div>
-    //             <div className='bw_hide bw_choose_inp'>
-    //               <div className='bw_show_calendar'>
+    //             <div className='cb_hide cb_choose_inp'>
+    //               <div className='cb_show_calendar'>
     //                 <input type='text' id='calendar2' data-mode='range' />
     //               </div>
-    //               <a className='bw_apply' id='bw_choose_date'>
+    //               <a className='cb_apply' id='cb_choose_date'>
     //                 Áp dụng
     //               </a>
     //             </div>
     //           </div>
     //         </div>
-    //         <div className='bw_img_chart bw_mt_1'>
-    //           <div className='bw_number_tu bw_text_center'>
+    //         <div className='cb_img_chart cb_mt_1'>
+    //           <div className='cb_number_tu cb_text_center'>
     //             Tổng lợi nhuận: <b>20.000.000 đ</b>
     //           </div>
     //           <Chart options={options} data={dataChart2} />
     //         </div>
     //       </div>
     //     </div> */}
-    //     <div className='bw_col_6 bw_mt_2'>
-    //       <div className='bw_card_items'>
-    //         <h2 className='bw_title_card'>
+    //     <div className='cb_col_6 cb_mt_2'>
+    //       <div className='cb_card_items'>
+    //         <h2 className='cb_title_card'>
     //           <span className='fi fi-rr-store-alt'></span> Tồn kho
     //         </h2>
-    //         <div className='bw_mt_1 bw_border_top bw_box_list_card'>
-    //           <div className='bw_title_list_card'>
+    //         <div className='cb_mt_1 cb_border_top cb_box_list_card'>
+    //           <div className='cb_title_list_card'>
     //             <b>Ngành hàng</b>
     //             <b>Số lượng tồn</b>
     //           </div>
@@ -242,13 +242,13 @@ const DashboardPage = () => {
     //       </div>
     //     </div>
     //     <CheckAccess permission={'ST_STOCKSDETAIL_VIEW'}>
-    //       <div className='bw_col_6 bw_mt_2'>
-    //         <div className='bw_card_items'>
-    //           <h2 className='bw_title_card'>
+    //       <div className='cb_col_6 cb_mt_2'>
+    //         <div className='cb_card_items'>
+    //           <h2 className='cb_title_card'>
     //             <span className='fi fi-rr-box'></span> Sản phẩm tồn kho
     //           </h2>
-    //           <div className='bw_mt_1 bw_border_top bw_box_list_card'>
-    //             <div className='bw_title_list_card'>
+    //           <div className='cb_mt_1 cb_border_top cb_box_list_card'>
+    //             <div className='cb_title_list_card'>
     //               <b>Sản phẩm</b>
     //               <b>Số lượng tồn</b>
     //             </div>
@@ -265,17 +265,17 @@ const DashboardPage = () => {
     //         </div>
     //       </div>
     //     </CheckAccess>
-    //     <div className='bw_col_6 bw_mt_2'>
-    //       <div className='bw_card_items'>
-    //         <h2 className='bw_title_card'>
+    //     <div className='cb_col_6 cb_mt_2'>
+    //       <div className='cb_card_items'>
+    //         <h2 className='cb_title_card'>
     //           <span className='fi fi-rr-envelope-open-text' /> Hộp thư <i>({emailList?.totalItems})</i>
     //         </h2>
-    //         <div className='bw_mt_2 bw_border_top'>
+    //         <div className='cb_mt_2 cb_border_top'>
     //           <Mail hiddenMenu noPaging />
     //         </div>
     //         {Boolean(emailList?.totalItems) && (
-    //           <div className='bw_footer_card'>
-    //             <a href='/mail' className='bw_green'>
+    //           <div className='cb_footer_card'>
+    //             <a href='/mail' className='cb_green'>
     //               Xem tất cả
     //             </a>
     //             <span className='fi fi-rr-angle-double-small-right' />
@@ -283,39 +283,39 @@ const DashboardPage = () => {
     //         )}
     //       </div>
     //     </div>
-    //     <div className='bw_col_6 bw_mt_2'>
-    //       <div className='bw_card_items'>
-    //         <h2 className='bw_title_card'>
+    //     <div className='cb_col_6 cb_mt_2'>
+    //       <div className='cb_card_items'>
+    //         <h2 className='cb_title_card'>
     //           <span className='fi fi-rr-bell'></span> Thông báo nội bộ
     //         </h2>
     //         <div>
-    //           <div className='bw_mt_2 bw_border_top'>
+    //           <div className='cb_mt_2 cb_border_top'>
     //             {_.size(announceList) ? (
     //               (announceList ?? [])?.map((o, index) => {
     //                 return (
     //                   <a
     //                     key={index}
     //                     href={`/notification/detail/${o?.announce_id}`}
-    //                     className='bw_list_email bw_list_notice'>
-    //                     <div className='bw_us_email bw_us_notice'>
+    //                     className='cb_list_email cb_list_notice'>
+    //                     <div className='cb_us_email cb_us_notice'>
     //                       <img alt='' src={o?.user_img_url} />
     //                       <h3>{o?.user_fullname}</h3>
     //                     </div>
     //                     <p>{o?.announce_title} </p>
-    //                     <span className='bw_has_file'>
+    //                     <span className='cb_has_file'>
     //                       <i className='fi fi-rr-clip' />
     //                     </span>
-    //                     <span className='bw_time_email'>{moment(o?.news_date).startOf('hour').fromNow()}</span>
+    //                     <span className='cb_time_email'>{moment(o?.news_date).startOf('hour').fromNow()}</span>
     //                   </a>
     //                 );
     //               })
     //             ) : (
-    //               <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className='bw_mt_5' description='Không có dữ liệu' />
+    //               <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} className='cb_mt_5' description='Không có dữ liệu' />
     //             )}
     //           </div>
     //           {Boolean(_.size(announceList)) && (
-    //             <div className='bw_footer_card'>
-    //               <a href='/announce-view/' className='bw_green'>
+    //             <div className='cb_footer_card'>
+    //               <a href='/announce-view/' className='cb_green'>
     //                 Xem tất cả
     //               </a>
     //               <span className='fi fi-rr-angle-double-small-right' />
@@ -324,52 +324,52 @@ const DashboardPage = () => {
     //         </div>
     //       </div>
     //     </div>
-    //     {/* <div className='bw_col_12 bw_mt_2'>
-    //       <div className='bw_card_items'>
-    //         <h2 className='bw_title_card'>
+    //     {/* <div className='cb_col_12 cb_mt_2'>
+    //       <div className='cb_card_items'>
+    //         <h2 className='cb_title_card'>
     //           <span className='fi fi-rr-clock-two'></span> Lịch sử hoạt động
     //         </h2>
-    //         <div className='bw_mt_2 bw_border_top'>
-    //           <div className='bw_table_responsive'>
-    //             <table className='bw_table'>
+    //         <div className='cb_mt_2 cb_border_top'>
+    //           <div className='cb_table_responsive'>
+    //             <table className='cb_table'>
     //               <thead>
-    //                 <th className='bw_sticky bw_check_sticky'>STT</th>
+    //                 <th className='cb_sticky cb_check_sticky'>STT</th>
     //                 <th>Thời gian</th>
     //                 <th>Phiếu yêu cầu</th>
     //                 <th>Nội dung</th>
-    //                 <th className='bw_sticky bw_action_table bw_text_center'>Thao tác</th>
+    //                 <th className='cb_sticky cb_action_table cb_text_center'>Thao tác</th>
     //               </thead>
     //               <tbody>
     //                 <tr>
-    //                   <td className='bw_sticky bw_check_sticky'>1</td>
+    //                   <td className='cb_sticky cb_check_sticky'>1</td>
     //                   <td>21/12/2021 12:00</td>
     //                   <td>#PXNB22092700001</td>
     //                   <td>
     //                     <p>
     //                       <b>Chuyển trạng thái</b>
     //                     </p>
-    //                     10020 - Hoàng Văn Minh đã chuyển task từ <span className='bw_black'>Tiếp nhận</span> -{' '}
-    //                     <span className='bw_blue'>Đang xử lý</span>
+    //                     10020 - Hoàng Văn Minh đã chuyển task từ <span className='cb_black'>Tiếp nhận</span> -{' '}
+    //                     <span className='cb_blue'>Đang xử lý</span>
     //                   </td>
-    //                   <td className='bw_text_center'>
-    //                     <a href='index.php?page=641' className='bw_green'>
+    //                   <td className='cb_text_center'>
+    //                     <a href='index.php?page=641' className='cb_green'>
     //                       <i className='fi fi-rr-plus'></i>
     //                     </a>
     //                   </td>
     //                 </tr>
     //                 <tr>
-    //                   <td className='bw_sticky bw_check_sticky'>1</td>
+    //                   <td className='cb_sticky cb_check_sticky'>1</td>
     //                   <td>21/12/2021 12:00</td>
     //                   <td>#PXNB22092700323</td>
     //                   <td>
     //                     <p>
     //                       <b>Chuyển trạng thái</b>
     //                     </p>
-    //                     10020 - Hoàng Văn Minh đã chuyển task từ <span className='bw_black'>Tiếp nhận</span> -{' '}
-    //                     <span className='bw_blue'>Đang xử lý</span>
+    //                     10020 - Hoàng Văn Minh đã chuyển task từ <span className='cb_black'>Tiếp nhận</span> -{' '}
+    //                     <span className='cb_blue'>Đang xử lý</span>
     //                   </td>
-    //                   <td className='bw_text_center'>
-    //                     <a href='index.php?page=641' className='bw_green'>
+    //                   <td className='cb_text_center'>
+    //                     <a href='index.php?page=641' className='cb_green'>
     //                       <i className='fi fi-rr-plus'></i>
     //                     </a>
     //                   </td>
@@ -378,8 +378,8 @@ const DashboardPage = () => {
     //             </table>
     //           </div>
     //         </div>
-    //         <div className='bw_footer_card'>
-    //           <a href='index.php?page=54' className='bw_green'>
+    //         <div className='cb_footer_card'>
+    //           <a href='index.php?page=54' className='cb_green'>
     //             Xem tất cả
     //           </a>
     //           <span className='fi fi-rr-angle-double-small-right'></span>

@@ -42,7 +42,7 @@ function LoginPage() {
   }
 
   return (
-    <div className='bw_main_login'>
+    <div className='cb_main_login'>
       <Form
         initialValues={initialValues}
         scrollToFirstError={true}
@@ -50,11 +50,11 @@ function LoginPage() {
         layout='vertical'
         size='large'
         onFinish={handleSubmitLogin}
-        className='bw_form_login'>
+        className='cb_form_login'>
         <img src={logoLogin} alt={2} />
         <h1 style={{ maxWidth: '100%' }}>Đăng nhập</h1>
         {msgErr && (
-          <Alert message={msgErr} className='bw_mb_2' type='error' showIcon closable onClose={() => setMsgErr(null)} />
+          <Alert message={msgErr} className='cb_mb_2' type='error' showIcon closable onClose={() => setMsgErr(null)} />
         )}
         <Form.Item
           name='username'
@@ -69,7 +69,7 @@ function LoginPage() {
             type='text'
             placeholder='Tên tài khoản'
             autoComplete='username'
-            className='bw_inp'
+            className='cb_inp'
             style={{ margin: 0 }}
           />
         </Form.Item>
@@ -86,7 +86,7 @@ function LoginPage() {
             type='password'
             placeholder='Mật khẩu'
             autoComplete='current-password'
-            className='bw_inp'
+            className='cb_inp'
             style={{
               margin: 0,
             }}
@@ -98,7 +98,7 @@ function LoginPage() {
             icon={initializing ? <LoadingOutlined /> : undefined}
             type='primary'
             htmlType='submit'
-            className='bw_btn bw_btn_login'>
+            className='cb_btn cb_btn_login'>
             Đăng nhập
           </Button>
         </Form.Item>

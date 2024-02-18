@@ -8,7 +8,7 @@ import { getList } from 'services/bank-representative.service';
 import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
-  .bw_modal_wrapper {
+  .cb_modal_wrapper {
     max-height: 80vh;
     max-width: 80vw;
   }
@@ -43,15 +43,15 @@ const AddRepresentativeModal = ({ open, onClose }) => {
 
   return (
     <ModalWrapper>
-      <div className={`bw_modal ${open ? 'bw_modal_open' : ''}`} id='bw_addProduct'>
-        <div class='bw_modal_container bw_w1200 bw_modal_wrapper'>
-          <div class='bw_title_modal'>
+      <div className={`cb_modal ${open ? 'cb_modal_open' : ''}`} id='cb_addProduct'>
+        <div class='cb_modal_container cb_w1200 cb_modal_wrapper'>
+          <div class='cb_title_modal'>
             <h3>Danh sách người đại diện</h3>
-            <span class='fi fi-rr-cross-small bw_close_modal' onClick={onClose}></span>
+            <span class='fi fi-rr-cross-small cb_close_modal' onClick={onClose}></span>
           </div>
           <div>
             <div>
-              <div className='bw_main_wrapp'>
+              <div className='cb_main_wrapp'>
                 <CustomerFilter onChange={onChange} />
                 <BankRepresentativeTable
                   onChangePage={(page) => {
@@ -70,16 +70,16 @@ const AddRepresentativeModal = ({ open, onClose }) => {
               </div>
             </div>
           </div>
-          <div className='bw_footer_modal' style={{ justifyContent: 'end' }}>
+          <div className='cb_footer_modal' style={{ justifyContent: 'end' }}>
             <button
-              className='bw_btn bw_btn_success'
+              className='cb_btn cb_btn_success'
               onClick={() => {
                 methods.setValue('representatives', selectedList);
                 onClose();
               }}>
               <span className='fi fi-rr-check'></span> Chọn
             </button>
-            <button type='button' className='bw_btn_outline' onClick={onClose}>
+            <button type='button' className='cb_btn_outline' onClick={onClose}>
               Đóng
             </button>
           </div>

@@ -49,7 +49,7 @@ function MenuRecursive({ items, openKey, setOpenKey, recureSiveOpenKey, hiddenIc
     <Wrapper>
       {items.map((item) => {
         return (
-          <li key={item.name} className={`bw_has_sub ${openKey[item.key] ? 'bw_active' : ''}`}>
+          <li key={item.name} className={`cb_has_sub ${openKey[item.key] ? 'cb_active' : ''}`}>
             <a
               onContextMenu={(e) => {
                 e.preventDefault();
@@ -61,7 +61,7 @@ function MenuRecursive({ items, openKey, setOpenKey, recureSiveOpenKey, hiddenIc
                 setItem({ ...item, event: e });
               }}>
               {item?.icon && <IconItem className={item?.icon}></IconItem>}
-              <RowMenu className='bw_hideen_nav' open={openKey[item.key]}>
+              <RowMenu className='cb_hideen_nav' open={openKey[item.key]}>
                 {item?.name}
               </RowMenu>
             </a>

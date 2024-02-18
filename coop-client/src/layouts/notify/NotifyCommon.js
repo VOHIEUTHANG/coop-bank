@@ -22,7 +22,7 @@ const NotifyCommon = () => {
   });
 
   return (
-    <div ref={ref} className={classNames('bw_box_list', { bw_show: openNotify })}>
+    <div ref={ref} className={classNames('cb_box_list', { cb_show: openNotify })}>
       {openNotify && (
         <Wiget>
           <h3>

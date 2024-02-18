@@ -86,15 +86,15 @@ const TrTable = ({
 
   return (
     <>
-      <tr key={keyRender} className={flag ? 'bw_checked' : ''}>
+      <tr key={keyRender} className={flag ? 'cb_checked' : ''}>
         {!noSelect && (
-          <td className='bw_sticky bw_check_sticky'>
+          <td className='cb_sticky cb_check_sticky'>
             <LabelCheckbox
               style={{
                 marginRight: '2px',
                 display: `${typeof hiddenRowSelect === 'function' && hiddenRowSelect(valueRender) ? 'none' : ''}`,
               }}
-              className='bw_checkbox'>
+              className='cb_checkbox'>
               <input
                 type='checkbox'
                 checked={flag}
@@ -149,7 +149,7 @@ const TrTable = ({
                           }
                         }
                       }}
-                      className={`fi fi-rr-${openExpaned ? 'minus' : 'plus'}-small bw_show_child`}></ContentRender>
+                      className={`fi fi-rr-${openExpaned ? 'minus' : 'plus'}-small cb_show_child`}></ContentRender>
                   )}
                   <span>{column?.formatter(valueRender, keyRender)}</span>
                 </td>
@@ -182,7 +182,7 @@ const TrTable = ({
                           }
                         }
                       }}
-                      className={`fi fi-rr-${openExpaned ? 'minus' : 'plus'}-small bw_show_child`}></ContentRender>
+                      className={`fi fi-rr-${openExpaned ? 'minus' : 'plus'}-small cb_show_child`}></ContentRender>
                   )}
                   {valueRender[column.accessor]}
                 </td>
@@ -214,7 +214,7 @@ const TrTable = ({
                           }
                         }
                       }}
-                      className={`fi fi-rr-${openExpaned ? 'minus' : 'plus'}-small bw_show_child`}></ContentRender>
+                      className={`fi fi-rr-${openExpaned ? 'minus' : 'plus'}-small cb_show_child`}></ContentRender>
                   )}
                 </td>
               );
@@ -223,7 +223,7 @@ const TrTable = ({
         {Boolean(rowAction?.length) && (
           <td
             style={{ minWidth: `${rowAction.length * MIN_LENGTH_ACTION}px` }}
-            className='bw_sticky bw_action_table bw_text_center'>
+            className='cb_sticky cb_action_table cb_text_center'>
             {renderRowAction(valueRender, keyRender)}
           </td>
         )}

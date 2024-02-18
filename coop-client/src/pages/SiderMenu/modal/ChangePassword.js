@@ -24,14 +24,14 @@ const ChangePassword = ({ onClose }) => {
 
   return (
     <FormProvider {...methods}>
-      <div className='bw_modal bw_modal_open'>
-        <div className='bw_modal_container'>
-          <div className='bw_title_modal'>
+      <div className='cb_modal cb_modal_open'>
+        <div className='cb_modal_container'>
+          <div className='cb_title_modal'>
             <h3>Đổi mật khẩu</h3>
-            <span className='bw_close_modal fi fi-rr-cross-small' onClick={onClose}></span>
+            <span className='cb_close_modal fi fi-rr-cross-small' onClick={onClose}></span>
           </div>
-          <div className='bw_main_modal bw_border_top'>
-            <form className='bw_frm_change'>
+          <div className='cb_main_modal cb_border_top'>
+            <form className='cb_frm_change'>
               <FormItem label='Mật khẩu cũ' isRequired>
                 <FormInput
                   disabled={loading}
@@ -80,15 +80,15 @@ const ChangePassword = ({ onClose }) => {
               </FormItem>
             </form>
           </div>
-          <div className='bw_footer_modal'>
+          <div className='cb_footer_modal'>
             <button
               disabled={loading}
               type='button'
               onClick={methods.handleSubmit(onSubmit)}
-              className='bw_btn bw_btn_success'>
+              className='cb_btn cb_btn_success'>
               <span className='fi fi-rr-check'></span> Đổi mật khẩu
             </button>
-            <button onClick={onClose} type='button' className='bw_btn_outline bw_btn_outline_success'>
+            <button onClick={onClose} type='button' className='cb_btn_outline cb_btn_outline_success'>
               <span disabled={loading} className='fi fi-rr-refresh'></span>
               Đóng
             </button>

@@ -5,16 +5,16 @@ import Button from '../Button/index';
 const Modal = ({ className, children, open, onClose, onConfirm, header, footer }) => {
   return (
     <React.Fragment>
-      <div className={`bw_modal ${className} ${open ? 'bw_modal_open' : ''}`} id='bw_notice_del'>
-        <div className='bw_modal_container'>
-          <div className='bw_title_modal bw_border_bottom'>
+      <div className={`cb_modal ${className} ${open ? 'cb_modal_open' : ''}`} id='cb_notice_del'>
+        <div className='cb_modal_container'>
+          <div className='cb_title_modal cb_border_bottom'>
             <h3>{header}</h3>
-            <span className='bw_close_modal fi fi-rr-cross-small' onClick={onClose} />
+            <span className='cb_close_modal fi fi-rr-cross-small' onClick={onClose} />
           </div>
-          <div className='bw_main_modal bw_text_center'>{children}</div>
-          <div className='bw_footer_modal bw_justify_content_center'>
+          <div className='cb_main_modal cb_text_center'>{children}</div>
+          <div className='cb_footer_modal cb_justify_content_center'>
             {footer && <Button type='danger' content={footer} onClick={onConfirm} />}
-            <Button type='' outline className='bw_close_modal' content='Quay về' onClick={onClose} />
+            <Button type='' outline className='cb_close_modal' content='Quay về' onClick={onClose} />
           </div>
         </div>
       </div>

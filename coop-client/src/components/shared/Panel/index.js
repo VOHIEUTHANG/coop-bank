@@ -61,13 +61,13 @@ const Panel = ({ onSubmit, loading, panes, actions, noActions, hasSubmit, ...pro
     } else {
       if (isView) {
         return (
-          <button type='button' className='bw_btn_outline bw_btn_outline_success' onClick={goToEditPath}>
+          <button type='button' className='cb_btn_outline cb_btn_outline_success' onClick={goToEditPath}>
             Chỉnh sửa
           </button>
         );
       } else if (isAdd || isEdit) {
         return (
-          <button type='submit' className='bw_btn bw_btn_success'>
+          <button type='submit' className='cb_btn cb_btn_success'>
             <span className='fi fi-rr-check'></span>Hoàn tất {isEdit ? 'chỉnh sửa' : 'thêm mới'}
           </button>
         );
@@ -78,7 +78,7 @@ const Panel = ({ onSubmit, loading, panes, actions, noActions, hasSubmit, ...pro
   const jsx_close = useMemo(() => {
     if (!noActions) {
       return (
-        <button type='button' className='bw_btn_outline' onClick={goToPreviousPath}>
+        <button type='button' className='cb_btn_outline' onClick={goToPreviousPath}>
           Đóng
         </button>
       );
@@ -86,7 +86,7 @@ const Panel = ({ onSubmit, loading, panes, actions, noActions, hasSubmit, ...pro
   }, [noActions]);
 
   const jsx_submit = !noActions && (
-    <div className='bw_btn_save bw_btn_group bw_flex bw_justify_content_right bw_align_items_center'>
+    <div className='cb_btn_save cb_btn_group cb_flex cb_justify_content_right cb_align_items_center'>
       {hasSubmit && jsx_footer}
       {jsx_close}
     </div>
@@ -96,18 +96,18 @@ const Panel = ({ onSubmit, loading, panes, actions, noActions, hasSubmit, ...pro
 
   const jsx_main = (
     <React.Fragment>
-      <ul className='bw_tabs'>
+      <ul className='cb_tabs'>
         {parsePanel.map((e) => {
           return (
             <li
-              className={tab_active.toLowerCase() === e?.key?.toString()?.toLowerCase() ? `bw_active` : ''}
+              className={tab_active.toLowerCase() === e?.key?.toString()?.toLowerCase() ? `cb_active` : ''}
               onClick={() => {
                 setQuery({
                   tab_active: e?.key?.toLowerCase(),
                 });
                 e?.onRowClick && e?.onRowClick();
               }}>
-              <a className='bw_link'>{e?.label}</a>
+              <a className='cb_link'>{e?.label}</a>
             </li>
           );
         })}

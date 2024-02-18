@@ -206,21 +206,21 @@ const SideBar = () => {
   ];
 
   return (
-    <div id='sidebar__left' className='bw_sidebar'>
-      <div className='bw_logo'>
-        <a className='bw_main_logo' style={{ margin: '0 auto' }}>
+    <div id='sidebar__left' className='cb_sidebar'>
+      <div className='cb_logo'>
+        <a className='cb_main_logo' style={{ margin: '0 auto' }}>
           <Link to='/'>
             <img src={logo} />
           </Link>
         </a>
-        <a className='bw_footer_logo' style={{ margin: '0 auto' }}>
+        <a className='cb_footer_logo' style={{ margin: '0 auto' }}>
           <Link to='/'>
             <img src={logo_short} />
           </Link>
         </a>
-        {/* <span onClick={handleCollapse} id='bw_close_nav' className='fi fi-rr-angle-small-left'></span> */}
+        {/* <span onClick={handleCollapse} id='cb_close_nav' className='fi fi-rr-angle-small-left'></span> */}
       </div>
-      <UserSection className='bw_user_admin bw_flex bw_align_items_center'>
+      <UserSection className='cb_user_admin cb_flex cb_align_items_center'>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <img
             alt='avatar'
@@ -232,14 +232,14 @@ const SideBar = () => {
             }}
             src={default_avatar}
           />
-          <span className='bw_hideen_nav'>
+          <span className='cb_hideen_nav'>
             {user?.username} - {user?.full_name}
           </span>
         </div>
 
         <div className='user__section__dropdown'>{menuUser.map((o) => o.label)}</div>
       </UserSection>
-      <ul id='menu__list' className='bw_main_menu'>
+      <ul id='menu__list' className='cb_main_menu'>
         <MenuRecursive
           items={navigation}
           openKey={openKey}

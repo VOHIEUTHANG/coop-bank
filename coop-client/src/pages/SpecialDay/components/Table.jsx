@@ -24,14 +24,14 @@ const RepresentativeTable = ({
     () => [
       {
         header: 'STT',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
-        formatter: (_, index) => <span className='bw_text_wrap'>{index + 1}</span>,
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
+        formatter: (_, index) => <span className='cb_text_wrap'>{index + 1}</span>,
       },
       {
         header: 'Tên đối tượng',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
         formatter: (_, index) => (
           <span
             style={{ textDecoration: 'underline', cursor: 'pointer', color: 'var(--greenColor)' }}
@@ -53,10 +53,10 @@ const RepresentativeTable = ({
       },
       {
         header: 'Loại đối tượng',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
         formatter: (_, index) => (
-          <span className='bw_text_wrap'>
+          <span className='cb_text_wrap'>
             {_.object_type === OBJECT_TYPE.PRINCIPAL
               ? 'Hiệu trưởng'
               : _.object_type === OBJECT_TYPE.INDIVIDUAL
@@ -67,10 +67,10 @@ const RepresentativeTable = ({
       },
       {
         header: 'Loại ngày đặc biệt',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
         formatter: (_, index) => (
-          <span className='bw_text_wrap'>
+          <span className='cb_text_wrap'>
             {_.date_type === DATE_TYPE.BIRTH_DATE
               ? 'Ngày sinh nhật'
               : _.date_type === DATE_TYPE.FOUNDING_DATE
@@ -86,14 +86,14 @@ const RepresentativeTable = ({
       {
         header: 'Ngày đặc biệt',
         accessor: 'date',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
       },
       {
         header: 'Ngày còn lại',
         accessor: 'day_count',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
         formatter: (item) => `${item.day_count} ngày`,
       },
     ],

@@ -11,8 +11,8 @@ import FormSelect from 'components/shared/FormControl/FormSelect';
 const BranchInfo = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
-      <div className='bw_row'>
-        <div class='bw_col_6'>
+      <div className='cb_row'>
+        <div class='cb_col_6'>
           <FormItem label='Họ và tên' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -25,7 +25,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div className='bw_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Giới tính' isRequired disabled={disabled}>
             <FormRadioGroup
               field={'gender'}
@@ -41,7 +41,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div className='bw_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Chức vụ' isRequired disabled={disabled}>
             <FormSelect
               allowClear
@@ -56,7 +56,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Số điện thoại' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -69,13 +69,13 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Địa chỉ email' disabled={disabled}>
             <FormInput type='text' field='representative_email' placeholder='Nhập địa chỉ email' />
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Ngày sinh' disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -90,19 +90,19 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Địa chỉ' disabled={disabled}>
             <FormInput type='text' field='address' placeholder='Nhập địa chỉ' />
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Số tài khoản ngân hàng' disabled={disabled}>
             <FormInput type='text' field='bank_number' placeholder='Nhập số tài khoản ngân hàng' />
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Tên ngân hàng' disabled={disabled}>
             <FormInput type='text' field='bank_name' placeholder='Nhập tên ngân hàng' />
           </FormItem>

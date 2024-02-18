@@ -32,14 +32,14 @@ function DefaultLayout() {
   }, [routes]);
 
   return (
-    <div className={`bw_contain ${collapsed ? 'bw_close_nav' : ''}`}>
+    <div className={`cb_contain ${collapsed ? 'cb_close_nav' : ''}`}>
       <SideBar />
-      <div className='bw_main'>
+      <div className='cb_main'>
         <NavHeader />
         {jsx_render}
         {/* <div
           style={{ position: 'relative', width: '100%' }}
-          className='bw_flex bw_align_items_center bw_justify_content_between bw_ft'>
+          className='cb_flex cb_align_items_center cb_justify_content_between cb_ft'>
           <p>Copyright © 2024 Devo</p>
         </div> */}
       </div>

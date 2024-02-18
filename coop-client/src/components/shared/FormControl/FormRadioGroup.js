@@ -14,12 +14,12 @@ const FormRadioGroup = ({ field, validation, className, disabled = false, list, 
     <React.Fragment>
       <div
         className={
-          !custom ? 'bw_flex bw_align_items_center bw_lb_sex bw_sex_group ' : 'bw_flex bw_align_items_center bw_lb_sex'
+          !custom ? 'cb_flex cb_align_items_center cb_lb_sex cb_sex_group ' : 'cb_flex cb_align_items_center cb_lb_sex'
         }>
         {(list || []).map((item, index) => {
           return (
             <React.Fragment key={index}>
-              <label className='bw_radio' style={style}>
+              <label className='cb_radio' style={style}>
                 <input
                   type='radio'
                   name={field}

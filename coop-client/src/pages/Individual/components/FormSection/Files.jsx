@@ -78,11 +78,11 @@ const Files = ({ disabled, title, id }) => {
 
   return (
     <Accordion title={title} id={id}>
-      <div className='bw_row'>
-        <div class='bw_col_12' style={{ display: 'flex', gap: '10px' }}>
+      <div className='cb_row'>
+        <div class='cb_col_12' style={{ display: 'flex', gap: '10px' }}>
           <div style={{ display: 'flex', gap: '15px' }}>
-            <div className='bw_load_image bw_mb_2 bw_text_center'>
-              <label className='bw_choose_image' style={{ width: '100px', height: '100px' }}>
+            <div className='cb_load_image cb_mb_2 cb_text_center'>
+              <label className='cb_choose_image' style={{ width: '100px', height: '100px' }}>
                 {!methods.watch('salary_file') && (
                   <input
                     accept='application/pdf'
@@ -101,8 +101,8 @@ const Files = ({ disabled, title, id }) => {
           </div>
 
           <div style={{ display: 'flex', gap: '15px' }}>
-            <div className='bw_load_image bw_mb_2 bw_text_center'>
-              <label className='bw_choose_image' style={{ width: '100px', height: '100px' }}>
+            <div className='cb_load_image cb_mb_2 cb_text_center'>
+              <label className='cb_choose_image' style={{ width: '100px', height: '100px' }}>
                 {!methods.watch('marriage_file') && (
                   <input
                     accept='application/pdf'
@@ -121,8 +121,8 @@ const Files = ({ disabled, title, id }) => {
           </div>
 
           <div style={{ display: 'flex', gap: '15px' }}>
-            <div className='bw_load_image bw_mb_2 bw_text_center'>
-              <label className='bw_choose_image' style={{ width: '100px', height: '100px' }}>
+            <div className='cb_load_image cb_mb_2 cb_text_center'>
+              <label className='cb_choose_image' style={{ width: '100px', height: '100px' }}>
                 {!methods.watch('appoint_file') && (
                   <input
                     accept='application/pdf'

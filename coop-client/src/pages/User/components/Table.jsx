@@ -12,53 +12,53 @@ const UserTable = ({ loading, data, totalPages, itemsPerPage, page, totalItems, 
     () => [
       {
         header: 'STT',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
-        formatter: (_, index) => <span className='bw_text_wrap'>{index + 1}</span>,
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
+        formatter: (_, index) => <span className='cb_text_wrap'>{index + 1}</span>,
       },
       {
         header: 'Mã tài khoản',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'username',
       },
       {
         header: 'Họ và tên',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'full_name',
       },
       {
         header: 'Email',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'email',
       },
       {
         header: 'Số điện thoại',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
         accessor: 'phone_number',
       },
       {
         header: 'Chi nhánh',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
         accessor: 'branch_name',
       },
       {
         header: 'Trạng thái',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
         formatter: (p) =>
           p?.is_active ? (
-            <span class='bw_label_outline bw_label_outline_success text-center'>Kích hoạt</span>
+            <span class='cb_label_outline cb_label_outline_success text-center'>Kích hoạt</span>
           ) : (
-            <span class='bw_label_outline bw_label_outline_danger text-center'>Khóa</span>
+            <span class='cb_label_outline cb_label_outline_danger text-center'>Khóa</span>
           ),
       },
       {
         header: 'Ngày tạo',
         accessor: 'created_at',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
       },
     ],
     [],

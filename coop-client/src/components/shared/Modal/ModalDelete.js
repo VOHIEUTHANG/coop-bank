@@ -8,7 +8,7 @@ const ModalContent = styled.p`
 
 const headerModal = (
   <>
-    <span className='bw_icon_notice'>
+    <span className='cb_icon_notice'>
       <i className='fi fi-rr-bell'></i>
     </span>{' '}
     Thông báo

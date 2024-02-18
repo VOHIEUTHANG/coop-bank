@@ -27,7 +27,7 @@ const ListPage = () => {
   useEffect(getData, [getData]);
 
   return (
-    <div class='bw_main_wrapp'>
+    <div class='cb_main_wrapp'>
       <Filter
         onChange={(e) => {
           setParams((prev) => {

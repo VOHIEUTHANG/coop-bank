@@ -86,7 +86,7 @@ const FormSection = ({
               <Button className='mr-2' key={i} {...props} />
             ))}
           <CheckAccess permission={PERMISSION?.edit}>
-            <button type='button' className='bw_btn_outline bw_btn_outline_success' onClick={goToEditPath}>
+            <button type='button' className='cb_btn_outline cb_btn_outline_success' onClick={goToEditPath}>
               Chỉnh sửa
             </button>
           </CheckAccess>
@@ -101,7 +101,7 @@ const FormSection = ({
               <Button className='mr-2' key={i} {...props} />
             ))}
           <CheckAccess permission={isEdit ? PERMISSION?.edit : PERMISSION?.add}>
-            <button type='submit' className='bw_btn bw_btn_success'>
+            <button type='submit' className='cb_btn cb_btn_success'>
               <span className='fi fi-rr-check'></span>Hoàn tất {isEdit ? 'chỉnh sửa' : 'thêm mới'}
             </button>
           </CheckAccess>
@@ -113,7 +113,7 @@ const FormSection = ({
   const jsx_close = useMemo(() => {
     if (!noActions) {
       return (
-        <button type='button' className='bw_btn_outline' onClick={customerClose ?? goToPreviousPath}>
+        <button type='button' className='cb_btn_outline' onClick={customerClose ?? goToPreviousPath}>
           Đóng
         </button>
       );
@@ -126,11 +126,11 @@ const FormSection = ({
 
   const jsx_main = (
     <React.Fragment>
-      <div style={style} className='bw_main_wrapp'>
-        <div className='bw_row'>
+      <div style={style} className='cb_main_wrapp'>
+        <div className='cb_row'>
           {!noSideBar && (
-            <div className='bw_col_3'>
-              <ul className='bw_control_form'>
+            <div className='cb_col_3'>
+              <ul className='cb_control_form'>
                 {parseDetailForm.map((p, key) => {
                   let checkActive = false;
                   if (Boolean(p?.fieldActive)) {
@@ -153,7 +153,7 @@ const FormSection = ({
                         });
                       }}
                       key={key}>
-                      <a className={checkActive ? 'bw_active' : ''}>
+                      <a className={checkActive ? 'cb_active' : ''}>
                         <span className='fi fi-rr-check'></span> {p?.title}
                       </a>
                     </li>
@@ -163,13 +163,13 @@ const FormSection = ({
             </div>
           )}
 
-          <div className={`${noSideBar ? 'bw_col_12' : 'bw_col_9'} ${noPadding ? '' : 'bw_pb_6'}`}>
+          <div className={`${noSideBar ? 'cb_col_12' : 'cb_col_9'} ${noPadding ? '' : 'cb_pb_6'}`}>
             <Spin spinning={loadingForm} indicator={antIcon}>
-              <div className='bw_row'>
+              <div className='cb_row'>
                 {parseDetailForm.map((p, key) => {
                   const { title, id, component: Component, className, ...props } = p;
                   return (
-                    <span id={key} className={className ?? 'bw_col_12'}>
+                    <span id={key} className={className ?? 'cb_col_12'}>
                       <Component id={id} title={title} disabled={disabled} {...props} />
                     </span>
                   );
@@ -180,7 +180,7 @@ const FormSection = ({
         </div>
       </div>
       {!noActions && !isSubmitting && (
-        <Footer className='bw_btn_save bw_btn_group bw_flex bw_justify_content_right bw_align_items_center'>
+        <Footer className='cb_btn_save cb_btn_group cb_flex cb_justify_content_right cb_align_items_center'>
           {jsx_footer}
           {jsx_close}
         </Footer>

@@ -16,16 +16,16 @@ const Accordion = ({ style, title, children, id, isRequired = false, componentCu
 
   return (
     <React.Fragment>
-      <div id={id} className='bw_items_frm'>
-        <div className={`bw_collapse ${open ? 'bw_active' : ''}`}>
-          <div className='bw_collapse_title' style={{ width: 'fit-content' }}>
+      <div id={id} className='cb_items_frm'>
+        <div className={`cb_collapse ${open ? 'cb_active' : ''}`}>
+          <div className='cb_collapse_title' style={{ width: 'fit-content' }}>
             <IconCollapse open={open} className='fi fi-rr-angle-small-down' onClick={handleAccordion} />
             <h3>
               {title}
-              {isRequired && <span className='bw_red'>*</span>}
+              {isRequired && <span className='cb_red'>*</span>}
             </h3>
           </div>
-          {open && <div className='bw_collapse_panel'>{children}</div>}
+          {open && <div className='cb_collapse_panel'>{children}</div>}
           {componentCustom && componentCustom}
         </div>
       </div>

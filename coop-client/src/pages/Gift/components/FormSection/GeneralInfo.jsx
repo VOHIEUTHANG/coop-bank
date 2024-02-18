@@ -21,8 +21,8 @@ const Infomation = ({ disabled, title, id }) => {
 
   return (
     <Accordion title={title} id={id}>
-      <div className='bw_row'>
-        <div className='bw_col_6'>
+      <div className='cb_row'>
+        <div className='cb_col_6'>
           <FormItem label='Đơn vị nhận' disabled={disabled}>
             <FormSelect
               allowClear
@@ -34,7 +34,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div className='bw_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Người tặng' disabled={disabled}>
             <FormSelect
               allowClear
@@ -46,7 +46,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Ngày tặng quà' disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -61,7 +61,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_12'>
+        <div class='cb_col_12'>
           <FormItem label='Nội dung qùa tặng' isRequired disabled={disabled}>
             <FormTextArea
               rows={3}
@@ -74,7 +74,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_12'>
+        <div class='cb_col_12'>
           <FormItem label='Mô tả quà tặng' disabled={disabled}>
             <FormTextArea rows={4} field='gift_description' placeholder='Nhập mô tả quà tặng' />
           </FormItem>

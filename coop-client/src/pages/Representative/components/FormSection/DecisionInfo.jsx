@@ -8,8 +8,8 @@ import FormDatePicker from 'components/shared/FormControl/FormDate';
 const BranchInfo = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
-      <div className='bw_row'>
-        <div class='bw_col_6'>
+      <div className='cb_row'>
+        <div class='cb_col_6'>
           <FormItem label='Số quyết định' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -22,7 +22,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Ngày quyết định' isRequired disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -40,7 +40,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Ngày bắt đầu hiệu lực' disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -55,7 +55,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Ngày kết thúc hiệu lực' disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -70,19 +70,19 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Nơi quyết định (huyện)' isRequired disabled={disabled}>
             <FormInput type='text' field='decision_district' placeholder='Nhập nơi quyết định' />
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Người quyết định' isRequired disabled={disabled}>
             <FormInput type='text' field='decider_name' placeholder='Nhập người quyết định' />
           </FormItem>
         </div>
 
-        <div class='bw_col_6'>
+        <div class='cb_col_6'>
           <FormItem label='Chức vụ người quyết định' isRequired disabled={disabled}>
             <FormInput type='text' field='decider_position' placeholder='Nhập chức vụ người quyết định' />
           </FormItem>

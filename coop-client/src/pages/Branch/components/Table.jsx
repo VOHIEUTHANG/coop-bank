@@ -22,32 +22,32 @@ const AccountingPeriodTable = ({
     () => [
       {
         header: 'STT',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
-        formatter: (_, index) => <span className='bw_text_wrap'>{index + 1}</span>,
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
+        formatter: (_, index) => <span className='cb_text_wrap'>{index + 1}</span>,
       },
       {
         header: 'Tên chi nhánh',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'branch_name',
       },
       {
         header: 'Địa chỉ',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'address',
       },
       {
         header: 'Số điện thoại',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
         formatter: (item, index) => (
           <span>{`${item.phone_number_main ?? ''} ${item.phone_number_sub ? `- ${item.phone_number_sub}` : ''}`}</span>
         ),
       },
       {
         header: 'Người tạo',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
         formatter: (item, index) => (
           <Tooltip placement='right' title={`Mã nhân viên: ${item.created_username}`}>
             <span>{item.created_fullname}</span>
@@ -57,8 +57,8 @@ const AccountingPeriodTable = ({
       {
         header: 'Ngày tạo',
         accessor: 'created_at',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
       },
     ],
     [],

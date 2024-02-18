@@ -63,8 +63,8 @@ const NotifySection = () => {
             onClick={() => {
               dispatch(hideNotify());
             }}
-            className={classNames('bw_list_items', {
-              bw_non_read: !o?.is_read,
+            className={classNames('cb_list_items', {
+              cb_non_read: !o?.is_read,
             })}>
             <span className={`fi ${typeNotify?.icon}`} style={{ width: '30px', height: '30px' }}></span>
             <h3>{o?.subject}</h3>

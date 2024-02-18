@@ -20,22 +20,22 @@ const RepresentativeList = ({ disabled, title }) => {
     {
       header: 'STT',
       formatter: (_, index) => index + 1,
-      classNameBody: 'bw_text_center',
-      classNameHeader: 'bw_text_center',
+      classNameBody: 'cb_text_center',
+      classNameHeader: 'cb_text_center',
     },
     {
       header: 'Tên người đại diện',
-      classNameHeader: 'bw_text_center',
+      classNameHeader: 'cb_text_center',
       accessor: 'bank_representative_name',
     },
     {
       header: 'Số điện thoại',
-      classNameHeader: 'bw_text_center',
+      classNameHeader: 'cb_text_center',
       accessor: 'phone_number',
     },
     {
       header: 'Chức vụ',
-      classNameHeader: 'bw_text_center',
+      classNameHeader: 'cb_text_center',
       formatter: (item, index) => (
         <span>
           {PositionOptions.find((position) => position.value === item.bank_representative_position)?.label ||
@@ -45,7 +45,7 @@ const RepresentativeList = ({ disabled, title }) => {
     },
     {
       header: 'Căn cước công dân',
-      classNameHeader: 'bw_text_center',
+      classNameHeader: 'cb_text_center',
       accessor: 'id_number',
     },
   ];
@@ -79,7 +79,7 @@ const RepresentativeList = ({ disabled, title }) => {
 
   return (
     <Accordion title={title} isRequired={true}>
-      <div className='bw_col_12'>
+      <div className='cb_col_12'>
         <DataTable noSelect noPaging actions={actions} columns={columns} data={fields || []} />
       </div>
       {openModel && !disabled ? <ModalAddCustomer open={openModel} onClose={() => setOpenModel(false)} /> : null}

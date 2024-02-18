@@ -23,7 +23,7 @@ const SelectModal = ({
 
   return (
     <Accordion title={title}>
-      <div className='bw_row'>
+      <div className='cb_row'>
         <SelectTable
           hiddenFilter={hiddenFilter}
           hiddenDeleteClick={hiddenDeleteClick}

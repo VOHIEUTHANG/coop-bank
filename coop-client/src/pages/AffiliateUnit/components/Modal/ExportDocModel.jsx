@@ -13,7 +13,7 @@ import { useAuth } from 'context/AuthProvider';
 import moment from 'moment';
 
 const ModelStyled = styled.div`
-  .bw_row.bw_mt_2.bw_mb_2.bw_align_items_center {
+  .cb_row.cb_mt_2.cb_mb_2.cb_align_items_center {
     display: none;
   }
 `;
@@ -63,26 +63,26 @@ function ExportDoc({ disabled, setShowModal, affiliateUnit }) {
   return (
     <FormProvider {...methods}>
       <ModelStyled>
-        <div className='bw_modal bw_modal_open ' id='bw_calculate_modal'>
-          <div className='bw_modal_container bw_w900'>
-            <div className='bw_title_modal'>
+        <div className='cb_modal cb_modal_open ' id='cb_calculate_modal'>
+          <div className='cb_modal_container cb_w900'>
+            <div className='cb_title_modal'>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 {loading && <Spin />}
                 <h3>Thông tin xuất biểu mẫu</h3>
               </div>
-              <span className='bw_close_modal fi fi-rr-cross-small' onClick={() => setShowModal(false)} />
+              <span className='cb_close_modal fi fi-rr-cross-small' onClick={() => setShowModal(false)} />
             </div>
-            <div className='bw_main_modal'>
+            <div className='cb_main_modal'>
               <Accordion title={'Thông tin chung'} style={{ background: 'var(--grayColor)' }}>
-                <div className='bw_row'>
-                  <FormItem label='Mã đơn đặt hàng' disabled isRequired className='bw_col_6'>
+                <div className='cb_row'>
+                  <FormItem label='Mã đơn đặt hàng' disabled isRequired className='cb_col_6'>
                     <FormInput
                       field={'purchase_order_number'}
                       placeholder='Mã đơn đặt hàng'
                       validation={{ required: `Mã đơn đặt hàng là bắt buộc !` }}
                     />
                   </FormItem>
-                  <FormItem disabled={true} label='Ngày đặt hàng' isRequired className='bw_col_6'>
+                  <FormItem disabled={true} label='Ngày đặt hàng' isRequired className='cb_col_6'>
                     <FormDatePicker
                       field={'purchase_date'}
                       placeholder={'dd/mm/yyyy'}
@@ -92,7 +92,7 @@ function ExportDoc({ disabled, setShowModal, affiliateUnit }) {
                       validation={{ required: `Ngày tạo là bắt buộc !` }}
                     />
                   </FormItem>
-                  <FormItem disabled={disabled} label='Ngày yêu cầu giao hàng đến' isRequired className='bw_col_6'>
+                  <FormItem disabled={disabled} label='Ngày yêu cầu giao hàng đến' isRequired className='cb_col_6'>
                     <FormDatePicker
                       field={'delivery_expected_date'}
                       placeholder={'dd/mm/yyyy'}
@@ -102,28 +102,28 @@ function ExportDoc({ disabled, setShowModal, affiliateUnit }) {
                       validation={{ required: `Ngày yêu cầu giao hàng đến là bắt buộc !` }}
                     />
                   </FormItem>
-                  <FormItem disabled={disabled} label='Tên người đặt đơn hàng' isRequired className='bw_col_6'>
+                  <FormItem disabled={disabled} label='Tên người đặt đơn hàng' isRequired className='cb_col_6'>
                     <FormInput
                       field={'purchase_creator'}
                       placeholder='Tên người đặt đơn hàng'
                       validation={{ required: `Tên người đặt đơn hàng là bắt buộc !` }}
                     />
                   </FormItem>
-                  <FormItem disabled={disabled} label='Tên người liên hệ' isRequired className='bw_col_6'>
+                  <FormItem disabled={disabled} label='Tên người liên hệ' isRequired className='cb_col_6'>
                     <FormInput
                       field={'contact_name'}
                       placeholder='Tên người liên hệ'
                       validation={{ required: `Tên người liên hệ là bắt buộc !` }}
                     />
                   </FormItem>
-                  <FormItem disabled={disabled} label='Email người liên hệ' isRequired className='bw_col_6'>
+                  <FormItem disabled={disabled} label='Email người liên hệ' isRequired className='cb_col_6'>
                     <FormInput
                       field={'contact_email'}
                       placeholder='Email người liên hệ'
                       validation={{ required: `Email người liện hệ là bắt buộc !` }}
                     />
                   </FormItem>
-                  <FormItem disabled={disabled} label='Mã địa chỉ giao hàng' isRequired className='bw_col_6'>
+                  <FormItem disabled={disabled} label='Mã địa chỉ giao hàng' isRequired className='cb_col_6'>
                     <FormInput
                       field={'delivery_address'}
                       placeholder='Nhập mã địa chỉ giao hàng'
@@ -133,13 +133,13 @@ function ExportDoc({ disabled, setShowModal, affiliateUnit }) {
                 </div>
               </Accordion>
             </div>
-            <div className='bw_footer_modal bw_flex bw_justify_content_right bw_align_items_center'>
-              <button type='button' className='bw_btn bw_btn_danger' onClick={() => setShowModal(false)}>
+            <div className='cb_footer_modal cb_flex cb_justify_content_right cb_align_items_center'>
+              <button type='button' className='cb_btn cb_btn_danger' onClick={() => setShowModal(false)}>
                 Hủy
               </button>
               <button
                 type='button'
-                className='bw_btn  bw_btn_success'
+                className='cb_btn  cb_btn_success'
                 onClick={(...event) => {
                   // if (!loading) {
                   //   return handleSubmit(onSubmit)(...event);

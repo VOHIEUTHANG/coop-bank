@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 // components
 import DataTable from 'components/shared/DataTable/index';
 import { defaultPaging, defaultParams } from 'utils/helpers';
-import { useFormContext } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form';
 
 export default function SelectTable({
   hiddenFilter,
@@ -15,7 +15,7 @@ export default function SelectTable({
   actionsFilter,
   actionsTable,
   getList,
-  hiddenDeleteClick
+  hiddenDeleteClick,
 }) {
   const methods = useFormContext();
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function SelectTable({
 
   const [query, setQuery] = useState({
     ...defaultParams,
-    itemsPerPage: 5
+    itemsPerPage: 5,
   });
 
   const { items, itemsPerPage, page, totalItems, totalPages } = dataList;
@@ -32,25 +32,28 @@ export default function SelectTable({
     setQuery({ ...query, page });
   };
   const getListData = useCallback(() => {
-    setLoading(true)
+    setLoading(true);
     getList(query).then((data) => {
       setDataList(data);
-      setLoading(false)
+      setLoading(false);
     });
   }, [query]);
   useEffect(getListData, [getListData]);
 
   return (
     <React.Fragment>
-      <div className='bw_main_wrapp'>
-        {!hiddenFilter && <SelectFilter
-          actions={actionsFilter}
-          onChange={(value) => {
-            setQuery({
-              ...query,
-              ...value,
-            })
-          }} />}
+      <div className='cb_main_wrapp'>
+        {!hiddenFilter && (
+          <SelectFilter
+            actions={actionsFilter}
+            onChange={(value) => {
+              setQuery({
+                ...query,
+                ...value,
+              });
+            }}
+          />
+        )}
         <DataTable
           hiddenDeleteClick={hiddenDeleteClick}
           noSelect={hiddenSelect}

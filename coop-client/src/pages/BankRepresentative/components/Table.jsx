@@ -22,23 +22,23 @@ const RepresentativeTable = ({
     () => [
       {
         header: 'STT',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
-        formatter: (_, index) => <span className='bw_text_wrap'>{index + 1}</span>,
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
+        formatter: (_, index) => <span className='cb_text_wrap'>{index + 1}</span>,
       },
       {
         header: 'Tên người đại diện',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'bank_representative_name',
       },
       {
         header: 'Số điện thoại',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'phone_number',
       },
       {
         header: 'Chức vụ',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         formatter: (item, index) => (
           <span>
             {PositionOptions.find((position) => position.value === item.bank_representative_position)?.label ||
@@ -48,19 +48,19 @@ const RepresentativeTable = ({
       },
       {
         header: 'Căn cước công dân',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'id_number',
       },
       {
         header: 'Ngày cấp',
-        classNameHeader: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
         accessor: 'id_issued_date',
       },
       {
         header: 'Ngày tạo',
         accessor: 'created_at',
-        classNameHeader: 'bw_text_center',
-        classNameBody: 'bw_text_center',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
       },
     ],
     [],
