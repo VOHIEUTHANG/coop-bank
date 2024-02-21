@@ -79,13 +79,13 @@ const RepresentativeTable = ({
     return [
       {
         globalAction: true,
-        icon: 'fi fi-rr-add',
+        icon: 'ti-plus',
         type: 'success',
         content: 'Thêm mới',
         onClick: () => window._$g.rdr(`affiliate-unit/add`),
       },
       {
-        icon: 'fi fi-rr-edit',
+        icon: 'ti-write',
         color: 'blue',
         title: 'Sửa',
         onClick: (p) => {
@@ -93,7 +93,7 @@ const RepresentativeTable = ({
         },
       },
       {
-        icon: 'fi fi-rr-eye',
+        icon: 'ti-eye',
         color: 'green',
         title: 'Chi tiết',
         onClick: (p) => {
@@ -101,7 +101,7 @@ const RepresentativeTable = ({
         },
       },
       {
-        icon: 'fi fi-rr-trash',
+        icon: 'fi ti-trash',
         color: 'red',
         title: 'Xóa',
         onClick: (_, d) =>

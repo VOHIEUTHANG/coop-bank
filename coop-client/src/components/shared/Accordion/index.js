@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const IconCollapse = styled.span`
   transform: ${(props) => (props.open ? 'rotate(180deg)' : '')};
-  color: ${(props) => (props.open ? '#119480' : '')};
+  color: ${(props) => (props.open ? '#333333' : '')};
 `;
 
 const Accordion = ({ style, title, children, id, isRequired = false, componentCustom, defaultOpen = true }) => {
@@ -18,13 +18,15 @@ const Accordion = ({ style, title, children, id, isRequired = false, componentCu
     <React.Fragment>
       <div id={id} className='cb_items_frm'>
         <div className={`cb_collapse ${open ? 'cb_active' : ''}`}>
-          <div className='cb_collapse_title' style={{ width: 'fit-content' }}>
-            <IconCollapse open={open} className='fi fi-rr-angle-small-down' onClick={handleAccordion} />
-            <h3>
-              {title}
-              {isRequired && <span className='cb_red'>*</span>}
-            </h3>
-          </div>
+          {!!title && (
+            <div className='cb_collapse_title' style={{ width: 'fit-content', gap: '5px' }}>
+              <IconCollapse open={open} className='ti-angle-down' onClick={handleAccordion} />
+              <h3>
+                {title}
+                {isRequired && <span className='cb_red'>*</span>}
+              </h3>
+            </div>
+          )}
           {open && <div className='cb_collapse_panel'>{children}</div>}
           {componentCustom && componentCustom}
         </div>

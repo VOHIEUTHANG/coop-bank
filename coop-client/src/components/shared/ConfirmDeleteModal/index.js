@@ -18,7 +18,7 @@ const ConfirmModal = () => {
           <div className='cb_title_modal cb_border_bottom'>
             <h3>
               <span className='cb_icon_notice'>
-                <i className='fi fi-rr-bell'></i>
+                <i className='fi ti-bell'></i>
               </span>{' '}
               Thông báo
             </h3>

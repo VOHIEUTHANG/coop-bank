@@ -3,8 +3,8 @@ import { useFormContext, useFieldArray } from 'react-hook-form';
 import DataTable from 'components/shared/DataTable/index';
 import Accordion from 'components/shared/Accordion/index';
 import ModalAddCustomer from '../Modal/RepresentativeModel';
-import { Permission } from 'pages/Branch/utils/constants';
 import { PositionOptions } from 'pages/BankRepresentative/utils/constants';
+import { openInNewTab } from 'utils/helpers';
 
 const RepresentativeList = ({ disabled, title }) => {
   const methods = useFormContext();
@@ -13,7 +13,7 @@ const RepresentativeList = ({ disabled, title }) => {
 
   const { remove, fields } = useFieldArray({
     control,
-    name: 'representatives',
+    name: 'bankRepresentatives',
   });
 
   const columns = [
@@ -54,19 +54,28 @@ const RepresentativeList = ({ disabled, title }) => {
     () => [
       {
         globalAction: true,
-        icon: 'fi fi-rr-add',
+        icon: 'ti-plus',
         type: 'success',
         content: 'Thêm người đại diện',
-        permission: Permission.ADD,
         onClick: () => {
           setOpenModel(true);
         },
       },
       {
-        icon: 'fi fi-rr-trash',
+        icon: 'ti-eye',
+        disabled: disabled,
+        onClick: (item) => {
+          window.open(
+            `/bank-representative/detail/${item.bank_representative_id}`,
+            '_blank',
+            'rel=noopener noreferrer',
+          );
+        },
+      },
+      {
+        icon: 'ti-trash',
         color: 'red',
         disabled: disabled,
-        permission: Permission.ADD,
         onClick: (_, index) => {
           if (!disabled) {
             remove(index);

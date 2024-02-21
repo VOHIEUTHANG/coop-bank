@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Request } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -8,7 +8,7 @@ export class MenuController {
   constructor(private readonly menuService: MenuService) {}
 
   @Get('get-by-user')
-  findAll() {
-    return this.menuService.findAll();
+  findAll(@Request() req) {
+    return this.menuService.findAll(req.user);
   }
 }

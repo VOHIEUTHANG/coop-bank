@@ -116,7 +116,6 @@ const RepresentativeTable = ({
         type: 'success',
         content: 'Xuất excel',
         outline: true,
-        permission: Permission.EXPORT,
         onClick: exportExcel,
       },
     ];

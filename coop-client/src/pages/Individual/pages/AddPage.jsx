@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import FormSection from 'components/shared/FormSection/index';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useLocation, useParams } from 'react-router-dom';
@@ -8,9 +8,12 @@ import GeneralInfomation from '../components/FormSection/GeneralInfo';
 import Images from '../components/FormSection/IdInfo';
 import Files from '../components/FormSection/Files';
 import { showToast } from 'utils/helpers';
+import ExportDocModel from '../components/Modal/ExportDocModel';
 
 const AddPage = () => {
   const methods = useForm();
+  const [showPopup, setShowPopup] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   const { pathname } = useLocation();
   const { id: individual_id } = useParams();
@@ -32,7 +35,7 @@ const AddPage = () => {
       }
       showToast.success(`${label} thành công !`);
     } catch (error) {
-      showToast.error(error.message?.length ? error.message[0] : error.message || 'Có lỗi xảy ra!');
+      showToast.error(error.message?.constructor === Array ? error.message[0] : error.message || 'Có lỗi xảy ra!');
     }
   };
 
@@ -47,7 +50,7 @@ const AddPage = () => {
         is_system: 0,
       });
     }
-  }, [individual_id, methods]);
+  }, [individual_id, methods, refresh]);
 
   const detailForm = [
     {
@@ -72,9 +75,33 @@ const AddPage = () => {
 
   useEffect(loadDetail, [loadDetail]);
 
+  const actions = [
+    {
+      icon: 'ti-printer',
+      submit: false,
+      content: 'In biểu mẫu',
+      className: 'cb_btn cb_btn_outline cb_btn_outline_success',
+      hidden: !individual_id,
+      onClick: () => {
+        setShowPopup((prev) => !prev);
+      },
+    },
+  ];
+
   return (
     <FormProvider {...methods}>
-      <FormSection detailForm={detailForm} onSubmit={onSubmit} disabled={disabled} />
+      <FormSection actions={actions} detailForm={detailForm} onSubmit={onSubmit} disabled={disabled} />
+      {showPopup && (
+        <ExportDocModel
+          closeModal={setShowPopup}
+          refreshData={() => {
+            setRefresh((prev) => !prev);
+          }}
+          individual={methods.getValues()}
+          interestRate={methods.watch('interest_rate')}
+          defaultExportData={methods.watch('export_data')}
+        />
+      )}
     </FormProvider>
   );
 };

@@ -29,7 +29,7 @@ p {
 }
 
 a {
-  @include BlackwindTransition(300ms);
+  @include DevoTransition(300ms);
   font-size: $fontSize;
   text-decoration: none;
 }
@@ -174,7 +174,7 @@ a {
 
 /** Button **/
 .cb_btn {
-  @include BlackwindButton(var(--whiteColorHover), var(--blackColor), var(--whiteColorHover));
+  @include DevoButton(var(--whiteColorHover), var(--blackColor), var(--whiteColorHover));
   font-size: 14px;
 
   &:hover {
@@ -188,7 +188,7 @@ a {
 }
 
 .cb_btn_primary {
-  @include BlackwindButton(var(--blueColor), var(--whiteColor), var(--blueColor));
+  @include DevoButton(var(--blueColor), var(--whiteColor), var(--blueColor));
 
   &:hover {
     background: var(--blueColorHover);
@@ -201,7 +201,7 @@ a {
 }
 
 .cb_btn_danger {
-  @include BlackwindButton(var(--redColor), var(--whiteColor), var(--redColor));
+  @include DevoButton(var(--redColor), var(--whiteColor), var(--redColor));
 
   &:hover {
     background: var(--redColorHover);
@@ -214,7 +214,7 @@ a {
 }
 
 .cb_btn_warning {
-  @include BlackwindButton(var(--ogranceColor), var(--whiteColor), var(--ogranceColor));
+  @include DevoButton(var(--ogranceColor), var(--whiteColor), var(--ogranceColor));
 
   &:hover {
     background: var(--ogranceColorHover);
@@ -227,7 +227,7 @@ a {
 }
 
 .cb_btn_success {
-  @include BlackwindButton(var(--greenColor), var(--whiteColor), var(--greenColor));
+  @include DevoButton(var(--greenColor), var(--whiteColor), var(--greenColor));
 
   &:hover {
     background: var(--greenColorHover);
@@ -240,7 +240,7 @@ a {
 }
 
 .cb_btn_outline {
-  @include BlackwindButton(var(--whiteColor), var(--blackColor), var(--blackColor));
+  @include DevoButton(var(--whiteColor), var(--blackColor), var(--blackColor));
 
   &:hover {
     background: var(--blackColor);
@@ -321,7 +321,7 @@ input[type='color'] {
 }
 
 .cb_inp {
-  @include BlackwindInput(var(--whiteColor), var(--blackColor), var(--borderColor));
+  @include DevoInputInput(var(--whiteColor), var(--blackColor), var(--borderColor));
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', Oxygen, Ubuntu, Cantarell, 'Open Sans',
     'Helvetica Neue', sans-serif;
   font-size: $fontSize;
@@ -535,7 +535,7 @@ ul {
     }
 
     td {
-      @include BlackwindTransition(300ms);
+      @include DevoTransition(300ms);
       border: none;
       padding: 6px 10px;
       border-bottom: 1px solid #ddd;
@@ -754,7 +754,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
-    @include BlackwindTransition(300ms);
+    @include DevoTransition(300ms);
     overflow: hidden;
 
     &:not(.cb_radio span) {
@@ -776,8 +776,13 @@ ul {
       overflow: hidden;
 
       &::after {
-        font-family: uicons-regular-rounded !important;
-        content: '\f211';
+        content: '';
+        width: 100%;
+        height: 100%;
+        transform: scale(0.5);
+        display: inline-block;
+        background-color: rgb(255, 255, 255);
+        border-radius: 50%;
         font-size: 11px;
         line-height: 11px;
         color: var(--whiteColor);
@@ -926,7 +931,7 @@ ul {
     max-width: 600px;
     background: var(--whiteColor);
     border-radius: $numberPading;
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     max-height: calc(100% - 120px);
     box-shadow: $boxShadow;
     overflow-x: auto;
@@ -966,6 +971,7 @@ ul {
 
     .cb_footer_modal {
       padding-top: 15px;
+      padding-bottom: 20px;
       border-top: 1px solid var(--borderColor);
       @extend .cb_flex;
       @extend .cb_align_items_center;
@@ -1143,6 +1149,8 @@ ul {
 .cb_collapse {
   padding: 20px;
   background: var(--grayColor);
+  border: 1px solid #ececec;
+  border-radius: 4px;
 
   .cb_collapse_title {
     display: flex;
@@ -1167,7 +1175,7 @@ ul {
       justify-content: center;
       font-size: 16px;
       margin-right: 10px;
-      @include BlackwindTransition(300ms);
+      @include DevoTransition(300ms);
     }
   }
 
@@ -1175,7 +1183,7 @@ ul {
     padding: 15px 0;
     padding-bottom: 0;
     display: none;
-    @include BlackwindTransition(300ms);
+    @include DevoTransition(300ms);
   }
 
   &.cb_active {

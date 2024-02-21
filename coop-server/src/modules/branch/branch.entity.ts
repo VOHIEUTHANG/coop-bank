@@ -20,10 +20,18 @@ import { BankRepresentative } from '../bank-representative/bank-representative.e
 export class Branch {
   @PrimaryColumn()
   branch_id: string;
-  @Column({ unique: true, nullable: false })
+  @Column({ nullable: false })
   branch_name: string;
-  @Column()
+  @Column({ nullable: true })
   address: string;
+  @Column({ nullable: true })
+  branch_province: string;
+  @Column()
+  interest_rate: number;
+  @Column()
+  bank_number: string;
+  @Column()
+  branch_fax: string;
   @Column()
   phone_number_main: string;
   @Column({ nullable: true })

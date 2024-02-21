@@ -66,7 +66,9 @@ const NotifySection = () => {
             className={classNames('cb_list_items', {
               cb_non_read: !o?.is_read,
             })}>
-            <span className={`fi ${typeNotify?.icon}`} style={{ width: '30px', height: '30px' }}></span>
+            <span
+              className={`fi ${typeNotify?.icon}`}
+              style={{ width: '30px', height: '30px', fontSize: '15px' }}></span>
             <h3>{o?.subject}</h3>
             <span>
               <b>{'Hệ thống'}</b> - {moment().format('DD/MM/YYYY')}

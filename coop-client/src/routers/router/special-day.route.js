@@ -10,6 +10,7 @@ const FunctionGroupRoutes = [
     name: 'Danh sách ngày đặc biệt',
     function: Permission.VIEW,
     component: DefaultPage,
+    any: true,
   },
 ];
 

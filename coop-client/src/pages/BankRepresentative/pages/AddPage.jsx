@@ -30,7 +30,7 @@ const AddPage = () => {
       }
       showToast.success(`${label} thành công !`);
     } catch (error) {
-      showToast.error(error.message?.length ? error.message[0] : error.message || 'Có lỗi xảy ra!');
+      showToast.error(error.message?.constructor === Array ? error.message[0] : error.message || 'Có lỗi xảy ra!');
     }
   };
 

@@ -51,7 +51,7 @@ function AppBreadcrumb(props) {
               isLinkable ? linkElement : 'span',
               { [linkElement === 'a' ? 'href' : 'to']: url },
               <IconHeader>
-                <i className='fi fi-rr-angle-circle-left' />
+                <i className='ti-arrow-circle-left' />
               </IconHeader>,
             )}
           </Breadcrumb.Item>

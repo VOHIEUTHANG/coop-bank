@@ -2,15 +2,15 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class MenuService {
-  findAll() {
-    return [
+  async findAll(user: any) {
+    const defaultMenuList = [
       {
         menu_id: '1',
         menu_name: 'BÁO CÁO',
         module_id: null,
         module_name: null,
         link_menu: '/',
-        icon_path: 'fi fi-rr-display-code',
+        icon_path: 'ti-bar-chart',
         parent_id: '0',
         is_active: 1,
         is_system: 0,
@@ -25,7 +25,7 @@ export class MenuService {
         module_id: null,
         module_name: null,
         link_menu: '/representative',
-        icon_path: 'fi fi-rr-user-add',
+        icon_path: 'ti-user',
         parent_id: '0',
         is_active: 1,
         is_system: 0,
@@ -40,7 +40,7 @@ export class MenuService {
         module_id: null,
         module_name: null,
         link_menu: '/affiliate-unit',
-        icon_path: 'fi fi-rr-users',
+        icon_path: 'ti-id-badge',
         parent_id: '0',
         is_active: 1,
         is_system: 0,
@@ -55,7 +55,7 @@ export class MenuService {
         module_id: null,
         module_name: null,
         link_menu: '/individual',
-        icon_path: 'fi fi-rr-user',
+        icon_path: 'ti-user',
         parent_id: '0',
         is_active: 1,
         is_system: 0,
@@ -70,7 +70,7 @@ export class MenuService {
         module_id: null,
         module_name: null,
         link_menu: '/customer-care',
-        icon_path: 'fi fi-rr-gift',
+        icon_path: 'ti-gift',
         parent_id: '0',
         is_active: 1,
         is_system: 0,
@@ -106,14 +106,17 @@ export class MenuService {
         order_index: '7',
         description: null,
         function_name: null
-      },
+      }
+    ];
+
+    const adminMenus = [
       {
         menu_id: '5',
         menu_name: 'HỆ THỐNG',
         module_id: null,
         module_name: null,
         link_menu: '#',
-        icon_path: 'fi fi-rr-settings',
+        icon_path: 'ti-settings',
         parent_id: '0',
         is_active: 1,
         is_system: 0,
@@ -165,5 +168,7 @@ export class MenuService {
         function_name: null
       }
     ];
+
+    return user.is_admin ? defaultMenuList.concat(adminMenus) : defaultMenuList;
   }
 }

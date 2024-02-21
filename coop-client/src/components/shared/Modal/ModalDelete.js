@@ -9,7 +9,7 @@ const ModalContent = styled.p`
 const headerModal = (
   <>
     <span className='cb_icon_notice'>
-      <i className='fi fi-rr-bell'></i>
+      <i className='fi ti-bell'></i>
     </span>{' '}
     Thông báo
   </>

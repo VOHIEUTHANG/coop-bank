@@ -35,7 +35,7 @@ const AddPage = () => {
       }
       showToast.success(`${label} thành công !`);
     } catch (error) {
-      showToast.error(error.message?.length ? error.message[0] : error.message || 'Có lỗi xảy ra!');
+      showToast.error(error.message?.constructor === Array ? error.message[0] : error.message || 'Có lỗi xảy ra!');
     }
   };
 
@@ -83,7 +83,7 @@ const AddPage = () => {
 
   const actions = [
     {
-      icon: 'fi fi-rr-print',
+      icon: 'ti-printer',
       submit: false,
       content: 'In biểu mẫu',
       className: 'cb_btn cb_btn_outline cb_btn_outline_success',

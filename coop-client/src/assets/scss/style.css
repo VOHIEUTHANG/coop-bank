@@ -4437,7 +4437,7 @@ video {
   content: '\f537';
 }
 
-.fi-rr-trash:before {
+.ti-trash:before {
   content: '\f538';
 }
 
@@ -6744,8 +6744,6 @@ ul li {
 
 .cb_radio input:checked ~ span::after,
 .cb_checkbox input:checked ~ span::after {
-  font-family: uicons-regular-rounded !important;
-  content: '\f211';
   font-size: 11px;
   line-height: 11px;
   color: var(--whiteColor);
@@ -7174,6 +7172,8 @@ ul li {
 .cb_collapse {
   padding: 20px;
   background: var(--grayColor);
+  border: 1px solid #ececec;
+  border-radius: 4px;
 }
 
 .cb_collapse .cb_collapse_title {
@@ -7517,7 +7517,7 @@ ul li {
   padding-right: 12px;
 }
 
-/*# sourceMappingURL=blackwind.css.map */
+/*# sourceMappingURL=DevoInput.css.map */
 
 .cb_input_right input {
   text-align: right !important;

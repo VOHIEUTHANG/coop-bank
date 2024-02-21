@@ -23,7 +23,7 @@ export class UsersService {
   }
 
   async findOneByUsername(username: string) {
-    const user = await this.repo.findOneBy({ username });
+    const user = await this.repo.findOne({ where: { username }, relations: ['branch'] });
     if (!user) {
       throw new NotFoundException('Không tìm thấy người dùng !');
     }

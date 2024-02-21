@@ -78,35 +78,31 @@ const RepresentativeTable = ({
     return [
       {
         globalAction: true,
-        icon: 'fi fi-rr-add',
+        icon: 'ti-plus',
         type: 'success',
         content: 'Thêm mới',
-        permission: Permissoin.ADD,
         onClick: () => window._$g.rdr(`/bank-representative/add`),
       },
       {
-        icon: 'fi fi-rr-edit',
+        icon: 'ti-write',
         color: 'blue',
         title: 'Sửa',
-        permission: Permissoin.EDIT,
         onClick: (p) => {
           window._$g.rdr(`/bank-representative/edit/${p?.bank_representative_id}`);
         },
       },
       {
-        icon: 'fi fi-rr-eye',
+        icon: 'ti-eye',
         color: 'green',
         title: 'Chi tiết',
-        permission: Permissoin.VIEW,
         onClick: (p) => {
           window._$g.rdr(`/bank-representative/detail/${p?.bank_representative_id}`);
         },
       },
       {
-        icon: 'fi fi-rr-trash',
+        icon: 'fi ti-trash',
         color: 'red',
         title: 'Xóa',
-        permission: Permissoin.DELETE,
         onClick: (_, d) =>
           dispatch(
             showConfirmModal(['Bạn có thực sự muốn xóa?', 'Bạn sẽ mất dữ liệu này và các dữ liệu liên quan.'], () =>

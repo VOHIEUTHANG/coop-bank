@@ -68,13 +68,16 @@ const NavHeader = () => {
           <i
             style={{
               cursor: 'pointer',
+              fontSize: '20px',
             }}
             onClick={() => {
               history.goBack();
             }}
-            className='fi fi-rr-angle-circle-left'></i>
+            className='ti-arrow-circle-left'></i>
         </a>
-        <span id='cb_form_title'>{getPageTitle}</span>
+        <span id='cb_form_title' style={{ fontWeight: 500 }}>
+          {getPageTitle}
+        </span>
       </h1>
       <div className='cb_right_header'>
         <Badge count={notifyCount} offset={[0, 10]}>
@@ -83,7 +86,7 @@ const NavHeader = () => {
               dispatch(showNotifyHeader(TYPE_NOTIFY.ANNOUNCE));
             }}
             className='cb_btn_header'>
-            <span className={`fi fi-rr-bell`}></span>
+            <span className={`fi ti-bell`}></span>
           </button>
         </Badge>
         <NotifyCommon />

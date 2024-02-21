@@ -9,19 +9,20 @@ import {
   JoinColumn,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { User } from '../../users/users.entity';
 import { APPLICATION_CONFIG } from 'src/config/application';
 import { Representative } from 'src/modules/representative/representative.entity';
+import { Individual } from 'src/modules/individual/entity/individual.entity';
 
 @Entity()
 export class AffiliateUnit {
   constructor(affiliateUnitId: string) {
     this.affiliate_unit_id = affiliateUnitId;
   }
-
   @PrimaryColumn()
   affiliate_unit_id: string;
   @Column({ nullable: false })
@@ -32,6 +33,12 @@ export class AffiliateUnit {
   affiliate_unit_level: number;
   @Column({ nullable: true })
   affiliate_unit_address: string;
+  @Column()
+  affiliate_unit_phone: string;
+  @Column({ nullable: true })
+  affiliate_unit_fax: string;
+  @Column({ nullable: true })
+  paid_date: number;
   @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   affiliate_unit_image_1: string;
@@ -67,6 +74,9 @@ export class AffiliateUnit {
     eager: true
   })
   representatives: Representative[];
+
+  @OneToMany(() => Individual, (individual) => individual.affiliate_unit)
+  individuals: Individual[];
 
   @Exclude()
   @ManyToOne(() => User, { eager: true })

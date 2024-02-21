@@ -36,6 +36,36 @@ export const AffiliateUnitLevelOptions = [
   },
 ];
 
+export const EXPORT_TYPE = {
+  AFFILATE_CONTRACT: 1,
+  SERVICE_CONTRACT: 2,
+  ASSIGN_PAY: 3,
+  PERIODICAL_CHECK: 4,
+};
+
+export const EXPORT_TYPE_OPTIONS = [
+  {
+    value: EXPORT_TYPE.AFFILATE_CONTRACT,
+    label: 'Hợp đồng liên kết',
+    file_name: 'hop_dong_lien_ket',
+  },
+  {
+    value: EXPORT_TYPE.SERVICE_CONTRACT,
+    label: 'Hợp đồng dịch vụ',
+    file_name: 'hop_dong_dich_vu',
+  },
+  {
+    value: EXPORT_TYPE.ASSIGN_PAY,
+    label: 'Giấy cử người trả tiền',
+    file_name: 'giay_cu_nguoi_tra_tien',
+  },
+  {
+    value: EXPORT_TYPE.PERIODICAL_CHECK,
+    label: 'Giấy kiểm tra định kỳ',
+    file_name: 'giay_kiem_tra_dinh_ky',
+  },
+];
+
 // export const Permission = {
 //   ADD: 'AFFILIATE_UNIT_ADD',
 //   EDIT: 'AFFILIATE_UNIT_EDIT',

@@ -1,7 +1,13 @@
 export enum Position {
-  Director, // giám đốc
-  ViceDirector, // phó giám đốc
-  Accountant, // kế toán
-  Principal, // hiệu trưởng
-  VicePrincipal // phó hiệu trưởng
+  PRINCIPAL = 1, // Hiệu trưởng
+  UNION_LEADER = 2, // Chủ tịch công đoàn
+  ACCOUNTANT = 3, //Kế toán trưởng
+  REPLACEMENT_REPRESENTATIVE = 4 // Người đại diện thay thế
 }
+
+export const EXPORT_TYPE = {
+  AFFILATE_CONTRACT: 1,
+  SERVICE_CONTRACT: 2,
+  ASSIGN_PAY: 3,
+  PERIODICAL_CHECK: 4
+};

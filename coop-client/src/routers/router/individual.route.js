@@ -13,6 +13,7 @@ const FunctionGroupRoutes = [
     name: 'Danh sách cá nhân vay vốn',
     function: Permissoin.VIEW,
     component: DefaultPage,
+    any: true,
   },
   {
     path: '/individual/add',
@@ -20,6 +21,7 @@ const FunctionGroupRoutes = [
     name: 'Thêm mới cá nhân vay vốn',
     function: Permissoin.ADD,
     component: AddPage,
+    any: true,
   },
   {
     path: '/individual/detail/:id',
@@ -27,6 +29,7 @@ const FunctionGroupRoutes = [
     name: 'Chi tiết cá nhân vay vốn',
     function: Permissoin.VIEW,
     component: DetailPage,
+    any: true,
   },
   {
     path: '/individual/edit/:id',
@@ -34,6 +37,7 @@ const FunctionGroupRoutes = [
     name: 'Chỉnh sửa cá nhân vay vốn',
     function: Permissoin.EDIT,
     component: EditPage,
+    any: true,
   },
 ];
 

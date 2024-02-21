@@ -80,40 +80,35 @@ const RepresentativeTable = ({
         type: 'success',
         content: 'Xuất excel',
         outline: true,
-        permission: Permission.EXPORT,
         onClick: exportExcel,
       },
       {
         globalAction: true,
-        icon: 'fi fi-rr-add',
+        icon: 'ti-plus',
         type: 'success',
         content: 'Thêm mới',
-        permission: Permission.ADD,
         onClick: () => window._$g.rdr(`gift/add`),
       },
       {
-        icon: 'fi fi-rr-edit',
+        icon: 'ti-write',
         color: 'blue',
         title: 'Sửa',
-        permission: Permission.EDIT,
         onClick: (p) => {
           window._$g.rdr(`gift/edit/${p?.gift_id}`);
         },
       },
       {
-        icon: 'fi fi-rr-eye',
+        icon: 'ti-eye',
         color: 'green',
         title: 'Chi tiết',
-        permission: Permission.VIEW,
         onClick: (p) => {
           window._$g.rdr(`gift/detail/${p?.gift_id}`);
         },
       },
       {
-        icon: 'fi fi-rr-trash',
+        icon: 'fi ti-trash',
         color: 'red',
         title: 'Xóa',
-        permission: Permission.DELETE,
         onClick: (_, d) =>
           dispatch(
             showConfirmModal(['Bạn có thực sự muốn xóa?', 'Bạn sẽ mất dữ liệu này và các dữ liệu liên quan.'], () =>

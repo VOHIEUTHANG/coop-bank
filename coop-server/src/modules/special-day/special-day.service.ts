@@ -7,7 +7,7 @@ import { Individual } from '../individual/entity/individual.entity';
 import moment from 'moment';
 import { DATE_FORMAT_DDMMYYYY } from 'src/constant/date.constant';
 import { DATE_TYPE, OBJECT_TYPE } from './special-day.constant';
-import { Position } from '../representative/constant';
+import { RepresentativePosition } from '../representative/representative.constant';
 import xl from 'excel4node';
 import excelHelper from 'src/helper/excel.helper';
 
@@ -56,7 +56,9 @@ export class SpecialDayService {
   async _getListBirthDayRepresentative(currentDate: Date, remainingDays: number) {
     const representatives = await this.representativeRepo
       .createQueryBuilder('rep')
-      .where('rep.representative_position = :position', { position: Position.PRINCIPAL })
+      .where('rep.representative_position = :position', {
+        position: RepresentativePosition.PRINCIPAL
+      })
       .andWhere(
         new Brackets((qb) =>
           qb
@@ -142,7 +144,9 @@ export class SpecialDayService {
   async _getListEffectiveDateFromRepresentative(currentDate: Date, remainingDays: number) {
     const representatives = await this.representativeRepo
       .createQueryBuilder('rep')
-      .where('rep.representative_position = :position', { position: Position.PRINCIPAL })
+      .where('rep.representative_position = :position', {
+        position: RepresentativePosition.PRINCIPAL
+      })
       .andWhere(
         new Brackets((qb) =>
           qb
@@ -187,7 +191,9 @@ export class SpecialDayService {
   async _getListEffectiveDateEndRepresentative(currentDate: Date, remainingDays: number) {
     const representatives = await this.representativeRepo
       .createQueryBuilder('rep')
-      .where('rep.representative_position = :position', { position: Position.PRINCIPAL })
+      .where('rep.representative_position = :position', {
+        position: RepresentativePosition.PRINCIPAL
+      })
       .andWhere(
         new Brackets((qb) =>
           qb

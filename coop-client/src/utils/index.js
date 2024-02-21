@@ -1,6 +1,7 @@
 import pathToRegexp from 'path-to-regexp';
 import classNames from 'classnames';
 import moment from 'moment';
+import { showToast } from './helpers';
 
 export const getErrorMessage = (error, msg = 'Đã có lỗi xảy ra. Vui lòng F5 thử lại') => {
   if (typeof error === 'string') return error;
@@ -277,4 +278,9 @@ export function downloadPDF(base64PDF, fileName = 'salary.pdf') {
   downloadLink.download = fileName;
   downloadLink.target = '_blank';
   downloadLink.click();
+}
+
+export function handleToastError(error, defaultMessage = 'Có lỗi xảy ra!') {
+  console.log('🚀 ~ handleToastError ~ error:', error);
+  showToast.error(Array.isArray(error?.message) ? error.message[0] : error.message || defaultMessage);
 }

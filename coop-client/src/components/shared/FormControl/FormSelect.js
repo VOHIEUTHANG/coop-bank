@@ -89,6 +89,7 @@ const FormSelect = ({
         options={list}
         removeIcon={() => '×'}
         onChange={(value) => {
+          console.log('🚀 ~ value:', value);
           methods.clearErrors(field);
           if (Array.isArray(value)) {
             methods.setValue(field, value.map(objectParse));

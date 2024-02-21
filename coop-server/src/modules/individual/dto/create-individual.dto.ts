@@ -1,6 +1,8 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import { IsEnum, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
 import { IsDateFormat } from 'src/common/validation';
+import { AffiliateUnit } from 'src/modules/affiliate-unit/entity/affiliate-unit.entity';
 import { User } from 'src/modules/users/users.entity';
 import { Gender } from 'src/types/data-type';
 
@@ -24,17 +26,12 @@ export class CreateIndividualDto {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  home_address: string;
+  current_address: string;
 
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  work_name: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  @IsOptional()
-  work_address: string;
+  origin_address: string;
 
   @ApiPropertyOptional()
   @IsDateFormat()
@@ -65,6 +62,14 @@ export class CreateIndividualDto {
   @IsOptional()
   id_issued_date: string;
 
+  @Transform(({ value }) => {
+    return typeof value === 'string' ? value : value && JSON.stringify(value);
+  })
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  export_data: string;
+
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
@@ -82,4 +87,11 @@ export class CreateIndividualDto {
 
   @IsOptional()
   created_user: User;
+
+  @IsOptional()
+  @IsString()
+  affiliate_unit_id: string;
+
+  @IsOptional()
+  affiliate_unit: AffiliateUnit;
 }

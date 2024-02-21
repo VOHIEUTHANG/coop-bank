@@ -3,7 +3,6 @@ import { useFormContext, useFieldArray } from 'react-hook-form';
 import DataTable from 'components/shared/DataTable/index';
 import Accordion from 'components/shared/Accordion/index';
 import ModalAddCustomer from '../Modal/RepresentativeModel';
-import { Permission } from '../../utils/constants';
 import { PositionOptions } from 'pages/Representative/utils/constants';
 
 const RepresentativeList = ({ disabled, title }) => {
@@ -54,7 +53,7 @@ const RepresentativeList = ({ disabled, title }) => {
     () => [
       {
         globalAction: true,
-        icon: 'fi fi-rr-add',
+        icon: 'ti-plus',
         type: 'success',
         content: 'Thêm người đại diện',
         onClick: () => {
@@ -62,7 +61,14 @@ const RepresentativeList = ({ disabled, title }) => {
         },
       },
       {
-        icon: 'fi fi-rr-trash',
+        icon: 'ti-eye',
+        disabled: disabled,
+        onClick: (item) => {
+          window.open(`/representative/detail/${item.representative_id}`, '_blank', 'rel=noopener noreferrer');
+        },
+      },
+      {
+        icon: 'fi ti-trash',
         color: 'red',
         disabled: disabled,
         onClick: (_, index) => {

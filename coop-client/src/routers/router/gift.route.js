@@ -13,6 +13,7 @@ const FunctionGroupRoutes = [
     name: 'Danh sách quà tặng',
     function: Permission.VIEW,
     component: DefaultPage,
+    any: true,
   },
   {
     path: '/gift/add',
@@ -20,6 +21,7 @@ const FunctionGroupRoutes = [
     name: 'Thêm mới quà tặng',
     function: Permission.ADD,
     component: AddPage,
+    any: true,
   },
   {
     path: '/gift/detail/:id',
@@ -27,6 +29,7 @@ const FunctionGroupRoutes = [
     name: 'Chi tiết quà tặng',
     function: Permission.VIEW,
     component: DetailPage,
+    any: true,
   },
   {
     path: '/gift/edit/:id',
@@ -34,6 +37,7 @@ const FunctionGroupRoutes = [
     name: 'Chỉnh sửa quà tặng',
     function: Permission.EDIT,
     component: EditPage,
+    any: true,
   },
 ];
 

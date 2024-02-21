@@ -287,7 +287,7 @@ export const typeNotifyOptions = [
     value: TYPE_NOTIFY.ANNOUNCE,
     label: 'Danh sách thông báo',
     apiUrl: 'special-day/notify',
-    icon: 'fi-rr-bell',
+    icon: 'ti-bell',
     redirectUrl: () => {
       return '/special-day';
     },

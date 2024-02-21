@@ -24,13 +24,13 @@ export class Representative {
   representative_id: string;
   @Column({ nullable: false })
   representative_name: string;
-  @Column()
+  @Column({ nullable: true })
   representative_email: string;
-  @Column()
+  @Column({ nullable: true })
   representative_position: number;
-  @Column()
+  @Column({ nullable: true })
   phone_number: string;
-  @Column()
+  @Column({ nullable: true })
   address: string;
   @Column()
   gender: Gender;
@@ -38,6 +38,8 @@ export class Representative {
   bank_number: string;
   @Column()
   bank_name: string;
+  @Column()
+  tax_code: string;
   @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
   @Column({ type: 'datetime' })
   birth_date: string;
@@ -65,11 +67,11 @@ export class Representative {
   @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
   @Column({ type: 'datetime' })
   effective_date_to: string;
-  @Column()
+  @Column({ nullable: true })
   decision_district: string;
-  @Column()
+  @Column({ nullable: true })
   decider_name: string;
-  @Column()
+  @Column({ nullable: true })
   decider_position: string;
 
   @Transform(({ value }) => value && moment(value).format(DATE_TIME_FORMAT))

@@ -53,7 +53,7 @@ const BankRepresentativeTable = ({
   return (
     <DataTable
       fieldCheck={'bank_representative_id'}
-      defaultDataSelect={methods.watch('representatives') || []}
+      defaultDataSelect={methods.watch('bankRepresentatives') || []}
       noSelect={false}
       hiddenDeleteClick
       columns={columns}

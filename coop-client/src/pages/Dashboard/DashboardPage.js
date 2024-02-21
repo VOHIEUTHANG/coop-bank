@@ -286,7 +286,7 @@ const DashboardPage = () => {
     //     <div className='cb_col_6 cb_mt_2'>
     //       <div className='cb_card_items'>
     //         <h2 className='cb_title_card'>
-    //           <span className='fi fi-rr-bell'></span> Thông báo nội bộ
+    //           <span className='ti-bell'></span> Thông báo nội bộ
     //         </h2>
     //         <div>
     //           <div className='cb_mt_2 cb_border_top'>

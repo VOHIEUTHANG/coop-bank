@@ -293,6 +293,18 @@
   padding: 4px 0px 4px;
 }
 
+/* CUSTOMER FONT ICON SIZE */
+[class^='ti-'] {
+  font-size: 11px;
+}
+.ti-printer,
+.ti-check {
+  font-size: 16px;
+}
+.ti-search {
+  font-size: 14px;
+}
+
 @media only screen and (max-width: 768px) {
   .antd-pro-components-global-header-index-header .antd-pro-components-global-header-index-logo {
     position: relative;

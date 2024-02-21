@@ -13,6 +13,7 @@ const FunctionGroupRoutes = [
     name: 'Danh sách người đại diện ngân hàng',
     function: Permissoin.VIEW,
     component: DefaultPage,
+    any: true,
   },
   {
     path: '/bank-representative/add',
@@ -20,6 +21,7 @@ const FunctionGroupRoutes = [
     name: 'Thêm mới người đại diện ngân hàng',
     function: Permissoin.ADD,
     component: AddPage,
+    any: true,
   },
   {
     path: '/bank-representative/detail/:id',
@@ -27,6 +29,7 @@ const FunctionGroupRoutes = [
     name: 'Chi tiết người đại diện ngân hàng',
     function: Permissoin.VIEW,
     component: DetailPage,
+    any: true,
   },
   {
     path: '/bank-representative/edit/:id',
@@ -34,6 +37,7 @@ const FunctionGroupRoutes = [
     name: 'Chỉnh sửa người đại diện ngân hàng',
     function: Permissoin.EDIT,
     component: EditPage,
+    any: true,
   },
 ];
 

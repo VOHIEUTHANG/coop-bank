@@ -12,6 +12,7 @@ const FunctionGroupRoutes = [
     name: 'Danh sách chi nhánh',
     function: 'BRANCH_VIEW',
     component: DefaultPage,
+    any: true,
   },
   {
     path: '/branch/add',
@@ -19,6 +20,7 @@ const FunctionGroupRoutes = [
     name: 'Thêm mới chi nhánh',
     function: 'BRANCH_ADD',
     component: AddPage,
+    any: true,
   },
   {
     path: '/branch/detail/:id',
@@ -26,6 +28,7 @@ const FunctionGroupRoutes = [
     name: 'Chi tiết chi nhánh',
     function: 'BRANCH_VIEW',
     component: DetailPage,
+    any: true,
   },
   {
     path: '/branch/edit/:id',
@@ -33,6 +36,7 @@ const FunctionGroupRoutes = [
     name: 'Chỉnh sửa chi nhánh',
     function: 'BRANCH_EDIT',
     component: EditPage,
+    any: true,
   },
 ];
 

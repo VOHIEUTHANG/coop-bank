@@ -10,7 +10,7 @@ const FunctionGroupRoutes = [
     path: '/user',
     exact: true,
     name: 'Danh sách nhân viên',
-    function: 'BRANCH_VIEW',
+    function: 'USER_VIEW',
     component: DefaultPage,
   },
   {

@@ -76,35 +76,31 @@ const AccountingPeriodTable = ({
     return [
       {
         globalAction: true,
-        icon: 'fi fi-rr-add',
+        icon: 'ti-plus',
         type: 'success',
         content: 'Thêm mới',
-        permission: 'BRANCH_ADD',
         onClick: () => window._$g.rdr(`/branch/add`),
       },
       {
-        icon: 'fi fi-rr-edit',
+        icon: 'ti-write',
         color: 'blue',
         title: 'Sửa',
-        permission: 'BRANCH_EDIT',
         onClick: (p) => {
           window._$g.rdr(`/branch/edit/${p?.branch_id}`);
         },
       },
       {
-        icon: 'fi fi-rr-eye',
+        icon: 'ti-eye',
         color: 'green',
         title: 'Chi tiết',
-        permission: 'BRANCH_VIEW',
         onClick: (p) => {
           window._$g.rdr(`/branch/detail/${p?.branch_id}`);
         },
       },
       {
-        icon: 'fi fi-rr-trash',
+        icon: 'fi ti-trash',
         color: 'red',
         title: 'Xóa',
-        permission: 'BRANCH_DEL',
         onClick: (_, d) =>
           dispatch(
             showConfirmModal(['Bạn có thực sự muốn xóa?', 'Bạn sẽ mất dữ liệu này và các dữ liệu liên quan.'], () =>

@@ -97,14 +97,35 @@ const BranchInfo = ({ disabled, title, id }) => {
         </div>
 
         <div class='cb_col_6'>
-          <FormItem label='Số tài khoản ngân hàng' disabled={disabled}>
-            <FormInput type='text' field='bank_number' placeholder='Nhập số tài khoản ngân hàng' />
+          <FormItem label='Số tài khoản ngân hàng' isRequired disabled={disabled}>
+            <FormInput
+              type='text'
+              field='bank_number'
+              placeholder='Nhập số tài khoản ngân hàng'
+              validation={{ required: 'Số tài khoản là bắt buộc' }}
+            />
           </FormItem>
         </div>
 
         <div class='cb_col_6'>
-          <FormItem label='Tên ngân hàng' disabled={disabled}>
-            <FormInput type='text' field='bank_name' placeholder='Nhập tên ngân hàng' />
+          <FormItem label='Tên ngân hàng' isRequired disabled={disabled}>
+            <FormInput
+              type='text'
+              field='bank_name'
+              placeholder='Nhập tên ngân hàng'
+              validation={{ required: 'Tên ngân hàng là bắt buộc' }}
+            />
+          </FormItem>
+        </div>
+
+        <div class='cb_col_6'>
+          <FormItem label='Mã số thuế' isRequired disabled={disabled}>
+            <FormInput
+              type='text'
+              field='tax_code'
+              placeholder='Nhập mã số thuế'
+              validation={{ required: 'Mã số thuế là bắt buộc' }}
+            />
           </FormItem>
         </div>
       </div>

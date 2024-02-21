@@ -87,7 +87,7 @@ export default function SelectModalTable({ handleOpenModalGift, noLoadData, cont
       onClick: handleOpenModalGift,
     },
     {
-      icon: 'fi fi-rr-eye',
+      icon: 'ti-eye',
       color: 'green',
       onClick: (item) => window.open(`/product/detail/${item.product_id}`),
     },

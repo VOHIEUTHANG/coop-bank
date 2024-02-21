@@ -5,6 +5,7 @@ import { store } from 'store';
 import { Provider } from 'react-redux';
 import { AuthProvider } from 'context/AuthProvider';
 import { ToastContainer } from 'react-toastify';
+import 'assets/css/themify-icons.css';
 import 'assets/scss/style.scss';
 import 'assets/scss/main.css';
 import 'styles/app.css';

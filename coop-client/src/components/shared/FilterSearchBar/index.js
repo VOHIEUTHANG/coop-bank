@@ -53,7 +53,7 @@ const FilterSearchBar = ({ title, actions, onSubmit, onClear, colSize = 3, expan
       <h3 className='cb_title_search'>
         <span>{title}</span>
         <span className='cb_close_search' onClick={() => setToggleSearch(!toggleSearch)}>
-          <i style={{ cursor: 'pointer' }} className='fi fi-rr-angle-small-down'></i>
+          <i style={{ cursor: 'pointer' }} className='ti-angle-down'></i>
         </span>
       </h3>
       {toggleSearch && (
@@ -106,7 +106,7 @@ const FilterSearchBar = ({ title, actions, onSubmit, onClear, colSize = 3, expan
                   style={{ marginRight: '10px' }}
                   type='button'
                   onClick={methods.handleSubmit(onSubmit)}>
-                  <span className='fi fi-rr-filter'></span> Tìm kiếm
+                  <span className='ti-search'></span> Tìm kiếm
                 </button>
                 <button
                   type='button'

@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from 'src/guards/local-auth.guard';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Public } from 'src/decorators/public-route.decorator';
 import { SigninUserDto } from '../users/dto/signin-user.dto';
@@ -37,14 +36,12 @@ export class AuthController {
     return user;
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('refresh-token')
   async refreshToken(@Request() req: any) {
     const newToken = await this.authService.getToken(req.user);
     return newToken;
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req: any) {
     if (!req?.user?.username) {

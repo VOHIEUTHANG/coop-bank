@@ -10,13 +10,16 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   Request,
-  Response
+  Response,
+  ValidationPipe
 } from '@nestjs/common';
 import { AffiliateUnitService } from './affiliate-unit.service';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateAffilicateUnitDto } from './dto/create-affiliate-unit.dto';
 import { FilterAffilicateUnitDto } from './dto/filter-affiliate-unit.dto';
 import { UpdateAffilicateUnitDto } from './dto/update-affiliate-unit.dto';
+import { ExportFormAffilateUnitDto } from './dto/export-form.dto';
+import { EXPORT_TYPE } from './affiliate-unit.constant';
 
 @ApiTags('Affiliate Unit')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -41,9 +44,27 @@ export class AffiliateUnitController {
   }
 
   @Get('export-form/:id')
-  async exportForm(@Param('id') id: string, @Response() response) {
-    const wordBuffer = await this.service.exportForm(id, {});
-
+  async exportForm(
+    @Param('id') affilateUnitId: string,
+    @Query(ValidationPipe) query: ExportFormAffilateUnitDto,
+    @Response() response,
+    @Request() request
+  ) {
+    let wordBuffer: any;
+    switch (query.export_type) {
+      case EXPORT_TYPE.AFFILATE_CONTRACT:
+        wordBuffer = await this.service.exportAffilateContract(affilateUnitId, request.user.sub);
+        break;
+      case EXPORT_TYPE.SERVICE_CONTRACT:
+        wordBuffer = await this.service.exportServicentract(affilateUnitId, request.user.sub);
+        break;
+      case EXPORT_TYPE.ASSIGN_PAY:
+        wordBuffer = await this.service.exportAssignPay(affilateUnitId, request.user.sub);
+        break;
+      case EXPORT_TYPE.PERIODICAL_CHECK:
+        wordBuffer = await this.service.exportPeriodicalCheck(affilateUnitId, request.user.sub);
+        break;
+    }
     response.send(wordBuffer);
   }
 

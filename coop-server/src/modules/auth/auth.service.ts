@@ -62,7 +62,9 @@ export class AuthService {
   async getToken(user: User) {
     const payload = {
       sub: user.user_id,
-      username: user.username
+      username: user.username,
+      is_admin: user.is_admin,
+      interest_rate: user.branch.interest_rate
     };
 
     return {

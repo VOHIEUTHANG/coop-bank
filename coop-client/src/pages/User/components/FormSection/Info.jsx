@@ -87,13 +87,16 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Chi nhánh' disabled={disabled}>
+          <FormItem label='Chi nhánh' isRequired disabled={disabled}>
             <FormSelect
               allowClear
               disabled={disabled}
               field='branch_id'
               placeholder='Chọn chi nhánh'
               list={branchOptions}
+              validation={{
+                required: 'Chi nhánh là bắt buộc',
+              }}
             />
           </FormItem>
         </div>

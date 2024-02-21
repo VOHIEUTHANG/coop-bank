@@ -14,6 +14,7 @@ import {
 import { Gender } from 'src/types/data-type';
 import { APPLICATION_CONFIG } from 'src/config/application';
 import { User } from 'src/modules/users/users.entity';
+import { AffiliateUnit } from 'src/modules/affiliate-unit/entity/affiliate-unit.entity';
 
 @Entity()
 export class Individual {
@@ -24,11 +25,9 @@ export class Individual {
   @Column({ nullable: true })
   phone_number: string;
   @Column({ nullable: true })
-  home_address: string;
+  current_address: string;
   @Column({ nullable: true })
-  work_name: string;
-  @Column({ nullable: true })
-  work_address: string;
+  origin_address: string;
   @Column()
   gender: Gender;
   @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
@@ -47,6 +46,15 @@ export class Individual {
   @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
   @Column({ type: 'datetime' })
   id_issued_date: string;
+  @Transform(({ value }) => {
+    try {
+      return value && JSON.parse(value);
+    } catch (error) {
+      console.error('Parse json export data field error !');
+    }
+  })
+  @Column({ nullable: true, length: 1000 })
+  export_data: string;
 
   @Column()
   @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
@@ -60,6 +68,19 @@ export class Individual {
   @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   appoint_file: string;
+
+  @Exclude()
+  @ManyToOne(() => AffiliateUnit, (affiliateUnit) => affiliateUnit.individuals, { eager: true })
+  @JoinColumn({ name: 'affiliate_unit_id' })
+  affiliate_unit: AffiliateUnit;
+
+  @Transform(({ obj }) => obj.affiliate_unit?.affiliate_unit_id)
+  @Expose()
+  affiliate_unit_id: string;
+
+  @Transform(({ obj }) => obj.affiliate_unit?.affiliate_unit_name)
+  @Expose()
+  affiliate_unit_name: string;
 
   @Transform(({ value }) => value && moment(value).format(DATE_TIME_FORMAT))
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
@@ -86,4 +107,7 @@ export class Individual {
   @Transform(({ obj }) => obj.created_user?.full_name)
   @Expose()
   created_fullname: string;
+
+  @Expose()
+  interest_rate: number;
 }

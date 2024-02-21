@@ -324,7 +324,7 @@ const DataTable = ({
                       onClick={() => {
                         handleBulkAction(dataSelect);
                       }}>
-                      <span className='fi fi-rr-add'></span> Chọn
+                      <span className='ti-plus'></span> Chọn
                     </button>
                   )}
                   <b>{dataSelect.length}</b> đang chọn{' '}
@@ -410,7 +410,7 @@ const DataTable = ({
           <div className='cb_row cb_mt_2 cb_show_table_page'>
             <div className='cb_col_6'>
               <p>
-                Show {totalShowRecord}/{totalItems} records
+                Hiển thị {totalShowRecord}/{totalItems} bản ghi
               </p>
             </div>
             <div className='cb_col_6 cb_flex cb_justify_content_right cb_align_items_center'>
@@ -422,7 +422,7 @@ const DataTable = ({
                     onChangePage(parseInt(currentPage) - 1);
                   }}
                   className={totalPages && currentPage !== 1 ? 'cb_active' : ''}>
-                  <span className='fi fi-rr-angle-small-left'></span>
+                  <span className='ti-angle-left'></span>
                 </button>
                 <InputNumberStyled
                   min={1}
@@ -445,7 +445,7 @@ const DataTable = ({
                     onChangePage(parseInt(currentPage) + 1);
                   }}
                   className={!(parseInt(totalPages) === parseInt(currentPage)) ? 'cb_active' : ''}>
-                  <span className='fi fi-rr-angle-small-right'></span>
+                  <span className='ti-angle-right'></span>
                 </button>
               </div>
             </div>

@@ -73,7 +73,8 @@ function MenuRecursive({ items, openKey, setOpenKey, recureSiveOpenKey, hiddenIc
                     [item.key]: !openKey[item.key],
                   });
                 }}
-                className='fi fi-rr-angle-small-right'
+                className='ti-angle-right'
+                style={{ fontSize: '10px' }}
                 open={openKey[item.key]}
               />
             )}

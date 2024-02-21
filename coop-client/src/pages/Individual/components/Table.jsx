@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { showConfirmModal } from 'actions/global';
 import { deleteIndividual } from 'services/individual.service';
 import DataTable from 'components/shared/DataTable/index';
-import { Permissoin, AffiliateUnitLevelOptions } from '../utils/constants';
 
 const RepresentativeTable = ({
   loading,
@@ -44,12 +43,12 @@ const RepresentativeTable = ({
       {
         header: 'Địa chỉ',
         classNameHeader: 'cb_text_center',
-        accessor: 'home_address',
+        accessor: 'current_address',
       },
       {
         header: 'Nơi công tác',
         classNameHeader: 'cb_text_center',
-        accessor: 'work_name',
+        accessor: 'affiliate_unit_name',
       },
       {
         header: 'Người tạo',
@@ -79,35 +78,31 @@ const RepresentativeTable = ({
     return [
       {
         globalAction: true,
-        icon: 'fi fi-rr-add',
+        icon: 'ti-plus',
         type: 'success',
         content: 'Thêm mới',
-        permission: Permissoin.ADD,
         onClick: () => window._$g.rdr(`individual/add`),
       },
       {
-        icon: 'fi fi-rr-edit',
+        icon: 'ti-write',
         color: 'blue',
         title: 'Sửa',
-        permission: Permissoin.EDIT,
         onClick: (p) => {
           window._$g.rdr(`individual/edit/${p?.individual_id}`);
         },
       },
       {
-        icon: 'fi fi-rr-eye',
+        icon: 'ti-eye',
         color: 'green',
         title: 'Chi tiết',
-        permission: Permissoin.VIEW,
         onClick: (p) => {
           window._$g.rdr(`individual/detail/${p?.individual_id}`);
         },
       },
       {
-        icon: 'fi fi-rr-trash',
+        icon: 'fi ti-trash',
         color: 'red',
         title: 'Xóa',
-        permission: Permissoin.DELETE,
         onClick: (_, d) =>
           dispatch(
             showConfirmModal(['Bạn có thực sự muốn xóa?', 'Bạn sẽ mất dữ liệu này và các dữ liệu liên quan.'], () =>

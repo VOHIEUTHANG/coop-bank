@@ -77,7 +77,7 @@ const AddRepresentativeModal = ({ open, onClose }) => {
                 methods.setValue('representatives', selectedList);
                 onClose();
               }}>
-              <span className='fi fi-rr-check'></span> Chọn
+              <span className='ti-check'></span> Chọn
             </button>
             <button type='button' className='cb_btn_outline' onClick={onClose}>
               Đóng

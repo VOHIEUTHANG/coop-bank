@@ -86,10 +86,10 @@ const ChangePassword = ({ onClose }) => {
               type='button'
               onClick={methods.handleSubmit(onSubmit)}
               className='cb_btn cb_btn_success'>
-              <span className='fi fi-rr-check'></span> Đổi mật khẩu
+              <span className='ti-check'></span> Đổi mật khẩu
             </button>
             <button onClick={onClose} type='button' className='cb_btn_outline cb_btn_outline_success'>
-              <span disabled={loading} className='fi fi-rr-refresh'></span>
+              <span disabled={loading} className='ti-close'></span>
               Đóng
             </button>
           </div>

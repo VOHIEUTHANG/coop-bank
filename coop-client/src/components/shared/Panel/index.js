@@ -68,7 +68,7 @@ const Panel = ({ onSubmit, loading, panes, actions, noActions, hasSubmit, ...pro
       } else if (isAdd || isEdit) {
         return (
           <button type='submit' className='cb_btn cb_btn_success'>
-            <span className='fi fi-rr-check'></span>Hoàn tất {isEdit ? 'chỉnh sửa' : 'thêm mới'}
+            <span className='ti-check'></span>Hoàn tất {isEdit ? 'chỉnh sửa' : 'thêm mới'}
           </button>
         );
       }

@@ -20,3 +20,11 @@ export const update = (params) => {
 export const deleteIndividual = (id) => {
   return httpClient.delete(`${path}/${id}`);
 };
+
+export const exportForm = (individualId, params = {}) => {
+  const header = {
+    responseType: `blob`,
+  };
+
+  return httpClient.get(path + `/export-form/${individualId}`, { params, ...header });
+};

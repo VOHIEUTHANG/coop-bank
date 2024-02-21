@@ -1,7 +1,7 @@
 :root {
   /** Site Color **/
   --mainColor: #576cbc;
-  --secondColor: #0b2447;
+  --secondColor: #24375e;
   --borderColor: #dddddd;
   --menuColor: #eeeeee;
   --borderMenuColor: #19376d;
@@ -34,8 +34,9 @@
 }
 .cb_contain .cb_sidebar {
   width: 280px;
-  background: var(--secondColor);
   height: 100vh;
+  background: #07223d;
+  background: linear-gradient(to bottom, #07223d, #284580);
   position: fixed;
   z-index: 3;
   transition: ease-in-out 300ms;
@@ -45,7 +46,7 @@
   display: flex;
   align-items: center;
   padding: 0 25px;
-  border-bottom: 1px solid var(--borderMenuColor);
+  border-right: 1px solid var(--borderMenuColor);
   position: relative;
 }
 .cb_contain .cb_sidebar .cb_logo .cb_main_logo {
@@ -998,16 +999,16 @@ form.cb_frm_change {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--secondColor);
+  background: linear-gradient(to right, var(--secondColor), rgb(0, 16, 51));
 }
 .cb_main_login .cb_form_login {
   display: block;
-  background: var(--mainColor);
+  margin-bottom: 20px;
   padding: 60px 50px;
   text-align: center;
   max-width: 450px;
   width: 100%;
-  border-radius: 30px;
+  border-radius: 12px;
   padding-bottom: 20px;
 }
 .cb_main_login .cb_form_login img {
@@ -1015,7 +1016,7 @@ form.cb_frm_change {
 }
 .cb_main_login .cb_form_login h1 {
   font-size: 25px;
-  color: var(--whiteColor);
+  color: #333;
   margin-top: 30px;
   font-weight: 600;
   margin-bottom: 30px;
@@ -1028,9 +1029,9 @@ form.cb_frm_change {
   background: none;
   padding: 12px 20px;
   font-size: 16px;
-  color: var(--whiteColor);
+  color: #333;
   border: 1px solid #666;
-  border-radius: 50px;
+  border-radius: 8px;
   text-align: center;
 }
 .cb_main_login .cb_form_login .cb_inp::-moz-placeholder {
@@ -1040,18 +1041,16 @@ form.cb_frm_change {
   color: var(--whiteColor);
 }
 .cb_main_login .cb_form_login .cb_btn_login {
-  background: var(--whiteColor);
-  border-color: var(--whiteColor);
-  color: var(--secondColor);
-  padding: 12px 60px;
+  color: white;
+  background: var(--secondColor);
+  border-color: #ccc;
+  padding: 24px 60px;
   font-size: 16px;
-  border-radius: 50px;
+  border-radius: 12px;
   font-weight: 600;
   margin: 10px 0;
 }
 .cb_main_login .cb_form_login .cb_btn_login:hover {
-  background: var(--secondColor);
-  border-color: var(--secondColor);
   color: var(--whiteColor);
 }
 .cb_main_login .cb_form_login p {
@@ -2293,6 +2292,9 @@ p.cb_time_send i {
 .cb_search_box {
   background: var(--grayColor);
   padding: 15px;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  border: 1px solid #e3e3e3;
 }
 
 .cb_btn_more_search {

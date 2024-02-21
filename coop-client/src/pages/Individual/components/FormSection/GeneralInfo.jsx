@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Accordion from 'components/shared/Accordion/index';
 import FormItem from 'components/shared/FormControl/FormItem';
 import FormInput from 'components/shared/FormControl/FormInput';
 import FormSelect from 'components/shared/FormControl/FormSelect';
-import { AffiliateUnitLevelOptions } from 'pages/AffiliateUnit/utils/constants';
 import FormDatePicker from 'components/shared/FormControl/FormDate';
 import FormRadioGroup from 'components/shared/FormControl/FormRadioGroup';
 import { GENDER } from 'pages/BankRepresentative/utils/constants';
+import { getOptions } from 'services/affiliate-unit.service';
 
 const Infomation = ({ disabled, title, id }) => {
+  const [affiliateUnitOptions, setAffiliateUnitOptions] = useState([]);
+
+  useEffect(() => {
+    getOptions().then(setAffiliateUnitOptions);
+  }, []);
+
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
@@ -43,7 +49,7 @@ const Infomation = ({ disabled, title, id }) => {
         </div>
 
         <div class='cb_col_6'>
-          <FormItem label='Ngày sinh' disabled={disabled}>
+          <FormItem label='Ngày sinh' isRequired disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
               field='birth_date'
@@ -53,19 +59,29 @@ const Infomation = ({ disabled, title, id }) => {
               }}
               bordered={false}
               allowClear
+              validation={{ required: 'Ngày sinh là bắt buộc' }}
             />
           </FormItem>
         </div>
 
         <div class='cb_col_6'>
-          <FormItem label='Địa chỉ nhà' isRequired disabled={disabled}>
+          <FormItem label='Địa chỉ nơi ở hiện tại' isRequired disabled={disabled}>
             <FormInput
               type='text'
-              field='home_address'
-              placeholder='Nhập địa chỉ nhà'
-              validation={{
-                required: 'Địa chỉ nhà là bắt buộc',
-              }}
+              field='current_address'
+              placeholder='Nhập địa chỉ nơi ở hiện tại'
+              validation={{ required: 'Địa chỉ chỗ ở hiện tại là bắt buộc' }}
+            />
+          </FormItem>
+        </div>
+
+        <div class='cb_col_6'>
+          <FormItem label='Địa chỉ thường trú' isRequired disabled={disabled}>
+            <FormInput
+              type='text'
+              field='origin_address'
+              placeholder='Nhập địa chỉ thường trú'
+              validation={{ required: 'Địa chỉ nơi thường trú là bắt buộc' }}
             />
           </FormItem>
         </div>
@@ -84,14 +100,13 @@ const Infomation = ({ disabled, title, id }) => {
         </div>
 
         <div class='cb_col_6'>
-          <FormItem label='Nơi công tác' disabled={disabled}>
-            <FormInput type='text' field='work_name' placeholder='Nhập nơi công tác' />
-          </FormItem>
-        </div>
-
-        <div class='cb_col_6'>
-          <FormItem label='Địa chỉ nơi công tác' disabled={disabled}>
-            <FormInput type='text' field='work_address' placeholder='Nhập địa chỉ nơi công tác' />
+          <FormItem label='Chọn đơn vị công tác' isRequired disabled={disabled}>
+            <FormSelect
+              list={affiliateUnitOptions || []}
+              field='affiliate_unit_id'
+              placeholder='--Chọn--'
+              validation={{ required: 'Đơn vị công tác là bắt buộc' }}
+            />
           </FormItem>
         </div>
       </div>

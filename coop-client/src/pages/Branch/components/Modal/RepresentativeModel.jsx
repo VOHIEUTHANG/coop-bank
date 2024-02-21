@@ -74,10 +74,10 @@ const AddRepresentativeModal = ({ open, onClose }) => {
             <button
               className='cb_btn cb_btn_success'
               onClick={() => {
-                methods.setValue('representatives', selectedList);
+                methods.setValue('bankRepresentatives', selectedList);
                 onClose();
               }}>
-              <span className='fi fi-rr-check'></span> Chọn
+              <span className='ti-check'></span> Chọn
             </button>
             <button type='button' className='cb_btn_outline' onClick={onClose}>
               Đóng

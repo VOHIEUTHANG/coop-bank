@@ -122,7 +122,7 @@ function SliderMenu(props) {
         background: '#0B2447',
       }}>
       <IconFoldOutlined collapsed={collapsed} onClick={onCollapse}>
-        <i className='fi fi-rr-angle-small-left'></i>
+        <i className='ti-angle-left'></i>
       </IconFoldOutlined>
 
       <div className='antd-pro-components-sider-menu-index-logo' key='logo' id='logo'>

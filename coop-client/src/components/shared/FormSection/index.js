@@ -102,7 +102,7 @@ const FormSection = ({
             ))}
           <CheckAccess permission={isEdit ? PERMISSION?.edit : PERMISSION?.add}>
             <button type='submit' className='cb_btn cb_btn_success'>
-              <span className='fi fi-rr-check'></span>Hoàn tất {isEdit ? 'chỉnh sửa' : 'thêm mới'}
+              <span className='ti-check'></span>Hoàn tất {isEdit ? 'chỉnh sửa' : 'thêm mới'}
             </button>
           </CheckAccess>
         </>
@@ -154,7 +154,7 @@ const FormSection = ({
                       }}
                       key={key}>
                       <a className={checkActive ? 'cb_active' : ''}>
-                        <span className='fi fi-rr-check'></span> {p?.title}
+                        <span className='ti-check'></span> {p?.title}
                       </a>
                     </li>
                   );

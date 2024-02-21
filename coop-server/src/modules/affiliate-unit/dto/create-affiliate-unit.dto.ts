@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
 import { IsDateFormat } from 'src/common/validation';
 import { Representative } from 'src/modules/representative/representative.entity';
 import { User } from 'src/modules/users/users.entity';
@@ -22,10 +22,23 @@ export class CreateAffilicateUnitDto {
   @IsOptional()
   affiliate_unit_level: number;
 
+  @ApiProperty()
+  @IsString()
+  affiliate_unit_address: string;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  paid_date: number;
+
+  @ApiProperty()
+  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  affiliate_unit_phone: string;
+
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  affiliate_unit_address: string;
+  affiliate_unit_fax: string;
 
   @ApiPropertyOptional()
   @IsString()

@@ -46,6 +46,11 @@ export class CreateRepresentativeDto {
   bank_name: string;
 
   @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  tax_code: string;
+
+  @ApiPropertyOptional()
   @IsDateFormat()
   @IsOptional()
   birth_date: string;

@@ -71,7 +71,8 @@ const UserSection = styled.div`
     position: absolute;
     width: 80%;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 6px;
+    overflow: hidden;
     top: 59px;
     z-index: 3;
     transition: 0.3s;
@@ -207,19 +208,6 @@ const SideBar = () => {
 
   return (
     <div id='sidebar__left' className='cb_sidebar'>
-      <div className='cb_logo'>
-        <a className='cb_main_logo' style={{ margin: '0 auto' }}>
-          <Link to='/'>
-            <img src={logo} />
-          </Link>
-        </a>
-        <a className='cb_footer_logo' style={{ margin: '0 auto' }}>
-          <Link to='/'>
-            <img src={logo_short} />
-          </Link>
-        </a>
-        {/* <span onClick={handleCollapse} id='cb_close_nav' className='fi fi-rr-angle-small-left'></span> */}
-      </div>
       <UserSection className='cb_user_admin cb_flex cb_align_items_center'>
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <img
@@ -250,7 +238,24 @@ const SideBar = () => {
           setOpenKey={setOpenKey}
         />
       </ul>
-      <i class='fa-regular fa-building'></i>
+
+      <div
+        className='cb_logo'
+        style={{
+          position: 'absolute',
+          bottom: 10,
+          left: 10,
+          right: 10,
+          background: 'var(--grayColor)',
+          borderRadius: 4,
+        }}>
+        <a className='cb_main_logo' style={{ margin: '0 auto' }}>
+          <Link to='/'>
+            <img src={logo} />
+          </Link>
+        </a>
+      </div>
+
       {modalChangePassword && (
         <ChangePassword
           onClose={() => {

@@ -7,6 +7,7 @@ const dashboardRoute = [
     name: 'Báo cáo',
     function: 'DASHBOARD_VIEW',
     component: DashboardPage,
+    any: true,
   },
 ];
 
