@@ -12,7 +12,6 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 import { Gender } from 'src/types/data-type';
-import { APPLICATION_CONFIG } from 'src/config/application';
 import { User } from 'src/modules/users/users.entity';
 import { AffiliateUnit } from 'src/modules/affiliate-unit/entity/affiliate-unit.entity';
 
@@ -35,10 +34,8 @@ export class Individual {
   birth_date: string;
   @Column({ unique: true, nullable: false })
   id_number: string;
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   id_front_image: string;
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   id_back_image: string;
   @Column()
@@ -57,15 +54,12 @@ export class Individual {
   export_data: string;
 
   @Column()
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   salary_file: string;
   @Column()
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   marriage_file: string;
   @Column()
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   appoint_file: string;
 

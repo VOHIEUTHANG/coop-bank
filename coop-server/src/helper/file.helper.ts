@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import { generateRandomFileName } from 'src/utils/string.util';
 import base64Helper from './base64.helper';
-import { APPLICATION_CONFIG } from 'src/config/application';
 
 @Injectable()
 export class FileService {
@@ -33,9 +32,7 @@ export class FileService {
   saveFileField(object: any, fieldName: string, folderName: string = 'images') {
     const fileUrl = base64Helper.isBase64(object[fieldName])
       ? this.saveBase64ToFile(object[fieldName], 'public/' + folderName)
-      : object[fieldName]?.startsWith(APPLICATION_CONFIG.base_url)
-        ? object[fieldName]?.substring(APPLICATION_CONFIG.base_url.length + 1)
-        : object[fieldName];
+      : object[fieldName];
 
     object[fieldName] = fileUrl;
   }

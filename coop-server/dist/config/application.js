@@ -15,16 +15,14 @@ exports.APPLICATION_CONFIG = {
     port: parseInt(process.env.PORT),
     nodenv: process.env.NODE_ENV,
     cookie_key: process.env.COOKIE_KEY,
-    jwt_secret: process.env.JWT_SECRET,
-    base_url: process.env.BASE_URL
+    jwt_secret: process.env.JWT_SECRET
 };
 exports.default = (0, config_1.registerAs)('application', () => {
     const validatonSchema = joi_1.default.object({
         port: joi_1.default.number().required(),
         nodenv: joi_1.default.string().valid(...Object.values(application_constant_1.NODE_ENV)),
         cookie_key: joi_1.default.string().required(),
-        jwt_secret: joi_1.default.string().required(),
-        base_url: joi_1.default.string().required()
+        jwt_secret: joi_1.default.string().required()
     }).unknown(true);
     return (0, joi_validation_1.default)(validatonSchema, exports.APPLICATION_CONFIG);
 });

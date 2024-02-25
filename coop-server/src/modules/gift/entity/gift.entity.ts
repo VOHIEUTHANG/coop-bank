@@ -12,7 +12,6 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 import { User } from '../../users/users.entity';
-import { APPLICATION_CONFIG } from 'src/config/application';
 import { AffiliateUnit } from 'src/modules/affiliate-unit/entity/affiliate-unit.entity';
 
 @Entity()
@@ -28,15 +27,12 @@ export class Gift {
   @Column({ type: 'datetime', nullable: true })
   gift_date: string;
 
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   gift_image_1: string;
 
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   gift_image_2: string;
 
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   gift_image_3: string;
 

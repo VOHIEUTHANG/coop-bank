@@ -11,8 +11,7 @@ export const APPLICATION_CONFIG = {
   port: parseInt(process.env.PORT),
   nodenv: process.env.NODE_ENV,
   cookie_key: process.env.COOKIE_KEY,
-  jwt_secret: process.env.JWT_SECRET,
-  base_url: process.env.BASE_URL
+  jwt_secret: process.env.JWT_SECRET
 };
 
 export default registerAs('application', () => {
@@ -20,8 +19,7 @@ export default registerAs('application', () => {
     port: Joi.number().required(),
     nodenv: Joi.string().valid(...Object.values(NODE_ENV)),
     cookie_key: Joi.string().required(),
-    jwt_secret: Joi.string().required(),
-    base_url: Joi.string().required()
+    jwt_secret: Joi.string().required()
   }).unknown(true);
 
   return JoiValidation(validatonSchema, APPLICATION_CONFIG);

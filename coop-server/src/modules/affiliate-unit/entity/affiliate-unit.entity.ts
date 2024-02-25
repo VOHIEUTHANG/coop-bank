@@ -14,7 +14,6 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 import { User } from '../../users/users.entity';
-import { APPLICATION_CONFIG } from 'src/config/application';
 import { Representative } from 'src/modules/representative/representative.entity';
 import { Individual } from 'src/modules/individual/entity/individual.entity';
 
@@ -39,13 +38,10 @@ export class AffiliateUnit {
   affiliate_unit_fax: string;
   @Column({ nullable: true })
   paid_date: number;
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   affiliate_unit_image_1: string;
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   affiliate_unit_image_2: string;
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   affiliate_unit_paycheck: string;
   @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))

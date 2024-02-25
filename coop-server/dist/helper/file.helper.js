@@ -15,7 +15,6 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const string_util_1 = require("../utils/string.util");
 const base64_helper_1 = __importDefault(require("./base64.helper"));
-const application_1 = require("../config/application");
 let FileService = class FileService {
     detectFileType(base64String) {
         const mimeTypeMatch = base64String.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,/);
@@ -35,9 +34,7 @@ let FileService = class FileService {
     saveFileField(object, fieldName, folderName = 'images') {
         const fileUrl = base64_helper_1.default.isBase64(object[fieldName])
             ? this.saveBase64ToFile(object[fieldName], 'public/' + folderName)
-            : object[fieldName]?.startsWith(application_1.APPLICATION_CONFIG.base_url)
-                ? object[fieldName]?.substring(application_1.APPLICATION_CONFIG.base_url.length + 1)
-                : object[fieldName];
+            : object[fieldName];
         object[fieldName] = fileUrl;
     }
 };

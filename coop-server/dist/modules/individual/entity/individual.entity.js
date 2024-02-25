@@ -18,7 +18,6 @@ const moment_1 = __importDefault(require("moment"));
 const date_constant_1 = require("../../../constant/date.constant");
 const typeorm_1 = require("typeorm");
 const data_type_1 = require("../../../types/data-type");
-const application_1 = require("../../../config/application");
 const users_entity_1 = require("../../users/users.entity");
 const affiliate_unit_entity_1 = require("../../affiliate-unit/entity/affiliate-unit.entity");
 let Individual = class Individual {
@@ -58,12 +57,10 @@ __decorate([
     __metadata("design:type", String)
 ], Individual.prototype, "id_number", void 0);
 __decorate([
-    (0, class_transformer_1.Transform)(({ value }) => value && `${application_1.APPLICATION_CONFIG.base_url}/${value}`),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Individual.prototype, "id_front_image", void 0);
 __decorate([
-    (0, class_transformer_1.Transform)(({ value }) => value && `${application_1.APPLICATION_CONFIG.base_url}/${value}`),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Individual.prototype, "id_back_image", void 0);
@@ -90,19 +87,16 @@ __decorate([
 ], Individual.prototype, "export_data", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    (0, class_transformer_1.Transform)(({ value }) => value && `${application_1.APPLICATION_CONFIG.base_url}/${value}`),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Individual.prototype, "salary_file", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    (0, class_transformer_1.Transform)(({ value }) => value && `${application_1.APPLICATION_CONFIG.base_url}/${value}`),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Individual.prototype, "marriage_file", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    (0, class_transformer_1.Transform)(({ value }) => value && `${application_1.APPLICATION_CONFIG.base_url}/${value}`),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], Individual.prototype, "appoint_file", void 0);

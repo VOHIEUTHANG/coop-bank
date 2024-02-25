@@ -18,7 +18,6 @@ const moment_1 = __importDefault(require("moment"));
 const date_constant_1 = require("../../../constant/date.constant");
 const typeorm_1 = require("typeorm");
 const users_entity_1 = require("../../users/users.entity");
-const application_1 = require("../../../config/application");
 const representative_entity_1 = require("../../representative/representative.entity");
 const individual_entity_1 = require("../../individual/entity/individual.entity");
 let AffiliateUnit = class AffiliateUnit {
@@ -60,17 +59,14 @@ __decorate([
     __metadata("design:type", Number)
 ], AffiliateUnit.prototype, "paid_date", void 0);
 __decorate([
-    (0, class_transformer_1.Transform)(({ value }) => value && `${application_1.APPLICATION_CONFIG.base_url}/${value}`),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], AffiliateUnit.prototype, "affiliate_unit_image_1", void 0);
 __decorate([
-    (0, class_transformer_1.Transform)(({ value }) => value && `${application_1.APPLICATION_CONFIG.base_url}/${value}`),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], AffiliateUnit.prototype, "affiliate_unit_image_2", void 0);
 __decorate([
-    (0, class_transformer_1.Transform)(({ value }) => value && `${application_1.APPLICATION_CONFIG.base_url}/${value}`),
     (0, typeorm_1.Column)({ nullable: true }),
     __metadata("design:type", String)
 ], AffiliateUnit.prototype, "affiliate_unit_paycheck", void 0);

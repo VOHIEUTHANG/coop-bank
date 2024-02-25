@@ -15,7 +15,6 @@ import {
 } from 'typeorm';
 import { User } from '../users/users.entity';
 import { Gender } from 'src/types/data-type';
-import { APPLICATION_CONFIG } from 'src/config/application';
 import { AffiliateUnit } from '../affiliate-unit/entity/affiliate-unit.entity';
 
 @Entity()
@@ -45,10 +44,8 @@ export class Representative {
   birth_date: string;
   @Column({ unique: true, nullable: false })
   id_number: string;
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   id_front_image: string;
-  @Transform(({ value }) => value && `${APPLICATION_CONFIG.base_url}/${value}`)
   @Column({ nullable: true })
   id_back_image: string;
   @Column()
