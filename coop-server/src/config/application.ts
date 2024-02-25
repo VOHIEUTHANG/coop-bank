@@ -3,7 +3,7 @@ import { config as dotenvConfig } from 'dotenv';
 import Joi from 'joi';
 import { getEnvPath } from '../helper/enviroment.helper';
 import JoiValidation from '../helper/joi-validation';
-import { NODE_ENV } from '../constant/applicatoin.constant';
+import { NODE_ENV } from '../constant/application.constant';
 
 dotenvConfig({ path: getEnvPath() });
 

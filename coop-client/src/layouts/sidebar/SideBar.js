@@ -208,37 +208,6 @@ const SideBar = () => {
 
   return (
     <div id='sidebar__left' className='cb_sidebar'>
-      <UserSection className='cb_user_admin cb_flex cb_align_items_center'>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <img
-            alt='avatar'
-            style={{
-              width: '40px',
-              height: '40px',
-              border: '0.01px solid #19376d',
-              borderRadius: '50%',
-            }}
-            src={default_avatar}
-          />
-          <span className='cb_hideen_nav'>
-            {user?.username} - {user?.full_name}
-          </span>
-        </div>
-
-        <div className='user__section__dropdown'>{menuUser.map((o) => o.label)}</div>
-      </UserSection>
-      <ul id='menu__list' className='cb_main_menu'>
-        <MenuRecursive
-          items={navigation}
-          openKey={openKey}
-          recureSiveOpenKey={(value) => {
-            setOpenKey({});
-            handleSetOpen(value);
-          }}
-          setOpenKey={setOpenKey}
-        />
-      </ul>
-
       <div
         className='cb_logo'
         style={{
@@ -255,6 +224,35 @@ const SideBar = () => {
           </Link>
         </a>
       </div>
+      <UserSection className='cb_user_admin cb_flex cb_align_items_center'>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <img
+            alt='avatar'
+            style={{
+              width: '40px',
+              height: '40px',
+              border: '0.01px solid #19376d',
+              borderRadius: '50%',
+            }}
+            src={default_avatar}
+          />
+          <span className='cb_hideen_nav'>
+            {user?.username} - {user?.full_name}
+          </span>
+        </div>
+        <div className='user__section__dropdown'>{menuUser.map((o) => o.label)}</div>
+      </UserSection>
+      <ul id='menu__list' className='cb_main_menu'>
+        <MenuRecursive
+          items={navigation}
+          openKey={openKey}
+          recureSiveOpenKey={(value) => {
+            setOpenKey({});
+            handleSetOpen(value);
+          }}
+          setOpenKey={setOpenKey}
+        />
+      </ul>
 
       {modalChangePassword && (
         <ChangePassword

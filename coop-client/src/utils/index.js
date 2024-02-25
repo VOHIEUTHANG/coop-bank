@@ -280,7 +280,6 @@ export function downloadPDF(base64PDF, fileName = 'salary.pdf') {
   downloadLink.click();
 }
 
-export function handleToastError(error, defaultMessage = 'Có lỗi xảy ra!') {
-  console.log('🚀 ~ handleToastError ~ error:', error);
+export function handleToastError(error, defaultMessage = 'Có lỗi xảy ra, vui lòng f5 để thử lại') {
   showToast.error(Array.isArray(error?.message) ? error.message[0] : error.message || defaultMessage);
 }

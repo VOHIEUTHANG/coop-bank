@@ -5,7 +5,7 @@ import { getEnvPath } from '../helper/enviroment.helper';
 import Joi from 'joi';
 import JoiValidation from '../helper/joi-validation';
 import { APPLICATION_CONFIG } from './application';
-import { NODE_ENV } from 'src/constant/applicatoin.constant';
+import { NODE_ENV } from '../constant/application.constant';
 
 dotenvConfig({ path: getEnvPath() });
 

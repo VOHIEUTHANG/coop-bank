@@ -64,7 +64,7 @@ export class AuthService {
       sub: user.user_id,
       username: user.username,
       is_admin: user.is_admin,
-      interest_rate: user.branch.interest_rate
+      interest_rate: user?.branch?.interest_rate
     };
 
     return {

@@ -23,7 +23,7 @@ const httpClient = () => {
   };
 
   const instance = axios.create({
-    baseURL: API_URL_ROOT,
+    baseURL: API_URL_ROOT + 'api/',
     headers: {
       'Content-Type': 'application/json',
     },

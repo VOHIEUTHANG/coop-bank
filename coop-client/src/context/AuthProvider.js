@@ -1,9 +1,10 @@
-import { getErrorMessage } from 'utils';
+import { getErrorMessage, handleToastError } from 'utils';
 import { notification } from 'antd';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { COOKIE_JWT } from 'utils/constants';
 import { getCookie, removeCookie } from 'utils/cookie';
 import { getProfile } from 'services/auth.service';
+import { showToast } from 'utils/helpers';
 
 const AuthContext = createContext({
   initializing: false,
@@ -52,7 +53,7 @@ export function AuthProvider({ children }) {
         setUser(profileData);
       }
     } catch (error) {
-      if (error.status !== 401) notification.error(getErrorMessage(error));
+      // showToast.error(handleToastError(error));
       setUser(null);
     } finally {
       setInitializing(false);
