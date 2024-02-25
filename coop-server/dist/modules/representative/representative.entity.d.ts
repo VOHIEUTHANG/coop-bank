@@ -1,0 +1,35 @@
+import { User } from '../users/users.entity';
+import { Gender } from 'src/types/data-type';
+import { AffiliateUnit } from '../affiliate-unit/entity/affiliate-unit.entity';
+export declare class Representative {
+    representative_id: string;
+    representative_name: string;
+    representative_email: string;
+    representative_position: number;
+    phone_number: string;
+    address: string;
+    gender: Gender;
+    bank_number: string;
+    bank_name: string;
+    tax_code: string;
+    birth_date: string;
+    id_number: string;
+    id_front_image: string;
+    id_back_image: string;
+    id_issued_by: string;
+    id_issued_date: string;
+    decision_number: string;
+    decision_date: string;
+    effective_date_from: string;
+    effective_date_to: string;
+    decision_district: string;
+    decider_name: string;
+    decider_position: string;
+    deleted_at: string;
+    created_at: string;
+    updated_at: string;
+    affiliateUnits: AffiliateUnit;
+    created_user: User;
+    created_username: string;
+    created_fullname: string;
+}
