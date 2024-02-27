@@ -20,6 +20,7 @@ const typeorm_1 = require("typeorm");
 const users_entity_1 = require("../users/users.entity");
 const data_type_1 = require("../../types/data-type");
 const branch_entity_1 = require("../branch/branch.entity");
+const transaction_room_entity_1 = require("../transaction-room/transaction-room.entity");
 let BankRepresentative = class BankRepresentative {
     constructor(bank_representative_id) {
         this.bank_representative_id = bank_representative_id;
@@ -97,9 +98,14 @@ __decorate([
     __metadata("design:type", Array)
 ], BankRepresentative.prototype, "branches", void 0);
 __decorate([
+    (0, typeorm_1.ManyToMany)(() => transaction_room_entity_1.TransactionRoom, (transactionRoom) => transactionRoom.bankRepresentatives),
+    (0, typeorm_1.JoinTable)({ name: 'bank_representative_transaction_room' }),
+    __metadata("design:type", Array)
+], BankRepresentative.prototype, "transaction_rooms", void 0);
+__decorate([
     (0, class_transformer_1.Exclude)(),
     (0, typeorm_1.ManyToOne)(() => users_entity_1.User, { eager: true }),
-    (0, typeorm_1.JoinColumn)({ name: 'created_}user' }),
+    (0, typeorm_1.JoinColumn)({ name: 'created_user' }),
     __metadata("design:type", users_entity_1.User)
 ], BankRepresentative.prototype, "created_user", void 0);
 __decorate([

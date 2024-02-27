@@ -9,6 +9,7 @@ import {
   MinLength
 } from 'class-validator';
 import { Branch } from 'src/modules/branch/branch.entity';
+import { TransactionRoom } from 'src/modules/transaction-room/transaction-room.entity';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -46,4 +47,10 @@ export class CreateUserDto {
   branch_id: string;
   @IsOptional()
   branch: Branch;
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  transaction_room_id: string;
+  @IsOptional()
+  transaction_room: TransactionRoom;
 }

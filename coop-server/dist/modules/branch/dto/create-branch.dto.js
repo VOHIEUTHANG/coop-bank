@@ -65,12 +65,6 @@ __decorate([
     __metadata("design:type", String)
 ], CreateBranchDto.prototype, "phone_number_sub", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)(),
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], CreateBranchDto.prototype, "fax", void 0);
-__decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", users_entity_1.User)
 ], CreateBranchDto.prototype, "created_user", void 0);

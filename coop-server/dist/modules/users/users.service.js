@@ -23,6 +23,7 @@ const users_entity_1 = require("./users.entity");
 const page_dto_1 = require("../../common/dto/page.dto");
 const branch_entity_1 = require("../branch/branch.entity");
 const hash_password_helper_1 = __importDefault(require("../../helper/hash-password.helper"));
+const transaction_room_entity_1 = require("../transaction-room/transaction-room.entity");
 let UsersService = class UsersService {
     constructor(repo, dataSource) {
         this.repo = repo;
@@ -33,14 +34,20 @@ let UsersService = class UsersService {
         return this.repo.save(user);
     }
     async findOneByUsername(username) {
-        const user = await this.repo.findOne({ where: { username }, relations: ['branch'] });
+        const user = await this.repo.findOne({
+            where: { username },
+            relations: ['branch', 'transaction_room']
+        });
         if (!user) {
             throw new common_1.NotFoundException('Không tìm thấy người dùng !');
         }
         return user;
     }
     async findOneBy(condition) {
-        const user = await this.repo.findOne({ where: condition, relations: ['branch'] });
+        const user = await this.repo.findOne({
+            where: condition,
+            relations: ['branch', 'transaction_room']
+        });
         if (!user) {
             throw new common_1.NotFoundException(`Không tìm thấy người dùng !`);
         }
@@ -81,6 +88,9 @@ let UsersService = class UsersService {
         if (updateData.branch_id) {
             const branch = new branch_entity_1.Branch(updateData.branch_id);
             user.branch = branch;
+        }
+        if (updateData.transaction_room_id) {
+            user.transaction_room = new transaction_room_entity_1.TransactionRoom(updateData.transaction_room_id);
         }
         return this.repo.save(user);
     }

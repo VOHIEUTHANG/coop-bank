@@ -12,6 +12,7 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Branch } from '../branch/branch.entity';
+import { TransactionRoom } from '../transaction-room/transaction-room.entity';
 
 @Injectable()
 export class AuthService {
@@ -37,6 +38,10 @@ export class AuthService {
     if (userData.branch_id) {
       const branch = new Branch(userData.branch_id);
       userData.branch = branch;
+    }
+
+    if (userData.transaction_room_id) {
+      userData.transaction_room = new TransactionRoom(userData.transaction_room_id);
     }
 
     const user = await this.userService.create(userData);
