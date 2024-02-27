@@ -140,6 +140,20 @@ export class MenuService {
         function_name: null
       },
       {
+        menu_id: '99',
+        menu_name: 'Phòng giao dịch',
+        module_id: null,
+        module_name: null,
+        link_menu: '/transaction-room',
+        parent_id: '5',
+        is_active: 1,
+        is_system: 0,
+        is_business: 0,
+        order_index: '10',
+        description: null,
+        function_name: null
+      },
+      {
         menu_id: '7',
         menu_name: 'Đại diện',
         module_id: null,

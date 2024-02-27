@@ -17,6 +17,7 @@ import { IndividualModule } from '../individual/individual.module';
 import { GiftModule } from '../gift/gift.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { SpecialDayModule } from '../special-day/special-day.module';
+import { TransactionRoomModule } from '../transaction-room/transaction-room.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { SpecialDayModule } from '../special-day/special-day.module';
     AffiliateUnitModule,
     IndividualModule,
     GiftModule,
-    SpecialDayModule
+    SpecialDayModule,
+    TransactionRoomModule
   ],
   providers: [
     {

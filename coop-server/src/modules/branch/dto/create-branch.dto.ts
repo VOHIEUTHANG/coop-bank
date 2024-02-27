@@ -34,10 +34,6 @@ export class CreateBranchDto {
   @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
   @IsOptional()
   phone_number_sub: string;
-  @ApiProperty()
-  @IsString()
-  @IsOptional()
-  fax: string;
   @IsOptional()
   created_user: User;
   @IsOptional()

@@ -16,6 +16,7 @@ import {
 import { User } from '../users/users.entity';
 import { Gender } from 'src/types/data-type';
 import { Branch } from '../branch/branch.entity';
+import { TransactionRoom } from '../transaction-room/transaction-room.entity';
 
 @Entity()
 export class BankRepresentative {
@@ -62,9 +63,13 @@ export class BankRepresentative {
   @JoinTable({ name: 'bank_representative_branch' })
   branches: Branch[];
 
+  @ManyToMany(() => TransactionRoom, (transactionRoom) => transactionRoom.bankRepresentatives)
+  @JoinTable({ name: 'bank_representative_transaction_room' })
+  transaction_rooms: TransactionRoom[];
+
   @Exclude()
   @ManyToOne(() => User, { eager: true })
-  @JoinColumn({ name: 'created_}user' })
+  @JoinColumn({ name: 'created_user' })
   created_user: User;
 
   @Transform(({ obj }) => obj.created_user?.username)

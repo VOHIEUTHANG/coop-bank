@@ -13,6 +13,7 @@ exports.CreateUserDto = void 0;
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
 const branch_entity_1 = require("../../branch/branch.entity");
+const transaction_room_entity_1 = require("../../transaction-room/transaction-room.entity");
 class CreateUserDto {
 }
 exports.CreateUserDto = CreateUserDto;
@@ -69,4 +70,14 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", branch_entity_1.Branch)
 ], CreateUserDto.prototype, "branch", void 0);
+__decorate([
+    (0, swagger_1.ApiPropertyOptional)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "transaction_room_id", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", transaction_room_entity_1.TransactionRoom)
+], CreateUserDto.prototype, "transaction_room", void 0);
 //# sourceMappingURL=create-user.dto.js.map

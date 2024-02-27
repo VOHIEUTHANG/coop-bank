@@ -19,6 +19,7 @@ const date_constant_1 = require("../../constant/date.constant");
 const typeorm_1 = require("typeorm");
 const users_entity_1 = require("../users/users.entity");
 const bank_representative_entity_1 = require("../bank-representative/bank-representative.entity");
+const transaction_room_entity_1 = require("../transaction-room/transaction-room.entity");
 let Branch = class Branch {
     constructor(branch_id) {
         this.branch_id = branch_id;
@@ -62,10 +63,6 @@ __decorate([
     __metadata("design:type", String)
 ], Branch.prototype, "phone_number_sub", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
-    __metadata("design:type", String)
-], Branch.prototype, "fax", void 0);
-__decorate([
     (0, class_transformer_1.Transform)(({ value }) => value && (0, moment_1.default)(value).format(date_constant_1.DATE_TIME_FORMAT)),
     (0, typeorm_1.DeleteDateColumn)({ type: 'timestamp', nullable: true }),
     __metadata("design:type", String)
@@ -107,6 +104,10 @@ __decorate([
     (0, typeorm_1.ManyToMany)(() => bank_representative_entity_1.BankRepresentative, (bankRepresentative) => bankRepresentative.branches),
     __metadata("design:type", Array)
 ], Branch.prototype, "bankRepresentatives", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => transaction_room_entity_1.TransactionRoom, (transactionRoom) => transactionRoom.branch),
+    __metadata("design:type", Array)
+], Branch.prototype, "transaction_rooms", void 0);
 exports.Branch = Branch = __decorate([
     (0, typeorm_1.Entity)(),
     __metadata("design:paramtypes", [String])

@@ -8,6 +8,7 @@ import individualRoute from './router/individual.route';
 import giftRoute from './router/gift.route';
 import specialDayRoute from './router/special-day.route';
 import branchRoute from './router/branch.route';
+import transactionRoute from './router/transaction-room.route';
 
 const notFoundPages = [
   {
@@ -29,6 +30,7 @@ const routes = [
   ...individualRoute,
   ...giftRoute,
   ...specialDayRoute,
+  ...transactionRoute,
 ];
 
 export default routes;
