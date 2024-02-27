@@ -18,16 +18,8 @@ const moment_1 = __importDefault(require("moment"));
 const date_constant_1 = require("../../constant/date.constant");
 const typeorm_1 = require("typeorm");
 const branch_entity_1 = require("../branch/branch.entity");
+const transaction_room_entity_1 = require("../transaction-room/transaction-room.entity");
 let User = class User {
-    logInsert() {
-        console.log('Insert new user:', this);
-    }
-    logUpdate() {
-        console.log('Update user:', this);
-    }
-    logRemove() {
-        console.log('Remove user:', this);
-    }
     constructor(user_id) {
         this.user_id = user_id;
     }
@@ -101,23 +93,21 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "branch_name", void 0);
 __decorate([
-    (0, typeorm_1.AfterInsert)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], User.prototype, "logInsert", null);
+    (0, class_transformer_1.Exclude)(),
+    (0, typeorm_1.ManyToOne)(() => transaction_room_entity_1.TransactionRoom, (transactionRoom) => transactionRoom.users),
+    (0, typeorm_1.JoinColumn)({ name: 'transaction_room_di' }),
+    __metadata("design:type", transaction_room_entity_1.TransactionRoom)
+], User.prototype, "transaction_room", void 0);
 __decorate([
-    (0, typeorm_1.AfterUpdate)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], User.prototype, "logUpdate", null);
+    (0, class_transformer_1.Transform)(({ obj }) => obj.transaction_room?.transaction_room_id),
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], User.prototype, "transaction_room_id", void 0);
 __decorate([
-    (0, typeorm_1.AfterRemove)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], User.prototype, "logRemove", null);
+    (0, class_transformer_1.Transform)(({ obj }) => obj.transaction_room?.transaction_room_name),
+    (0, class_transformer_1.Expose)(),
+    __metadata("design:type", String)
+], User.prototype, "transaction_room_name", void 0);
 exports.User = User = __decorate([
     (0, typeorm_1.Entity)(),
     __metadata("design:paramtypes", [Number])

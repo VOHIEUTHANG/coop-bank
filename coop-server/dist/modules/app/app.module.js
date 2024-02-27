@@ -32,6 +32,7 @@ const individual_module_1 = require("../individual/individual.module");
 const gift_module_1 = require("../gift/gift.module");
 const schedule_1 = require("@nestjs/schedule");
 const special_day_module_1 = require("../special-day/special-day.module");
+const transaction_room_module_1 = require("../transaction-room/transaction-room.module");
 let AppModule = class AppModule {
     constructor(config) {
         this.config = config;
@@ -64,7 +65,8 @@ exports.AppModule = AppModule = __decorate([
             affiliate_unit_module_1.AffiliateUnitModule,
             individual_module_1.IndividualModule,
             gift_module_1.GiftModule,
-            special_day_module_1.SpecialDayModule
+            special_day_module_1.SpecialDayModule,
+            transaction_room_module_1.TransactionRoomModule
         ],
         providers: [
             {

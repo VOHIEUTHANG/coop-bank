@@ -1,6 +1,7 @@
 import { User } from '../users/users.entity';
 import { Gender } from 'src/types/data-type';
 import { Branch } from '../branch/branch.entity';
+import { TransactionRoom } from '../transaction-room/transaction-room.entity';
 export declare class BankRepresentative {
     bank_representative_id: string;
     bank_representative_name: string;
@@ -17,6 +18,7 @@ export declare class BankRepresentative {
     created_at: string;
     updated_at: string;
     branches: Branch[];
+    transaction_rooms: TransactionRoom[];
     created_user: User;
     created_username: string;
     created_fullname: string;

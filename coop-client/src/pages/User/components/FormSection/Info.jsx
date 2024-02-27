@@ -8,7 +8,8 @@ import { Input } from 'antd';
 import { useFormContext } from 'react-hook-form';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import FormSelect from 'components/shared/FormControl/FormSelect';
-import { getOptions } from 'services/branch.service';
+import { getOptions as getTransactionRoomOptions } from 'services/transaction-room.service';
+import { getOptions as getBranchOptoins } from 'services/branch.service';
 
 const CustomInput = styled.div`
   .ant-input-password {
@@ -22,9 +23,11 @@ const CustomInput = styled.div`
 const UserInfo = ({ disabled, title, id, is_add }) => {
   const methods = useFormContext();
   const [branchOptions, setBranchOptions] = useState([]);
+  const [transactionRoomOptions, setTransactionRoomOptions] = useState([]);
 
   useEffect(() => {
-    getOptions().then(setBranchOptions);
+    getBranchOptoins().then(setBranchOptions);
+    getTransactionRoomOptions().then(setTransactionRoomOptions);
   }, []);
 
   return (
@@ -96,6 +99,21 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
               list={branchOptions}
               validation={{
                 required: 'Chi nhánh là bắt buộc',
+              }}
+            />
+          </FormItem>
+        </div>
+
+        <div className='cb_col_6'>
+          <FormItem label='Phòng giao dịch' isRequired disabled={disabled}>
+            <FormSelect
+              allowClear
+              disabled={disabled}
+              field='transaction_room_id'
+              placeholder='Chọn Phòng giao dịch'
+              list={transactionRoomOptions}
+              validation={{
+                required: 'Phòng giao dịch là bắt buộc',
               }}
             />
           </FormItem>

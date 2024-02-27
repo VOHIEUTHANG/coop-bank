@@ -2,9 +2,6 @@ import { Exclude, Expose, Transform } from 'class-transformer';
 import moment from 'moment';
 import { DATE_TIME_FORMAT } from 'src/constant/date.constant';
 import {
-  AfterInsert,
-  AfterRemove,
-  AfterUpdate,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -15,6 +12,7 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 import { Branch } from '../branch/branch.entity';
+import { TransactionRoom } from '../transaction-room/transaction-room.entity';
 
 @Entity()
 export class User {
@@ -61,18 +59,18 @@ export class User {
   @Expose()
   branch_name: string;
 
-  @AfterInsert()
-  private logInsert() {
-    console.log('Insert new user:', this);
-  }
-  @AfterUpdate()
-  private logUpdate() {
-    console.log('Update user:', this);
-  }
-  @AfterRemove()
-  private logRemove() {
-    console.log('Remove user:', this);
-  }
+  @Exclude()
+  @ManyToOne(() => TransactionRoom, (transactionRoom) => transactionRoom.users)
+  @JoinColumn({ name: 'transaction_room_di' })
+  transaction_room: TransactionRoom;
+
+  @Transform(({ obj }) => obj.transaction_room?.transaction_room_id)
+  @Expose()
+  transaction_room_id: string;
+
+  @Transform(({ obj }) => obj.transaction_room?.transaction_room_name)
+  @Expose()
+  transaction_room_name: string;
 
   constructor(user_id: number) {
     this.user_id = user_id;

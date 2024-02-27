@@ -15,6 +15,7 @@ import {
 } from 'typeorm';
 import { User } from '../users/users.entity';
 import { BankRepresentative } from '../bank-representative/bank-representative.entity';
+import { TransactionRoom } from '../transaction-room/transaction-room.entity';
 
 @Entity()
 export class Branch {
@@ -36,8 +37,6 @@ export class Branch {
   phone_number_main: string;
   @Column({ nullable: true })
   phone_number_sub: string;
-  @Column({ nullable: true })
-  fax: string;
   @Transform(({ value }) => value && moment(value).format(DATE_TIME_FORMAT))
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deleted_at: string;
@@ -69,6 +68,9 @@ export class Branch {
 
   @ManyToMany(() => BankRepresentative, (bankRepresentative) => bankRepresentative.branches)
   bankRepresentatives: BankRepresentative[];
+
+  @OneToMany(() => TransactionRoom, (transactionRoom) => transactionRoom.branch)
+  transaction_rooms: TransactionRoom[];
 
   constructor(branch_id: string) {
     this.branch_id = branch_id;

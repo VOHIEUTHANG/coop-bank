@@ -10,7 +10,6 @@ export declare class CreateBranchDto {
     branch_province: string;
     phone_number_main: string;
     phone_number_sub: string;
-    fax: string;
     created_user: User;
     bankRepresentatives: BankRepresentative[];
 }

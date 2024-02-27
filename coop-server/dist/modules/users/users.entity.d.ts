@@ -1,4 +1,5 @@
 import { Branch } from '../branch/branch.entity';
+import { TransactionRoom } from '../transaction-room/transaction-room.entity';
 export declare class User {
     user_id: number;
     username: string;
@@ -14,8 +15,8 @@ export declare class User {
     branch: Branch;
     branch_id: string;
     branch_name: string;
-    private logInsert;
-    private logUpdate;
-    private logRemove;
+    transaction_room: TransactionRoom;
+    transaction_room_id: string;
+    transaction_room_name: string;
     constructor(user_id: number);
 }

@@ -9,6 +9,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Branch } from '../branch/branch.entity';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import PasswordHelper from 'src/helper/hash-password.helper';
+import { TransactionRoom } from '../transaction-room/transaction-room.entity';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +24,10 @@ export class UsersService {
   }
 
   async findOneByUsername(username: string) {
-    const user = await this.repo.findOne({ where: { username }, relations: ['branch'] });
+    const user = await this.repo.findOne({
+      where: { username },
+      relations: ['branch', 'transaction_room']
+    });
     if (!user) {
       throw new NotFoundException('Không tìm thấy người dùng !');
     }
@@ -31,7 +35,10 @@ export class UsersService {
   }
 
   async findOneBy(condition: Partial<User>) {
-    const user = await this.repo.findOne({ where: condition, relations: ['branch'] });
+    const user = await this.repo.findOne({
+      where: condition,
+      relations: ['branch', 'transaction_room']
+    });
     if (!user) {
       throw new NotFoundException(`Không tìm thấy người dùng !`);
     }
@@ -81,6 +88,10 @@ export class UsersService {
     if (updateData.branch_id) {
       const branch = new Branch(updateData.branch_id);
       user.branch = branch;
+    }
+
+    if (updateData.transaction_room_id) {
+      user.transaction_room = new TransactionRoom(updateData.transaction_room_id);
     }
 
     return this.repo.save(user);

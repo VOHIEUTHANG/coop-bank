@@ -24,6 +24,7 @@ const users_entity_1 = require("../users/users.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
 const branch_entity_1 = require("../branch/branch.entity");
+const transaction_room_entity_1 = require("../transaction-room/transaction-room.entity");
 let AuthService = class AuthService {
     constructor(userService, jwtService, repo) {
         this.userService = userService;
@@ -44,6 +45,9 @@ let AuthService = class AuthService {
         if (userData.branch_id) {
             const branch = new branch_entity_1.Branch(userData.branch_id);
             userData.branch = branch;
+        }
+        if (userData.transaction_room_id) {
+            userData.transaction_room = new transaction_room_entity_1.TransactionRoom(userData.transaction_room_id);
         }
         const user = await this.userService.create(userData);
         return user;
