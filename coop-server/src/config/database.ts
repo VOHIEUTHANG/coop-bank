@@ -19,8 +19,7 @@ export const DATABASE_CONFIG = {
   entities: ['dist/**/*.entity{.ts,.js}'],
   migrations: ['dist/migrations/*{.ts,.js}'],
   autoLoadEntities: true,
-  // synchronize: [NODE_ENV.DEVELOPMENT, NODE_ENV.TEST].includes(APPLICATION_CONFIG.nodenv),
-  synchronize: true,
+  synchronize: [NODE_ENV.DEVELOPMENT, NODE_ENV.TEST].includes(APPLICATION_CONFIG.nodenv),
   migrationsRun: APPLICATION_CONFIG.nodenv === NODE_ENV.PRODUCTION
 };
 
