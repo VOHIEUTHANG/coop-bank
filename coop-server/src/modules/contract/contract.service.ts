@@ -208,23 +208,22 @@ export class ContractService {
       individual_fullname_lc: individualData.individual_fullname,
       affiliate_unit_name: individualData.affiliate_unit_name,
       affiliate_unit_name_uc: individualData.affiliate_unit_name.toUpperCase(),
-      funds: formatCurrency(contractData.total_money - contractData.loan_money),
+      funds: formatCurrency(contractData.funds_money),
       loan_money_text: readCurrency(contractData.loan_money.toString()),
       month_count: contractData.month_count,
       period_count: contractData.period_count,
-      paid_period: formatCurrency(
-        Math.round(contractData.loan_money / contractData.period_count / 10000) * 10000
-      ),
-
-      last_paid_period: formatCurrency(
-        contractData.loan_money -
-          Math.round(contractData.loan_money / contractData.period_count / 10000) *
-            10000 *
-            (contractData.period_count - 1)
-      ),
-      paid_period_text: readCurrency(
-        `${Math.round(contractData.loan_money / contractData.period_count / 10000) * 10000}`
-      ),
+      paid_period: formatCurrency(contractData.first_period_money),
+      last_paid_period: formatCurrency(contractData.last_period_money),
+      // paid_period: formatCurrency(
+      //   Math.round(contractData.loan_money / contractData.period_count / 10000) * 10000
+      // ),
+      // last_paid_period: formatCurrency(
+      //   contractData.loan_money -
+      //     Math.round(contractData.loan_money / contractData.period_count / 10000) *
+      //       10000 *
+      //       (contractData.period_count - 1)
+      // ),
+      paid_period_text: readCurrency(`${contractData.last_period_money}`),
       total_money: formatCurrency(contractData.total_money),
       loan_money: formatCurrency(contractData.loan_money),
       qualification_text: contractData.is_qualified

@@ -12,6 +12,8 @@ const DisableStyle = styled.span`
 
 const LabelStyle = styled.span`
   opacity: 0.7;
+  color: #19376d;
+  font-weight: bold;
 `;
 
 const FormItem = ({

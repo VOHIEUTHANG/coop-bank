@@ -47,6 +47,9 @@ const Infomation = ({ disabled, title, id }) => {
             validation={{ required: 'Tổng số vốn cần sử dụng là bắt buộc' }}
           />
         </FormItem>
+        <FormItem label='Vốn tự có' isRequired className='cb_col_6' disabled={disabled}>
+          <FormNumber field='funds_money' addonAfter='VND' validation={{ required: 'Vốn tự có là bắt buộc' }} />
+        </FormItem>
         <FormItem label='Tổng số tiền cần vay' isRequired className='cb_col_6' disabled={disabled}>
           <FormNumber
             field='loan_money'
@@ -147,6 +150,21 @@ const Infomation = ({ disabled, title, id }) => {
             />
           </FormItem>
         </div>
+
+        <FormItem label='Số tiền trả kỳ đầu tiên' isRequired className='cb_col_6' disabled={disabled}>
+          <FormNumber
+            field='first_period_money'
+            addonAfter='VND'
+            validation={{ required: 'Số tiền trả kỳ đầu tiên là bắt buộc' }}
+          />
+        </FormItem>
+        <FormItem label='Số tiền trả kỳ cuối cùng' isRequired className='cb_col_6' disabled={disabled}>
+          <FormNumber
+            field='last_period_money'
+            addonAfter='VND'
+            validation={{ required: 'Số tiền trả kỳ cuối cùng là bắt buộc' }}
+          />
+        </FormItem>
 
         <FormItem label='Số tài khoản vay' isRequired className='cb_col_6' disabled={disabled}>
           <FormInput
