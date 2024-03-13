@@ -32,6 +32,13 @@ export class Contract {
   loan_money: number;
 
   @Column()
+  first_period_money: number;
+  @Column()
+  last_period_money: number;
+  @Column()
+  funds_money: number;
+
+  @Column()
   interest_rate: number;
   @Column()
   month_count: number;

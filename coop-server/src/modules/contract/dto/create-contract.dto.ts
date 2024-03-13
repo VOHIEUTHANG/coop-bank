@@ -32,6 +32,21 @@ export class CreateContractDto {
   loan_money: number;
 
   @ApiProperty()
+  @IsPositive()
+  @IsInt()
+  first_period_money: number;
+
+  @ApiProperty()
+  @IsPositive()
+  @IsInt()
+  last_period_money: number;
+
+  @ApiProperty()
+  @IsPositive()
+  @IsInt()
+  funds_money: number;
+
+  @ApiProperty()
   @IsNumber()
   interest_rate: number;
 
