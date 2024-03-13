@@ -210,18 +210,7 @@ const SideBar = () => {
 
   return (
     <div id='sidebar__left' className='cb_sidebar'>
-      <div
-        className='cb_logo'
-        style={
-          {
-            // position: 'absolute',
-            // bottom: 10,
-            // left: 10,
-            // right: 10,
-            // background: 'var(--grayColor)',
-            // borderRadius: 4,
-          }
-        }>
+      <div className='cb_logo'>
         <a className='cb_main_logo' style={{ margin: '0 auto' }}>
           <Link to='/'>
             <img src={logo} />
@@ -257,6 +246,23 @@ const SideBar = () => {
           setOpenKey={setOpenKey}
         />
       </ul>
+
+      <div
+        style={{
+          position: 'absolute',
+          bottom: 20,
+          left: 10,
+          right: 10,
+          // background: 'var(--grayColor)',
+          color: 'white',
+          borderRadius: 4,
+          textAlign: 'center',
+          textTransform: 'uppercase',
+          fontWeight: '500',
+          fontSize: '1rem',
+        }}>
+        Hệ thống cho vay tiêu dùng
+      </div>
 
       {modalChangePassword && (
         <ChangePassword

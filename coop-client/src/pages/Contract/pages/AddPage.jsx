@@ -75,7 +75,6 @@ const AddPage = () => {
         'loan_purpose',
         'total_money',
         'loan_money',
-        'total_income',
         'interest_rate',
         'month_count',
       ],
