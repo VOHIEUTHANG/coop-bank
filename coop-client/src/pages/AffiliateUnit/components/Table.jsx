@@ -42,14 +42,9 @@ const RepresentativeTable = ({
         accessor: 'affiliate_unit_address',
       },
       {
-        header: 'Chức vụ',
+        header: 'Cấp đơn vị',
         classNameHeader: 'cb_text_center',
-        formatter: (item, index) => (
-          <span>
-            {AffiliateUnitLevelOptions.find((position) => position.value === item.affiliate_unit_level)?.label ||
-              'Không xác định'}
-          </span>
-        ),
+        accessor: 'affiliate_unit_level',
       },
       {
         header: 'Người tạo',

@@ -32,11 +32,6 @@ export class CreateContractDto {
   loan_money: number;
 
   @ApiProperty()
-  @IsPositive()
-  @IsInt()
-  total_income: number;
-
-  @ApiProperty()
   @IsNumber()
   interest_rate: number;
 

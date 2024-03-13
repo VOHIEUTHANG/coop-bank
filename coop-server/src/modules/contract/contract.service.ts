@@ -227,7 +227,6 @@ export class ContractService {
       ),
       total_money: formatCurrency(contractData.total_money),
       loan_money: formatCurrency(contractData.loan_money),
-      total_income: formatCurrency(contractData.total_income),
       qualification_text: contractData.is_qualified
         ? 'Đủ điều kiện vay vốn'
         : 'Không đủ điều kiện vay vốn',

@@ -30,8 +30,7 @@ export class Contract {
   total_money: number;
   @Column()
   loan_money: number;
-  @Column()
-  total_income: number;
+
   @Column()
   interest_rate: number;
   @Column()
