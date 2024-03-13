@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Brackets, DataSource, Repository } from 'typeorm';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { Individual } from './entity/individual.entity';
@@ -58,21 +58,26 @@ export class IndividualService {
   }
 
   async getOptions() {
-    return this.repo
-      .createQueryBuilder('individual')
-      .leftJoin('affiliate_unit', 'affiliate_unit')
-      .select([
-        'individual_id AS value',
-        'individual_fullname AS label',
-        'individual_bank_number',
-        'individual_cic_score',
-        'individual_cic_rank',
-        'individual_cic',
-        'total_income',
-        'export_data',
-        'affiliate_unit.paid_date AS paid_date'
-      ])
-      .getRawMany();
+    const query = `
+    SELECT
+      id.individual_id AS value,
+      id.individual_fullname AS label,
+      id.individual_bank_number,
+      id.individual_cic_score,
+      id.individual_cic_rank,
+      id.individual_cic,
+      id.total_income,
+      id.export_data,
+      au.paid_date AS paid_date
+    FROM
+      individual id
+      LEFT JOIN affiliate_unit au ON id.affiliate_unit_id = au.affiliate_unit_id 
+      AND au.deleted_at IS NULL 
+    WHERE
+      id.deleted_at IS NULL
+    `;
+    const individualList = await this.dataSource.query(query, []);
+    return individualList;
   }
 
   async findOne(individual_id: string, user?: any) {
