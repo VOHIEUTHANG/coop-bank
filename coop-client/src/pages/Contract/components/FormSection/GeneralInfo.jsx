@@ -54,9 +54,6 @@ const Infomation = ({ disabled, title, id }) => {
             validation={{ required: 'Tổng số tiền cần vay là bắt buộc' }}
           />
         </FormItem>
-        <FormItem label='Tổng thu nhập trên tháng' isRequired className='cb_col_6' disabled={disabled}>
-          <FormNumber field='total_income' addonAfter='VND' validation={{ required: 'Tổng thu nhập là bắt buộc' }} />
-        </FormItem>
 
         <div className='cb_col_6'>
           <FormItem label='Mức lãi suất' isRequired disabled={disabled}>
