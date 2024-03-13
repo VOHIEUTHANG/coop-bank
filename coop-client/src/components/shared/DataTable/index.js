@@ -77,7 +77,7 @@ const DataTable = ({
   getChildren,
   parentField,
   customSumRow = null,
-  secondaryAction = undefined,
+  uniqueSelect = false,
 }) => {
   const [currentPage, setCurrentPage] = useState(parseInt(page));
   const [dataSelect, setDataSelect] = useState(defaultDataSelect ?? []);
@@ -121,12 +121,12 @@ const DataTable = ({
 
   const renderRowAction = useCallback(
     (valueRender, keyRender) => {
-      return (rowAction ?? [])?.map((action) => {
+      return (rowAction ?? [])?.map((action, index) => {
         const { hidden, disabled, permission, onClick, color, icon, title } = action;
         const isHidden = typeof hidden === 'function' && hidden(valueRender);
         const isDisabled = isHidden ? true : typeof disabled === 'function' ? disabled?.(valueRender) : disabled;
         return action.tips ? (
-          <CheckAccess permission={typeof permission === 'function' ? permission(valueRender) : permission}>
+          <CheckAccess key={index} permission={typeof permission === 'function' ? permission(valueRender) : permission}>
             {
               <Tooltip title={isHidden ? '' : action.tips}>
                 <a
@@ -145,7 +145,7 @@ const DataTable = ({
             }
           </CheckAccess>
         ) : (
-          <CheckAccess permission={typeof permission === 'function' ? permission(valueRender) : permission}>
+          <CheckAccess key={index} permission={typeof permission === 'function' ? permission(valueRender) : permission}>
             {
               <a
                 disabled={isDisabled}
@@ -191,6 +191,7 @@ const DataTable = ({
       const flag = findIndex >= 0;
       return (
         <TrTable
+          key={keyRender}
           colSpan={colSpan}
           keyRender={keyRender}
           flag={flag}
@@ -198,6 +199,7 @@ const DataTable = ({
           hiddenRowSelect={hiddenRowSelect}
           _dataSelect={_dataSelect}
           setDataSelect={setDataSelect}
+          uniqueSelect={uniqueSelect}
           columns={columns}
           valueRender={valueRender}
           findIndex={findIndex}
@@ -313,7 +315,7 @@ const DataTable = ({
         <div className='cb_row cb_mt_2 cb_mb_2 cb_align_items_center'>
           <div className='cb_col_6' style={styleTitle}>
             {title}
-            {Boolean(dataSelect.length) > 0 && (
+            {Boolean(dataSelect.length) > 0 && !uniqueSelect && (
               <div className='cb_show_record'>
                 <p className='cb_choose_record'>
                   {showBulkButton && (
@@ -348,7 +350,7 @@ const DataTable = ({
             {actions
               ?.filter((p) => p.globalAction && !p.hidden)
               .map((props, i) => (
-                <CheckAccess permission={props?.permission}>
+                <CheckAccess permission={props?.permission} key={i}>
                   <Button
                     style={{
                       marginLeft: '3px',
@@ -365,7 +367,7 @@ const DataTable = ({
               <tr>
                 {!noSelect && (
                   <th className='cb_sticky cb_check_sticky'>
-                    {Boolean(data.filter((o) => !hiddenRowSelect?.(o)).length) && (
+                    {Boolean(data.filter((o) => !hiddenRowSelect?.(o)).length && !uniqueSelect) && (
                       <label className='cb_checkbox'>
                         <input type='checkbox' onChange={() => handleCheckAll()} checked={totalChecked} />
                         <span></span>
@@ -387,12 +389,12 @@ const DataTable = ({
 
             {loading ? (
               <tbody>
-                {Array.from(Array(10).keys())?.map(() => {
+                {Array.from(Array(10).keys())?.map((value) => {
                   return (
-                    <tr className='tr'>
-                      {Array.from(Array(colSpan).keys())?.map(() => {
+                    <tr className='tr' key={value}>
+                      {Array.from(Array(colSpan).keys())?.map((value, index) => {
                         return (
-                          <td className='td'>
+                          <td className='td' key={index}>
                             <div className='loader'></div>
                           </td>
                         );

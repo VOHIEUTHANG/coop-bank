@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEmail, IsEnum, IsNumber, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
 import { IsDateFormat } from 'src/common/validation';
 import { User } from 'src/modules/users/users.entity';
 import { Gender } from 'src/types/data-type';
@@ -22,8 +22,8 @@ export class CreateRepresentativeDto {
   phone_number: string;
 
   @ApiProperty()
-  @IsNumber()
-  representative_position: number;
+  @IsString()
+  representative_position: string;
 
   @ApiPropertyOptional()
   @IsEnum(Gender)

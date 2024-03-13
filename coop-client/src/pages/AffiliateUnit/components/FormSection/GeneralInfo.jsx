@@ -12,7 +12,7 @@ const Infomation = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Tên đơn vị' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -25,7 +25,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Mã đơn vị' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -40,17 +40,17 @@ const Infomation = ({ disabled, title, id }) => {
 
         <div className='cb_col_6'>
           <FormItem label='Cấp đơn vị' disabled={disabled}>
-            <FormSelect
-              allowClear
-              disabled={disabled}
-              field='affiliate_unit_level'
-              placeholder='Chọn cấp đơn vị'
-              list={AffiliateUnitLevelOptions}
-            />
+            <FormInput type='text' field='affiliate_unit_level' placeholder='Nhập mã đơn vị' />
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
+          <FormItem label='Địa chỉ email' disabled={disabled}>
+            <FormInput type='text' field='affiliate_unit_email' placeholder='Nhập địa chỉ email' />
+          </FormItem>
+        </div>
+
+        <div className='cb_col_6'>
           <FormItem label='Ngày thành lập' disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -65,7 +65,7 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Địa chỉ đơn vị' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -75,7 +75,7 @@ const Infomation = ({ disabled, title, id }) => {
             />
           </FormItem>
         </div>
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Số điện thoại' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -85,13 +85,8 @@ const Infomation = ({ disabled, title, id }) => {
             />
           </FormItem>
         </div>
-        <div class='cb_col_6'>
-          <FormItem label='Số Fax' disabled={disabled}>
-            <FormInput type='text' field='affiliate_unit_fax' placeholder='Nhập fax' />
-          </FormItem>
-        </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Ngày trả tiền hàng tháng' isRequired disabled={disabled}>
             <FormNumber
               field='paid_date'

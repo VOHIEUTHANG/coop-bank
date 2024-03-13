@@ -8,6 +8,7 @@ import { BankRepresentativeService } from './bank-representative.service';
 @Module({
   imports: [TypeOrmModule.forFeature([BankRepresentative]), UsersModule],
   controllers: [BankRepresentativeController],
-  providers: [BankRepresentativeService]
+  providers: [BankRepresentativeService],
+  exports: [BankRepresentativeService]
 })
 export class BankRepresentativeModule {}

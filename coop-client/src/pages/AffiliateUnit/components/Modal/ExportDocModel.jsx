@@ -1,8 +1,6 @@
-import FormDatePicker from 'components/shared/FormControl/FormDate';
-import FormInput from 'components/shared/FormControl/FormInput';
 import FormItem from 'components/shared/FormControl/FormItem';
 import React, { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { exportForm } from 'services/affiliate-unit.service';
 import Accordion from 'components/shared/Accordion';
 import { Divider, Spin } from 'antd';
@@ -10,8 +8,19 @@ import moment from 'moment';
 import FormRadioGroup from 'components/shared/FormControl/FormRadioGroup';
 import { handleToastError } from 'utils';
 import { EXPORT_TYPE, EXPORT_TYPE_OPTIONS } from 'pages/AffiliateUnit/utils/constants';
+import DataTable from 'components/shared/DataTable';
+import styled from 'styled-components';
+import { showToast } from 'utils/helpers';
+import FormTextArea from 'components/shared/FormControl/FormTextArea';
+
+const DataTableStyled = styled.div`
+  .cb_row.cb_mt_2.cb_mb_2.cb_align_items_center {
+    margin: 0;
+  }
+`;
 
 function ExportDoc({ setShowModal, affiliateUnit }) {
+  const originMethods = useFormContext();
   const methods = useForm({
     defaultValues: {
       export_type: EXPORT_TYPE.AFFILATE_CONTRACT,
@@ -38,6 +47,30 @@ function ExportDoc({ setShowModal, affiliateUnit }) {
       .finally(() => setLoading(false));
   };
 
+  const columns = [
+    {
+      header: 'Tên người đại diện',
+      classNameHeader: 'cb_text_center',
+      accessor: 'representative_name',
+    },
+    {
+      header: 'Số điện thoại',
+      classNameHeader: 'cb_text_center',
+      accessor: 'phone_number',
+    },
+    {
+      header: 'Chức vụ',
+      classNameHeader: 'cb_text_center',
+      classNameBody: 'cb_text_center',
+      accessor: 'representative_position',
+    },
+    {
+      header: 'Căn cước công dân',
+      classNameHeader: 'cb_text_center',
+      accessor: 'id_number',
+    },
+  ];
+
   return (
     <FormProvider {...methods}>
       <div>
@@ -53,40 +86,36 @@ function ExportDoc({ setShowModal, affiliateUnit }) {
             <div className='cb_main_modal'>
               <Accordion>
                 <div className='cb_row'>
-                  <FormItem label='Mã đơn đặt hàng' className='cb_col_6'>
-                    <FormInput field={'purchase_order_number'} placeholder='Mã đơn đặt hàng' />
+                  <FormItem label='Ý kiến của cán bộ kiểm tra' className='cb_col_12'>
+                    <FormTextArea field='branch_note' placeholder='Nhập ý kiến của cán bộ kiểm tra' />
                   </FormItem>
-                  <FormItem label='Ngày đặt hàng' className='cb_col_6'>
-                    <FormDatePicker
-                      field={'purchase_date'}
-                      placeholder={'dd/mm/yyyy'}
-                      format='DD/MM/YYYY'
-                      bordered={false}
-                      style={{ width: '100%' }}
-                    />
+
+                  <FormItem label='Ý kiến của đơn vị vay vốn' className='cb_col_12'>
+                    <FormTextArea field='affiliate_note' placeholder='Nhập ý kiến của đơn vị vay vốn' />
                   </FormItem>
-                  <FormItem label='Ngày yêu cầu giao hàng đến' className='cb_col_6'>
-                    <FormDatePicker
-                      field={'delivery_expected_date'}
-                      placeholder={'dd/mm/yyyy'}
-                      format='DD/MM/YYYY'
-                      bordered={false}
-                      style={{ width: '100%' }}
-                    />
-                  </FormItem>
-                  <FormItem label='Tên người đặt đơn hàng' className='cb_col_6'>
-                    <FormInput field={'purchase_creator'} placeholder='Tên người đặt đơn hàng' />
-                  </FormItem>
-                  <FormItem label='Tên người liên hệ' className='cb_col_6'>
-                    <FormInput field={'contact_name'} placeholder='Tên người liên hệ' />
-                  </FormItem>
-                  <FormItem label='Email người liên hệ' className='cb_col_6'>
-                    <FormInput field={'contact_email'} placeholder='Email người liên hệ' />
-                  </FormItem>
+
+                  <div className='cb_col_12'>
+                    <DataTableStyled>
+                      <DataTable
+                        uniqueSelect
+                        onChangeSelect={(dataSelect) => {
+                          methods.setValue('representative_id', dataSelect?.[0]?.representative_id);
+                        }}
+                        hiddenDeleteClick
+                        noSelect={false}
+                        noPaging
+                        actions={[]}
+                        columns={columns}
+                        data={originMethods.watch('representatives') || []}
+                      />
+                    </DataTableStyled>
+                  </div>
+
                   <Divider />
                   <FormItem label='Loại giấy tờ' isRequired className='cb_col_12'>
                     <FormRadioGroup
                       custom
+                      style={{ marginBottom: '8px', marginTop: '2px' }}
                       field='export_type'
                       list={EXPORT_TYPE_OPTIONS}
                       validation={{ required: 'Loại giấy tờ là bắt buộc' }}
@@ -113,6 +142,9 @@ function ExportDoc({ setShowModal, affiliateUnit }) {
                 type='button'
                 className='cb_btn  cb_btn_success'
                 onClick={(...event) => {
+                  if (!methods.watch('representative_id')) {
+                    return showToast.warning('Vui lòng chọn người đại diện đơn vị liên kết !');
+                  }
                   if (!loading) {
                     return handleSubmit(onSubmit)(...event);
                   }

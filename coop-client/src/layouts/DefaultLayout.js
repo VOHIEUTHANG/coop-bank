@@ -37,11 +37,13 @@ function DefaultLayout() {
       <div className='cb_main'>
         <NavHeader />
         {jsx_render}
-        {/* <div
+        <div
           style={{ position: 'relative', width: '100%' }}
           className='cb_flex cb_align_items_center cb_justify_content_between cb_ft'>
-          <p>Copyright © 2024 Devo</p>
-        </div> */}
+          <p>NGÂN HÀNH HỢP TÁC CHI NHÁNH KIÊN GIANG</p>
+          <p>Copy ® Từ Thế Vũ – 0918812882 – 0888255252</p>
+          <p>Mail: tuthevu@gmail.com</p>
+        </div>
       </div>
     </div>
   );

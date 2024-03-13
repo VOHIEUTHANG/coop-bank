@@ -1,8 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNumber, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
+import { IsEmail, IsNumber, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
 import { IsDateFormat } from 'src/common/validation';
 import { Representative } from 'src/modules/representative/representative.entity';
 import { User } from 'src/modules/users/users.entity';
+import { AffiliateUnitFile } from '../entity/affiliate-unit-file.entity';
 
 export class CreateAffilicateUnitDto {
   @IsOptional()
@@ -18,9 +19,14 @@ export class CreateAffilicateUnitDto {
   affiliate_unit_code: string;
 
   @ApiPropertyOptional()
-  @IsNumber()
+  @IsString()
   @IsOptional()
-  affiliate_unit_level: number;
+  affiliate_unit_level: string;
+
+  @ApiPropertyOptional()
+  @IsEmail({}, { message: 'Email không đúng định dạng' })
+  @IsOptional()
+  affiliate_unit_email: string;
 
   @ApiProperty()
   @IsString()
@@ -53,6 +59,16 @@ export class CreateAffilicateUnitDto {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
+  affiliate_unit_image_3: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  affiliate_unit_image_4: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
   affiliate_unit_paycheck: string;
 
   @ApiPropertyOptional()
@@ -65,4 +81,7 @@ export class CreateAffilicateUnitDto {
 
   @IsOptional()
   representatives: Representative[];
+
+  @IsOptional()
+  affiliate_unit_files: AffiliateUnitFile[];
 }

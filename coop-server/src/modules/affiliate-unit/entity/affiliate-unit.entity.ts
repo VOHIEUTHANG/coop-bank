@@ -16,6 +16,7 @@ import {
 import { User } from '../../users/users.entity';
 import { Representative } from 'src/modules/representative/representative.entity';
 import { Individual } from 'src/modules/individual/entity/individual.entity';
+import { AffiliateUnitFile } from './affiliate-unit-file.entity';
 
 @Entity()
 export class AffiliateUnit {
@@ -29,7 +30,9 @@ export class AffiliateUnit {
   @Column()
   affiliate_unit_code: string;
   @Column({ nullable: true })
-  affiliate_unit_level: number;
+  affiliate_unit_level: string;
+  @Column({ nullable: true })
+  affiliate_unit_email: string;
   @Column({ nullable: true })
   affiliate_unit_address: string;
   @Column()
@@ -42,6 +45,10 @@ export class AffiliateUnit {
   affiliate_unit_image_1: string;
   @Column({ nullable: true })
   affiliate_unit_image_2: string;
+  @Column({ nullable: true })
+  affiliate_unit_image_3: string;
+  @Column({ nullable: true })
+  affiliate_unit_image_4: string;
   @Column({ nullable: true })
   affiliate_unit_paycheck: string;
   @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
@@ -61,10 +68,11 @@ export class AffiliateUnit {
   })
   updated_at: string;
 
-  // @OneToMany(() => AffiliateUnitFile, (affiliateUnitFile) => affiliateUnitFile.affiliate_unit, {
-  //   cascade: true
-  // })
-  // affiliate_unit_files: AffiliateUnitFile[];"
+  @OneToMany(() => AffiliateUnitFile, (affiliateUnitFile) => affiliateUnitFile.affiliate_unit, {
+    cascade: true,
+    eager: true
+  })
+  affiliate_unit_files: AffiliateUnitFile[];
 
   @ManyToMany(() => Representative, (representative) => representative.affiliateUnits, {
     eager: true

@@ -49,9 +49,9 @@ const UserTable = ({ loading, data, totalPages, itemsPerPage, page, totalItems, 
         classNameBody: 'cb_text_center',
         formatter: (p) =>
           p?.is_active ? (
-            <span class='cb_label_outline cb_label_outline_success text-center'>Kích hoạt</span>
+            <span className='cb_label_outline cb_label_outline_success text-center'>Kích hoạt</span>
           ) : (
-            <span class='cb_label_outline cb_label_outline_danger text-center'>Khóa</span>
+            <span className='cb_label_outline cb_label_outline_danger text-center'>Khóa</span>
           ),
       },
       {

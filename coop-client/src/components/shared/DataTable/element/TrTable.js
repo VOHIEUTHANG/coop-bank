@@ -26,6 +26,7 @@ const TrTable = ({
   levelRecursive,
   parentField,
   onChangeSelect,
+  uniqueSelect = false,
 }) => {
   const [openExpaned, setOpenExpaned] = useState(false);
   const [dataExpaned, setDataExpaned] = useState(undefined);
@@ -47,6 +48,7 @@ const TrTable = ({
               hiddenRowSelect={hiddenRowSelect}
               _dataSelect={_dataSelect}
               setDataSelect={setDataSelect}
+              uniqueSelect={uniqueSelect}
               columns={columns}
               valueRender={valueR}
               findIndex={findIndex}
@@ -106,8 +108,9 @@ const TrTable = ({
                     setDataSelect(_dataSelect);
                     dataCurrent = _dataSelect;
                   } else {
-                    setDataSelect([..._dataSelect, valueRender]);
-                    dataCurrent = [..._dataSelect, valueRender];
+                    const currentSeleceted = uniqueSelect ? [valueRender] : [..._dataSelect, valueRender];
+                    setDataSelect(currentSeleceted);
+                    dataCurrent = currentSeleceted;
                   }
                   onChangeSelect(dataCurrent, { ...valueRender, isChecked: e.target.checked ? 1 : 0 });
                 }}

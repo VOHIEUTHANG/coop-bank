@@ -63,13 +63,18 @@ const Images = ({ disabled, title, id }) => {
         </div>
       );
     },
-    [watch('affiliate_unit_image_1'), watch('affiliate_unit_image_2')],
+    [
+      watch('affiliate_unit_image_1'),
+      watch('affiliate_unit_image_2'),
+      watch('affiliate_unit_image_3'),
+      watch('affiliate_unit_image_4'),
+    ],
   );
 
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <div class='cb_col_12'>
+        <div className='cb_col_12'>
           <div style={{ display: 'flex', gap: '15px' }}>
             <div className='cb_load_image cb_mb_2 cb_text_center'>
               <label className='cb_choose_image'>
@@ -104,10 +109,44 @@ const Images = ({ disabled, title, id }) => {
                 {renderAvatar('affiliate_unit_image_2')}
               </label>
             </div>
+
+            <div className='cb_load_image cb_mb_2 cb_text_center'>
+              <label className='cb_choose_image'>
+                {!methods.watch('affiliate_unit_image_3') && (
+                  <input
+                    accept='image/*'
+                    type='file'
+                    onChange={async (_) => {
+                      const base64 = await getBase64(_.target.files[0]);
+                      methods.setValue('affiliate_unit_image_3', base64);
+                    }}
+                    disabled={disabled}
+                  />
+                )}
+                {renderAvatar('affiliate_unit_image_3')}
+              </label>
+            </div>
+
+            <div className='cb_load_image cb_mb_2 cb_text_center'>
+              <label className='cb_choose_image'>
+                {!methods.watch('affiliate_unit_image_4') && (
+                  <input
+                    accept='image/*'
+                    type='file'
+                    onChange={async (_) => {
+                      const base64 = await getBase64(_.target.files[0]);
+                      methods.setValue('affiliate_unit_image_4', base64);
+                    }}
+                    disabled={disabled}
+                  />
+                )}
+                {renderAvatar('affiliate_unit_image_4')}
+              </label>
+            </div>
           </div>
         </div>
 
-        <div class='cb_col_6'></div>
+        <div className='cb_col_6'></div>
       </div>
     </Accordion>
   );

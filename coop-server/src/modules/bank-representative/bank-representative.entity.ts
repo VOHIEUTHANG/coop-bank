@@ -28,6 +28,13 @@ export class BankRepresentative {
   bank_representative_email: string;
   @Column({ nullable: false })
   bank_representative_position: number;
+
+  @Column({ nullable: true })
+  authoritative_number: string;
+  @Column({ type: 'datetime', nullable: true })
+  @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
+  authoritative_date: string;
+
   @Column({ nullable: false })
   phone_number: string;
   @Column({ nullable: true })
@@ -63,7 +70,9 @@ export class BankRepresentative {
   @JoinTable({ name: 'bank_representative_branch' })
   branches: Branch[];
 
-  @ManyToMany(() => TransactionRoom, (transactionRoom) => transactionRoom.bankRepresentatives)
+  @ManyToMany(() => TransactionRoom, (transactionRoom) => transactionRoom.bankRepresentatives, {
+    eager: true
+  })
   @JoinTable({ name: 'bank_representative_transaction_room' })
   transaction_rooms: TransactionRoom[];
 

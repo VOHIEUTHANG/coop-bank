@@ -69,13 +69,13 @@ const AddPage = () => {
       title: 'Hình ảnh đơn vị liên kết',
       id: 'images',
       component: Images,
-      fieldActive: ['affiliate_unit_image_1', 'affiliate_unit_image_2'],
+      fieldActive: null,
     },
     {
       title: 'Tệp đính kèm',
       id: 'attachments',
       component: Files,
-      fieldActive: ['affiliate_unit_paycheck'],
+      fieldActive: null,
     },
   ];
 

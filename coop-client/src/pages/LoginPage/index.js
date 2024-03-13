@@ -52,7 +52,7 @@ function LoginPage() {
   };
 
   if (user) {
-    return <Redirect to='/' push />;
+    return <Redirect to='/contract' push />;
   }
 
   return (

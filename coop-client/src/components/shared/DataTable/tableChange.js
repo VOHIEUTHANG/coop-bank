@@ -286,7 +286,7 @@ const DataTable = ({
                       onClick={() => {
                         handleBulkAction(dataSelect);
                       }}>
-                      <span class='ti-plus'></span> Chọn
+                      <span className='ti-plus'></span> Chọn
                     </button>
                   )}
                   <b>{dataSelect.length}</b> đang chọn{' '}

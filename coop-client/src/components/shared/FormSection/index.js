@@ -169,8 +169,8 @@ const FormSection = ({
                 {parseDetailForm.map((p, key) => {
                   const { title, id, component: Component, className, ...props } = p;
                   return (
-                    <span id={key} className={className ?? 'cb_col_12'}>
-                      <Component id={id} title={title} disabled={disabled} {...props} />
+                    <span key={key} id={key} className={className ?? 'cb_col_12'}>
+                      {Component && <Component id={id} title={title} disabled={disabled} {...props} />}
                     </span>
                   );
                 })}

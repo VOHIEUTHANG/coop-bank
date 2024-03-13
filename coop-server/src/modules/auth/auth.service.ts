@@ -42,6 +42,8 @@ export class AuthService {
 
     if (userData.transaction_room_id) {
       userData.transaction_room = new TransactionRoom(userData.transaction_room_id);
+    } else {
+      userData.transaction_room = null;
     }
 
     const user = await this.userService.create(userData);

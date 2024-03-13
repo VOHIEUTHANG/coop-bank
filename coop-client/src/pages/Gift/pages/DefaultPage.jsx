@@ -44,7 +44,7 @@ const ListPage = () => {
   };
 
   return (
-    <div class='cb_main_wrapp'>
+    <div className='cb_main_wrapp'>
       <Filter
         onChange={(e) => {
           setParams((prev) => {

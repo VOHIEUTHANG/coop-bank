@@ -26,6 +26,16 @@ export class CreateBankRepresentativeDto {
   bank_representative_position: number;
 
   @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  authoritative_number: string;
+
+  @ApiPropertyOptional()
+  @IsDateFormat()
+  @IsOptional()
+  authoritative_date: string;
+
+  @ApiPropertyOptional()
   @IsEnum(Gender, { message: 'Giới tính phải là giá trị Nam hoặc Nữ' })
   gender: number;
 

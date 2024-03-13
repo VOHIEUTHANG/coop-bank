@@ -33,7 +33,7 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Mã nhân viên' isRequired disabled={disabled || !is_add}>
             <FormInput
               type='text'
@@ -64,7 +64,7 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
             </CustomInput>
           </FormItem>
         </div>
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Tên nhân viên' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -77,13 +77,13 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Số điện thoại' disabled={disabled}>
             <FormInput type='text' field='phone_number' placeholder='Nhập Số điện thoại' />
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Địa chỉ email' disabled={disabled}>
             <FormInput type='text' field='email' placeholder='Nhập địa chỉ email' />
           </FormItem>
@@ -105,16 +105,13 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Phòng giao dịch' isRequired disabled={disabled}>
+          <FormItem label='Phòng giao dịch' disabled={disabled}>
             <FormSelect
               allowClear
               disabled={disabled}
               field='transaction_room_id'
               placeholder='Chọn Phòng giao dịch'
               list={transactionRoomOptions}
-              validation={{
-                required: 'Phòng giao dịch là bắt buộc',
-              }}
             />
           </FormItem>
         </div>

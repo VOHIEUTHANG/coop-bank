@@ -7,6 +7,8 @@ export const DefaultFilter = {
 const POSITION = {
   DIRECTOR: 1,
   VICE_DIRECTOR: 2,
+  DEPARTMENT_HEAD: 3,
+  VICE_DEPARTMENT_HEAD: 4,
 };
 
 export const GENDER = {
@@ -23,6 +25,14 @@ export const PositionOptions = [
   {
     value: POSITION.VICE_DIRECTOR,
     label: 'Phó giám đốc',
+  },
+  {
+    value: POSITION.DEPARTMENT_HEAD,
+    label: 'Trưởng phòng giao dịch',
+  },
+  {
+    value: POSITION.VICE_DEPARTMENT_HEAD,
+    label: 'Phó phòng giao dịch',
   },
 ];
 

@@ -21,6 +21,10 @@ export const deleteIndividual = (id) => {
   return httpClient.delete(`${path}/${id}`);
 };
 
+export const getOptions = (params = {}) => {
+  return httpClient.get(path + '/options', { params });
+};
+
 export const exportForm = (individualId, params = {}) => {
   const header = {
     responseType: `blob`,
