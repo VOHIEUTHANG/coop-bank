@@ -8,15 +8,22 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn
 } from 'typeorm';
 import { Gender } from 'src/types/data-type';
 import { User } from 'src/modules/users/users.entity';
 import { AffiliateUnit } from 'src/modules/affiliate-unit/entity/affiliate-unit.entity';
+import { IndividualFile } from './individual-file.entity';
+import { Contract } from 'src/modules/contract/entity/contract.entity';
 
 @Entity()
 export class Individual {
+  constructor(individualId: string) {
+    this.individual_id = individualId;
+  }
+
   @PrimaryColumn()
   individual_id: string;
   @Column({ nullable: false })
@@ -27,6 +34,18 @@ export class Individual {
   current_address: string;
   @Column({ nullable: true })
   origin_address: string;
+  @Column({ nullable: false })
+  individual_code: string;
+  @Column({ nullable: false })
+  individual_bank_number: string;
+  @Column({ nullable: true })
+  individual_cic: string;
+  @Column({ nullable: true })
+  individual_cic_rank: string;
+  @Column({ nullable: true })
+  individual_cic_score: number;
+  @Column()
+  total_income: number;
   @Column()
   gender: Gender;
   @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
@@ -50,19 +69,23 @@ export class Individual {
       console.error('Parse json export data field error !');
     }
   })
-  @Column({ nullable: true, length: 1000 })
+  @Column({ nullable: true, length: 2000 })
   export_data: string;
 
-  @Column()
-  @Column({ nullable: true })
-  salary_file: string;
-  @Column()
-  @Column({ nullable: true })
-  marriage_file: string;
-  @Column()
-  @Column({ nullable: true })
-  appoint_file: string;
+  @Column({ nullable: false })
+  individual_position: string;
 
+  @Column({ nullable: true })
+  heir_full_name: string;
+  @Column({ nullable: true })
+  heir_id_number: string;
+  @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
+  @Column({ type: 'datetime', nullable: true })
+  heir_birth_date: string;
+  @Column({ nullable: true })
+  heir_address: string;
+  @Column({ nullable: true })
+  heir_phone: string;
   @Exclude()
   @ManyToOne(() => AffiliateUnit, (affiliateUnit) => affiliateUnit.individuals, { eager: true })
   @JoinColumn({ name: 'affiliate_unit_id' })
@@ -104,4 +127,13 @@ export class Individual {
 
   @Expose()
   interest_rate: number;
+
+  @OneToMany(() => IndividualFile, (individualFile) => individualFile.individual, {
+    cascade: true,
+    eager: true
+  })
+  individual_files: IndividualFile[];
+
+  @OneToMany(() => Contract, (contract) => contract.individual, {})
+  contracts: Contract[];
 }

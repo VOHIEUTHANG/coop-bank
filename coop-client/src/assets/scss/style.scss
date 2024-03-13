@@ -915,11 +915,11 @@ ul {
 
 .cb_modal {
   position: fixed;
-  width: 100%;
+  width: calc(100vw - 260px);
   height: 100vh;
   top: 0;
   z-index: -1;
-  left: 0;
+  left: 260px;
   background: rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
@@ -1510,4 +1510,10 @@ ul {
 .cb_btn_watch span {
   margin-right: 5px;
   display: flex;
+}
+
+@media only screen and (max-width: 1500px) {
+  .cb_modal .cb_modal_container.cb_w1200 {
+    max-width: calc(100vw - 400px);
+  }
 }

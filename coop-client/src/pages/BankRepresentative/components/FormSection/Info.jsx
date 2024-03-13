@@ -12,7 +12,7 @@ const BranchInfo = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Họ và tên' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -56,7 +56,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Số điện thoại' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -69,7 +69,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Số CCCD' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -82,7 +82,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Cơ quan cấp CCCD' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -95,7 +95,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Ngày cấp CCCD' isRequired disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -113,13 +113,34 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Địa chỉ email' disabled={disabled}>
             <FormInput type='text' field='bank_representative_email' placeholder='Nhập địa chỉ email' />
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
+          <FormItem label='Số giấy ủy quyền' disabled={disabled}>
+            <FormInput type='text' field='authoritative_number' placeholder='Nhập số giấy ủy quyền' />
+          </FormItem>
+        </div>
+
+        <div className='cb_col_6'>
+          <FormItem label='Ngày ủy quyền' disabled={disabled}>
+            <FormDatePicker
+              format={'DD/MM/YYYY'}
+              field='authoritative_date'
+              placeholder={'dd/mm/yyyy'}
+              style={{
+                width: '100%',
+              }}
+              bordered={false}
+              allowClear
+            />
+          </FormItem>
+        </div>
+
+        <div className='cb_col_6'>
           <FormItem label='Ngày sinh' disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -134,7 +155,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Địa chỉ' disabled={disabled}>
             <FormInput type='text' field='address' placeholder='Nhập địa chỉ' />
           </FormItem>

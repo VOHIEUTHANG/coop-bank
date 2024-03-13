@@ -92,6 +92,8 @@ export class UsersService {
 
     if (updateData.transaction_room_id) {
       user.transaction_room = new TransactionRoom(updateData.transaction_room_id);
+    } else {
+      user.transaction_room = null;
     }
 
     return this.repo.save(user);

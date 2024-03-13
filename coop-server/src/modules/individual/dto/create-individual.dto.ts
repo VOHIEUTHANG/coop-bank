@@ -1,10 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsEnum, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
+import { IsEnum, IsOptional, IsPhoneNumber, IsString, IsNumber, IsInt } from 'class-validator';
 import { IsDateFormat } from 'src/common/validation';
 import { AffiliateUnit } from 'src/modules/affiliate-unit/entity/affiliate-unit.entity';
 import { User } from 'src/modules/users/users.entity';
 import { Gender } from 'src/types/data-type';
+import { IndividualFile } from '../entity/individual-file.entity';
 
 export class CreateIndividualDto {
   @IsOptional()
@@ -13,6 +14,37 @@ export class CreateIndividualDto {
   @ApiProperty()
   @IsString()
   individual_fullname: string;
+
+  @ApiProperty()
+  @IsString()
+  individual_position: string;
+
+  @ApiProperty()
+  @IsString()
+  individual_code: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  individual_cic: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  individual_cic_rank: string;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  individual_cic_score: number;
+
+  @ApiProperty()
+  @IsString()
+  individual_bank_number: string;
+
+  @ApiProperty()
+  @IsInt()
+  total_income: number;
 
   @ApiProperty()
   @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
@@ -70,21 +102,6 @@ export class CreateIndividualDto {
   @IsOptional()
   export_data: string;
 
-  @ApiPropertyOptional()
-  @IsString()
-  @IsOptional()
-  salary_file: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  @IsOptional()
-  marriage_file: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  @IsOptional()
-  appoint_file: string;
-
   @IsOptional()
   created_user: User;
 
@@ -94,4 +111,32 @@ export class CreateIndividualDto {
 
   @IsOptional()
   affiliate_unit: AffiliateUnit;
+
+  @IsOptional()
+  individual_files: IndividualFile[];
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  heir_full_name: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  heir_id_number: string;
+
+  @ApiPropertyOptional()
+  @IsDateFormat()
+  @IsOptional()
+  heir_birth_date: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  heir_address: string;
+
+  @ApiPropertyOptional()
+  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  @IsOptional()
+  heir_phone: string;
 }

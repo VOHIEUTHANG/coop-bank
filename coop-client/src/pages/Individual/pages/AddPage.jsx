@@ -5,14 +5,13 @@ import { useLocation, useParams } from 'react-router-dom';
 
 import { create, update, getById } from 'services/individual.service';
 import GeneralInfomation from '../components/FormSection/GeneralInfo';
+import HeirInfomation from '../components/FormSection/HeirInfo';
 import Images from '../components/FormSection/IdInfo';
 import Files from '../components/FormSection/Files';
 import { showToast } from 'utils/helpers';
-import ExportDocModel from '../components/Modal/ExportDocModel';
 
 const AddPage = () => {
   const methods = useForm();
-  const [showPopup, setShowPopup] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
   const { pathname } = useLocation();
@@ -66,42 +65,22 @@ const AddPage = () => {
       fieldActive: ['id_number', 'id_issued_by', 'id_issued_date'],
     },
     {
+      title: 'Thông tin người thừa kế',
+      id: 'heir-info',
+      component: HeirInfomation,
+    },
+    {
       title: 'Tệp đính kèm',
       id: 'attachments',
       component: Files,
-      fieldActive: ['salary_file', 'marriage_file', 'appoint_file'],
     },
   ];
 
   useEffect(loadDetail, [loadDetail]);
 
-  const actions = [
-    {
-      icon: 'ti-printer',
-      submit: false,
-      content: 'In biểu mẫu',
-      className: 'cb_btn cb_btn_outline cb_btn_outline_success',
-      hidden: !individual_id,
-      onClick: () => {
-        setShowPopup((prev) => !prev);
-      },
-    },
-  ];
-
   return (
     <FormProvider {...methods}>
-      <FormSection actions={actions} detailForm={detailForm} onSubmit={onSubmit} disabled={disabled} />
-      {showPopup && (
-        <ExportDocModel
-          closeModal={setShowPopup}
-          refreshData={() => {
-            setRefresh((prev) => !prev);
-          }}
-          individual={methods.getValues()}
-          interestRate={methods.watch('interest_rate')}
-          defaultExportData={methods.watch('export_data')}
-        />
-      )}
+      <FormSection detailForm={detailForm} onSubmit={onSubmit} disabled={disabled} />
     </FormProvider>
   );
 };

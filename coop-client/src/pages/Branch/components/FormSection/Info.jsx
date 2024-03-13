@@ -20,7 +20,7 @@ const BranchInfo = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Tên chi nhánh' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -48,7 +48,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Địa chỉ chi nhánh' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -61,7 +61,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Số điện thoại chính' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -74,24 +74,13 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Số điện thoại phụ' disabled={disabled}>
             <FormInput type='text' field='phone_number_sub' placeholder='Nhập Số điện thoại phụ' />
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
-          <FormItem label='Số fax' isRequired disabled={disabled}>
-            <FormInput
-              type='text'
-              field='branch_fax'
-              placeholder='Nhập số fax'
-              validation={{ required: 'Số fax là bắt buộc' }}
-            />
-          </FormItem>
-        </div>
-
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Mức lãi suất' isRequired disabled={disabled}>
             <FormNumber
               field='interest_rate'
@@ -106,7 +95,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Số tài khoản ngân hàng' isRequired disabled={disabled}>
             <FormInput
               type='text'

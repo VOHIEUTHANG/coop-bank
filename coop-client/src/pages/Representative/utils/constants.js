@@ -9,6 +9,7 @@ const POSITION = {
   UNION_LEADER: 2,
   ACCOUNTANT: 3,
   REPLACEMENT_REPRESENTATIVE: 4,
+  OTHER: 5,
 };
 
 export const GENDER = {
@@ -33,6 +34,10 @@ export const PositionOptions = [
   {
     value: POSITION.REPLACEMENT_REPRESENTATIVE,
     label: 'Người đại thay thế',
+  },
+  {
+    value: POSITION.OTHER,
+    label: 'Chức vụ khác',
   },
 ];
 

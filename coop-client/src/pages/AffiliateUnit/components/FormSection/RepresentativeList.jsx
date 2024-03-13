@@ -3,7 +3,6 @@ import { useFormContext, useFieldArray } from 'react-hook-form';
 import DataTable from 'components/shared/DataTable/index';
 import Accordion from 'components/shared/Accordion/index';
 import ModalAddCustomer from '../Modal/RepresentativeModel';
-import { PositionOptions } from 'pages/Representative/utils/constants';
 
 const RepresentativeList = ({ disabled, title }) => {
   const methods = useFormContext();
@@ -35,12 +34,8 @@ const RepresentativeList = ({ disabled, title }) => {
     {
       header: 'Chức vụ',
       classNameHeader: 'cb_text_center',
-      formatter: (item, index) => (
-        <span>
-          {PositionOptions.find((position) => position.value === item.representative_position)?.label ||
-            'Không xác định'}
-        </span>
-      ),
+      classNameBody: 'cb_text_center',
+      accessor: 'representative_position',
     },
     {
       header: 'Căn cước công dân',

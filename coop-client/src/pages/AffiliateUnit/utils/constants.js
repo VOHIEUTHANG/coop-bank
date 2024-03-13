@@ -61,8 +61,8 @@ export const EXPORT_TYPE_OPTIONS = [
   },
   {
     value: EXPORT_TYPE.PERIODICAL_CHECK,
-    label: 'Giấy kiểm tra định kỳ',
-    file_name: 'giay_kiem_tra_dinh_ky',
+    label: 'Kiểm tra sử dụng vốn',
+    file_name: 'giay_kiem_tra_su_dung_von',
   },
 ];
 

@@ -1,12 +1,13 @@
 import React, { useCallback, useState } from 'react';
 
 import Accordion from 'components/shared/Accordion/index';
-import { useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import { getBase64 } from 'utils/helpers';
 import styled from 'styled-components';
 import PdfImage from 'assets/images/pdf.png';
 import { downloadPDF } from 'utils';
+import { Tooltip } from 'antd';
 
 const CloseBtnStyle = styled.span`
   width: 30px;
@@ -27,30 +28,36 @@ const CloseBtnStyle = styled.span`
 
 const Files = ({ disabled, title, id }) => {
   const methods = useFormContext();
-  const { watch, setValue } = methods;
-  const [fileName, setFileName] = useState();
+  const { watch, control } = methods;
+  const { remove, fields, append } = useFieldArray({
+    control,
+    name: 'affiliate_unit_files',
+  });
 
   const renderFile = useCallback(
-    (field) => {
-      if (watch(field)) {
+    (file, index) => {
+      if (file) {
         return (
           <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-            <img
-              alt='Bảng lương'
-              style={{ width: '100%', height: '100%' }}
-              src={PdfImage}
-              onClick={() => {
-                if (!disabled) {
-                  downloadPDF(watch(field), fileName);
-                }
-              }}
-            />
+            <Tooltip title={`${file.affiliate_unit_file_name}.${file.affiliate_unit_file_extension}`}>
+              <img
+                alt='File'
+                style={{ width: '100%', height: '100%' }}
+                src={PdfImage}
+                onClick={() => {
+                  if (!disabled) {
+                    downloadPDF(
+                      file.affiliate_unit_file_url,
+                      `${file.affiliate_unit_file_name}.${file.affiliate_unit_file_extension}`,
+                    );
+                  }
+                }}
+              />
+            </Tooltip>
             <CloseBtnStyle
               onClick={() => {
                 if (!disabled) {
-                  setTimeout(() => {
-                    setValue(field, null);
-                  }, 100);
+                  remove(index);
                 }
               }}
               style={{ visibility: disabled ? 'hidden' : 'visible' }}>
@@ -74,36 +81,79 @@ const Files = ({ disabled, title, id }) => {
         </div>
       );
     },
-    [watch('id_front_image'), watch('id_back_image'), fileName],
+    [disabled, remove],
   );
 
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <div class='cb_col_12'>
+        <div className='cb_col_12'>
           <div style={{ display: 'flex', gap: '15px' }}>
+            {fields?.map((file, index) => {
+              return (
+                <div className='cb_load_image cb_mb_2 cb_text_center' key={index}>
+                  <label className='cb_choose_image' style={{ width: '100px', height: '100px' }}>
+                    {!file?.affiliate_unit_file_url && (
+                      <input
+                        accept='application/pdf'
+                        type='file'
+                        onChange={async (_) => {
+                          const fileItem = _.target.files[0];
+                          if (fileItem) {
+                            const base64 = await getBase64(fileItem);
+                            const file = {
+                              affiliate_unit_file_url: base64,
+                              affiliate_unit_file_extension: fileItem.name.slice(fileItem.name.lastIndexOf('.') + 1),
+                              affiliate_unit_file_name: fileItem.name.slice(0, fileItem.name.lastIndexOf('.')),
+                            };
+                            methods.setValue(`affiliate_unit_files.${index}`, file);
+                          }
+                        }}
+                        disabled={disabled}
+                      />
+                    )}
+                    {renderFile(file, index)}
+                  </label>
+                  <p
+                    style={{
+                      maxWidth: '110px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                    {file.affiliate_unit_file_name}
+                  </p>
+                </div>
+              );
+            })}
             <div className='cb_load_image cb_mb_2 cb_text_center'>
               <label className='cb_choose_image' style={{ width: '100px', height: '100px' }}>
-                {!methods.watch('affiliate_unit_paycheck') && (
-                  <input
-                    accept='application/pdf'
-                    type='file'
-                    onChange={async (_) => {
-                      const base64 = await getBase64(_.target.files[0]);
-                      methods.setValue('affiliate_unit_paycheck', base64);
-                      setFileName(_.target.files[0]?.name);
-                    }}
-                    disabled={disabled}
-                  />
-                )}
-                {renderFile('affiliate_unit_paycheck')}
+                <input
+                  accept='application/pdf'
+                  type='file'
+                  onChange={async (_) => {
+                    const fileItem = _.target.files[0];
+                    if (fileItem) {
+                      const base64 = await getBase64(fileItem);
+
+                      const file = {
+                        affiliate_unit_file_url: base64,
+                        affiliate_unit_file_extension: fileItem.name.slice(fileItem.name.lastIndexOf('.') + 1),
+                        affiliate_unit_file_name: fileItem.name.slice(0, fileItem.name.lastIndexOf('.')),
+                      };
+
+                      append(file);
+                    }
+                  }}
+                  disabled={disabled}
+                />
+                {renderFile()}
               </label>
-              <p>File bảng lương (pdf)</p>
             </div>
           </div>
         </div>
 
-        <div class='cb_col_6'></div>
+        <div className='cb_col_6'></div>
       </div>
     </Accordion>
   );

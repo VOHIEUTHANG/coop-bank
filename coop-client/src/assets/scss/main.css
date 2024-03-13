@@ -512,8 +512,8 @@
 .cb_main_wrapp {
   padding: 20px;
   position: relative;
-  /* padding-bottom: 60px; */
   z-index: 1;
+  min-height: calc(100vh - 110px);
 }
 .cb_main_wrapp.cb_kp_nonshow {
   display: none !important;

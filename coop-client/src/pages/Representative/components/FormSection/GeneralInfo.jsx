@@ -12,7 +12,7 @@ const BranchInfo = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Họ và tên' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -43,12 +43,10 @@ const BranchInfo = ({ disabled, title, id }) => {
 
         <div className='cb_col_6'>
           <FormItem label='Chức vụ' isRequired disabled={disabled}>
-            <FormSelect
-              allowClear
-              disabled={disabled}
+            <FormInput
+              type='text'
               field='representative_position'
-              placeholder='Chọn chức vụ'
-              list={PositionOptions}
+              placeholder='Nhập chức vụ'
               validation={{
                 required: 'Chức vụ là bắt buộc',
               }}
@@ -56,7 +54,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Số điện thoại' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -69,13 +67,13 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Địa chỉ email' disabled={disabled}>
             <FormInput type='text' field='representative_email' placeholder='Nhập địa chỉ email' />
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Ngày sinh' disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
@@ -90,13 +88,13 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Địa chỉ' disabled={disabled}>
             <FormInput type='text' field='address' placeholder='Nhập địa chỉ' />
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Số tài khoản ngân hàng' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -107,7 +105,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Tên ngân hàng' isRequired disabled={disabled}>
             <FormInput
               type='text'
@@ -118,7 +116,7 @@ const BranchInfo = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
-        <div class='cb_col_6'>
+        <div className='cb_col_6'>
           <FormItem label='Mã số thuế' isRequired disabled={disabled}>
             <FormInput
               type='text'

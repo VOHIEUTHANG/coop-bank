@@ -61,7 +61,7 @@ export class User {
 
   @Exclude()
   @ManyToOne(() => TransactionRoom, (transactionRoom) => transactionRoom.users)
-  @JoinColumn({ name: 'transaction_room_di' })
+  @JoinColumn({ name: 'transaction_room_id' })
   transaction_room: TransactionRoom;
 
   @Transform(({ obj }) => obj.transaction_room?.transaction_room_id)

@@ -69,7 +69,7 @@ const Images = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <div class='cb_col_12'>
+        <div className='cb_col_12'>
           <div style={{ display: 'flex', gap: '15px' }}>
             <div className='cb_load_image cb_mb_2 cb_text_center'>
               <label className='cb_choose_image'>
@@ -124,7 +124,7 @@ const Images = ({ disabled, title, id }) => {
           </div>
         </div>
 
-        <div class='cb_col_6'></div>
+        <div className='cb_col_6'></div>
       </div>
     </Accordion>
   );

@@ -16,16 +16,13 @@ import {
   BankRepresentativePosition,
   getBankRepresentativePositionName
 } from '../bank-representative/bank-representative.constant';
-import {
-  RepresentativePosition,
-  getRepresentativePositionName
-} from '../representative/representative.constant';
+import { RepresentativePosition } from '../representative/representative.constant';
+import { ExportFormAffilateUnitDto } from './dto/export-form.dto';
 
 @Injectable()
 export class AffiliateUnitService {
   constructor(
     @InjectRepository(AffiliateUnit) private repo: Repository<AffiliateUnit>,
-    @InjectRepository(User) private userRepo: Repository<User>,
     @InjectDataSource() private dataSource: DataSource,
     private readonly fileService: FileService
   ) {}
@@ -38,10 +35,15 @@ export class AffiliateUnitService {
 
     this.fileService.saveFileField(createData, 'affiliate_unit_image_1');
     this.fileService.saveFileField(createData, 'affiliate_unit_image_2');
-    this.fileService.saveFileField(createData, 'affiliate_unit_paycheck');
+    this.fileService.saveFileField(createData, 'affiliate_unit_image_3');
+    this.fileService.saveFileField(createData, 'affiliate_unit_image_4');
 
-    const representative = this.repo.create(createData);
-    return this.repo.save(representative);
+    createData.affiliate_unit_files.forEach((file) => {
+      this.fileService.saveFileField(file, 'affiliate_unit_file_url');
+    });
+
+    const affiliateUnit = this.repo.create(createData);
+    return this.repo.save(affiliateUnit);
   }
 
   async findOne(affiliate_unit_id: string) {
@@ -85,16 +87,21 @@ export class AffiliateUnitService {
   }
 
   async update(updateData: Partial<AffiliateUnit>) {
-    const representative = await this.findOne(updateData.affiliate_unit_id);
+    const affiliateUnit = await this.findOne(updateData.affiliate_unit_id);
 
     updateData.founding_date = transformDate(updateData.founding_date);
 
     this.fileService.saveFileField(updateData, 'affiliate_unit_image_1');
     this.fileService.saveFileField(updateData, 'affiliate_unit_image_2');
-    this.fileService.saveFileField(updateData, 'affiliate_unit_paycheck');
+    this.fileService.saveFileField(updateData, 'affiliate_unit_image_3');
+    this.fileService.saveFileField(updateData, 'affiliate_unit_image_4');
 
-    Object.assign(representative, updateData);
-    return this.repo.save(representative);
+    updateData.affiliate_unit_files.forEach((file) => {
+      this.fileService.saveFileField(file, 'affiliate_unit_file_url');
+    });
+
+    Object.assign(affiliateUnit, updateData);
+    return this.repo.save(affiliateUnit);
   }
 
   async delete(id: string) {
@@ -126,11 +133,15 @@ export class AffiliateUnitService {
         branch.bank_number AS branch_bank_number,
         bank_representative.bank_representative_name,
         bank_representative.bank_representative_position,
+        bank_representative.gender,
         bank_representative.id_number,
         bank_representative.id_issued_by,
-        DATE_FORMAT(bank_representative.id_issued_date, '%d/%m/%Y') AS id_issued_date
+        DATE_FORMAT(bank_representative.id_issued_date, '%d/%m/%Y') AS id_issued_date,
+        transaction_room.transaction_room_id,
+        transaction_room.transaction_room_name
       FROM user
       LEFT JOIN branch on branch.branch_id = user.branch_id
+      LEFT JOIN transaction_room on user.transaction_room_id = transaction_room.transaction_room_id
       LEFT JOIN LATERAL(
         SELECT 
         *
@@ -156,80 +167,90 @@ export class AffiliateUnitService {
       branch_province: branchData.branch_province,
       branch_phone: joinString([branchData.branch_phone_main, branchData.branch_phone_sub], ' - '),
       bank_representative_name: branchData.bank_representative_name?.toUpperCase(),
+      bank_representative_gender: branchData.gender,
       bank_representative_id_number: branchData.id_number,
       bank_representative_id_issued_by: branchData.id_issued_by,
       bank_representative_id_issued_date: branchData.id_issued_date,
       bank_representative_id_position: getBankRepresentativePositionName(
         branchData.bank_representative_position
-      )
+      ),
+      transaction_room_id: branchData.transaction_room_id,
+      transaction_room_name: branchData.transaction_room_name
     };
 
     return serializedData;
   }
-  async getAffiliateUnitData(affiliateUnitId: string): Promise<any> {
+  async getAffiliateUnitData(affiliateUnitId: string, representativeId: string): Promise<any> {
     const getAffiliateUnitQuery = `
     SELECT
       au.affiliate_unit_name,
       au.affiliate_unit_address,
       au.affiliate_unit_phone,
-      au.affiliate_unit_fax,
-      representative.representative_name AS rep_name, 
-      representative.representative_position AS rep_position,
-      YEAR(representative.birth_date) AS rep_birth_date,
-      representative.id_number AS rep_id_number,
-      representative.id_issued_by AS rep_id_issued_by,
-      DATE_FORMAT(representative.id_issued_date, '%d/%m/%Y') AS rep_id_date,
-      representative.address AS rep_address,
-      representative.phone_number AS rep_phone,
-      representative.bank_number AS rep_bank_number,
-      representative.bank_name AS rep_bank_name,
-      representative.tax_code AS rep_tax_code
+      au.affiliate_unit_fax
     FROM
       affiliate_unit AS au
-      LEFT JOIN LATERAL (
-      SELECT
-        * 
-      FROM
-        representative_affiliate_unit AS RAU
-        JOIN representative AS R ON R.representative_id = RAU.representativeRepresentativeId 
-        AND R.representative_position = ?
-      WHERE
-        RAU.affiliateUnitAffiliateUnitId = au.affiliate_unit_id 
-        LIMIT 1 
-      ) representative ON 1 = 1 
     WHERE
       au.affiliate_unit_id = ?
       AND au.deleted_at IS NULL
     `;
+
+    const getRepresentativeQuery = `
+    SELECT
+      representative_name AS rep_name, 
+      representative_position AS rep_position,
+      YEAR(birth_date) AS rep_birth_date,
+      id_number AS rep_id_number,
+      id_issued_by AS rep_id_issued_by,
+      DATE_FORMAT(id_issued_date, '%d/%m/%Y') AS rep_id_date,
+      address AS rep_address,
+      phone_number AS rep_phone,
+      bank_number AS rep_bank_number,
+      bank_name AS rep_bank_name,
+      tax_code AS rep_tax_code
+    FROM representative
+    WHERE
+    representative_id = ?
+    AND deleted_at IS NULL
+    `;
+
     const [affiliateData] = await this.dataSource.query(getAffiliateUnitQuery, [
       RepresentativePosition.PRINCIPAL,
       affiliateUnitId
     ]);
+    const [representativeData] = await this.dataSource.query(getRepresentativeQuery, [
+      representativeId
+    ]);
 
     const serializedAffiliateData = {
-      unit_name: affiliateData.affiliate_unit_name?.toUpperCase(),
+      unit_name: affiliateData.affiliate_unit_name,
+      unit_name_upper: affiliateData.affiliate_unit_name?.toUpperCase(),
       unit_address: affiliateData.affiliate_unit_address,
       unit_phone: affiliateData.affiliate_unit_phone,
       unit_fax: affiliateData.affiliate_unit_fax,
-      rep_name: affiliateData.rep_name?.toUpperCase(),
-      rep_position: getRepresentativePositionName(affiliateData.rep_position),
-      rep_birth_date: affiliateData.rep_birth_date,
-      rep_id_number: affiliateData.rep_id_number,
-      rep_id_by: affiliateData.rep_id_issued_by,
-      rep_id_date: affiliateData.rep_id_date,
-      rep_address: affiliateData.rep_address,
-      rep_phone: affiliateData.rep_phone,
-      rep_bank_number: affiliateData.rep_bank_number,
-      rep_bank_name: affiliateData.rep_bank_name,
-      rep_tax_code: affiliateData.rep_tax_code
+      rep_name: representativeData.rep_name,
+      rep_name_upper: representativeData.rep_name?.toUpperCase(),
+      rep_position: representativeData.rep_position,
+      rep_birth_date: representativeData.rep_birth_date,
+      rep_id_number: representativeData.rep_id_number,
+      rep_id_by: representativeData.rep_id_issued_by,
+      rep_id_date: representativeData.rep_id_date,
+      rep_address: representativeData.rep_address,
+      rep_phone: representativeData.rep_phone,
+      rep_bank_number: representativeData.rep_bank_number,
+      rep_bank_name: representativeData.rep_bank_name,
+      rep_tax_code: representativeData.rep_tax_code
     };
 
     return serializedAffiliateData;
   }
   // Xuất hợp đồng liên kết
-  async exportAffilateContract(affiliateUnitId: string, userId: number): Promise<Buffer> {
+  async exportAffilateContract(
+    affiliateUnitId: string,
+    userId: number,
+    query: ExportFormAffilateUnitDto
+  ): Promise<Buffer> {
     const branchData = await this.getBranchData(userId);
-    const affiliateData = await this.getAffiliateUnitData(affiliateUnitId);
+    const affiliateData = await this.getAffiliateUnitData(affiliateUnitId, query.representative_id);
 
     const docData = {
       ...branchData,
@@ -249,10 +270,13 @@ export class AffiliateUnitService {
     return buffer;
   }
   // Xuất hợp đồng dịch vụ
-  async exportServicentract(affiliateUnitId: string, userId: number): Promise<Buffer> {
+  async exportServicentract(
+    affiliateUnitId: string,
+    userId: number,
+    query: ExportFormAffilateUnitDto
+  ): Promise<Buffer> {
     const branchData = await this.getBranchData(userId);
-    const affiliateData = await this.getAffiliateUnitData(affiliateUnitId);
-
+    const affiliateData = await this.getAffiliateUnitData(affiliateUnitId, query.representative_id);
     const docData = {
       ...branchData,
       ...affiliateData,
@@ -271,9 +295,13 @@ export class AffiliateUnitService {
     return buffer;
   }
   // Xuất giấy cử người đi trả nợ
-  async exportAssignPay(affiliateUnitId: string, userId: number): Promise<Buffer> {
+  async exportAssignPay(
+    affiliateUnitId: string,
+    userId: number,
+    query: ExportFormAffilateUnitDto
+  ): Promise<Buffer> {
     const branchData = await this.getBranchData(userId);
-    const affiliateData = await this.getAffiliateUnitData(affiliateUnitId);
+    const affiliateData = await this.getAffiliateUnitData(affiliateUnitId, query.representative_id);
 
     const docData = {
       ...branchData,
@@ -292,13 +320,19 @@ export class AffiliateUnitService {
     return buffer;
   }
   // Xuất kiểm tra định kỳ
-  async exportPeriodicalCheck(affiliateUnitId: string, userId: number): Promise<Buffer> {
+  async exportPeriodicalCheck(
+    affiliateUnitId: string,
+    userId: number,
+    query: ExportFormAffilateUnitDto
+  ): Promise<Buffer> {
     const branchData = await this.getBranchData(userId);
-    const affiliateData = await this.getAffiliateUnitData(affiliateUnitId);
+    const affiliateData = await this.getAffiliateUnitData(affiliateUnitId, query.representative_id);
 
     const docData = {
       ...branchData,
-      ...affiliateData
+      ...affiliateData,
+      branch_note: query.branch_note || '',
+      affiliate_note: query.affiliate_note || ''
     };
 
     const templateContent = fs.readFileSync(

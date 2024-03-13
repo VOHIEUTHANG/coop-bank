@@ -272,7 +272,7 @@ export const disabledDatePrevious = (currentDate, format = 'YYYY-MM-DD') => {
   return currentDate && currentDate < moment(customDate, format);
 };
 
-export function downloadPDF(base64PDF, fileName = 'salary.pdf') {
+export function downloadPDF(base64PDF, fileName = 'file_name.pdf') {
   const downloadLink = document.createElement('a');
   downloadLink.href = base64PDF;
   downloadLink.download = fileName;

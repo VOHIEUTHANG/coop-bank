@@ -34,6 +34,11 @@ export class BankRepresentativeController {
     return this.bankRepresentativeService.find(filter);
   }
 
+  @Get('list-by-user')
+  getListByUser(@Request() request) {
+    return this.bankRepresentativeService.getListByUser(request.user.sub);
+  }
+
   @Get(':bank_representative_id')
   getById(@Param('bank_representative_id') bank_representative_id: string) {
     return this.bankRepresentativeService.findOne(bank_representative_id);

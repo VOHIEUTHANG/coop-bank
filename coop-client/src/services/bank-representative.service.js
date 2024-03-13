@@ -24,3 +24,7 @@ export const deleteBankRepresentative = (id) => {
 export const getOptions = (params = {}) => {
   return httpClient.get(path + '/options', { params });
 };
+
+export const getListByUser = (params = {}) => {
+  return httpClient.get(path + '/list-by-user', { params });
+};

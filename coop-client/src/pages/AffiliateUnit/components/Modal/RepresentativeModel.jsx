@@ -44,14 +44,14 @@ const AddRepresentativeModal = ({ open, onClose }) => {
   return (
     <ModalWrapper>
       <div className={`cb_modal ${open ? 'cb_modal_open' : ''}`} id='cb_addProduct'>
-        <div class='cb_modal_container cb_w1200 cb_modal_wrapper'>
-          <div class='cb_title_modal'>
+        <div className='cb_modal_container cb_w1200 cb_modal_wrapper'>
+          <div className='cb_title_modal'>
             <h3>Danh sách người đại diện</h3>
-            <span class='fi fi-rr-cross-small cb_close_modal' onClick={onClose}></span>
+            <span className='fi fi-rr-cross-small cb_close_modal' onClick={onClose}></span>
           </div>
           <div>
             <div>
-              <div className='cb_main_wrapp'>
+              <div className='cb_main_wrapp' style={{ minHeight: 'unset' }}>
                 <CustomerFilter onChange={onChange} />
                 <RepresentativeTable
                   onChangePage={(page) => {

@@ -1,12 +1,13 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import Accordion from 'components/shared/Accordion/index';
-import { useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import { PlusOutlined, CloseOutlined } from '@ant-design/icons';
 import { getBase64 } from 'utils/helpers';
 import styled from 'styled-components';
 import PdfImage from 'assets/images/pdf.png';
 import { downloadPDF } from 'utils';
+import { Tooltip } from 'antd';
 
 const CloseBtnStyle = styled.span`
   width: 30px;
@@ -27,29 +28,36 @@ const CloseBtnStyle = styled.span`
 
 const Files = ({ disabled, title, id }) => {
   const methods = useFormContext();
-  const { watch, setValue } = methods;
+  const { control } = methods;
+  const { remove, fields, append } = useFieldArray({
+    control,
+    name: 'individual_files',
+  });
 
   const renderFile = useCallback(
-    (field) => {
-      if (watch(field)) {
+    (file, index) => {
+      if (file) {
         return (
           <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-            <img
-              alt=''
-              style={{ width: '100%', height: '100%' }}
-              src={PdfImage}
-              onClick={() => {
-                if (!disabled) {
-                  downloadPDF(watch(field), field);
-                }
-              }}
-            />
+            <Tooltip title={`${file.individual_file_name}.${file.individual_file_extension}`}>
+              <img
+                alt='File'
+                style={{ width: '100%', height: '100%' }}
+                src={PdfImage}
+                onClick={() => {
+                  if (!disabled) {
+                    downloadPDF(
+                      file.individual_file_url,
+                      `${file.individual_file_name}.${file.individual_file_extension}`,
+                    );
+                  }
+                }}
+              />
+            </Tooltip>
             <CloseBtnStyle
               onClick={() => {
                 if (!disabled) {
-                  setTimeout(() => {
-                    setValue(field, null);
-                  }, 100);
+                  remove(index);
                 }
               }}
               style={{ visibility: disabled ? 'hidden' : 'visible' }}>
@@ -73,73 +81,79 @@ const Files = ({ disabled, title, id }) => {
         </div>
       );
     },
-    [watch('salary_file'), watch('marriage_file'), watch('appoint_file')],
+    [disabled, remove],
   );
 
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <div class='cb_col_12' style={{ display: 'flex', gap: '10px' }}>
+        <div className='cb_col_12'>
           <div style={{ display: 'flex', gap: '15px' }}>
+            {fields?.map((file, index) => {
+              return (
+                <div className='cb_load_image cb_mb_2 cb_text_center' key={index}>
+                  <label className='cb_choose_image' style={{ width: '100px', height: '100px' }}>
+                    {!file?.individual_file_url && (
+                      <input
+                        accept='application/pdf'
+                        type='file'
+                        onChange={async (_) => {
+                          const fileItem = _.target.files[0];
+                          if (fileItem) {
+                            const base64 = await getBase64(fileItem);
+                            const file = {
+                              individual_file_url: base64,
+                              individual_file_extension: fileItem.name.slice(fileItem.name.lastIndexOf('.') + 1),
+                              individual_file_name: fileItem.name.slice(0, fileItem.name.lastIndexOf('.')),
+                            };
+                            methods.setValue(`individual_files.${index}`, file);
+                          }
+                        }}
+                        disabled={disabled}
+                      />
+                    )}
+                    {renderFile(file, index)}
+                  </label>
+                  <p
+                    style={{
+                      maxWidth: '110px',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}>
+                    {file.individual_file_name}
+                  </p>
+                </div>
+              );
+            })}
             <div className='cb_load_image cb_mb_2 cb_text_center'>
               <label className='cb_choose_image' style={{ width: '100px', height: '100px' }}>
-                {!methods.watch('salary_file') && (
-                  <input
-                    accept='application/pdf'
-                    type='file'
-                    onChange={async (_) => {
-                      const base64 = await getBase64(_.target.files[0]);
-                      methods.setValue('salary_file', base64);
-                    }}
-                    disabled={disabled}
-                  />
-                )}
-                {renderFile('salary_file')}
-              </label>
-              <p>Quyết định nâng lương</p>
-            </div>
-          </div>
+                <input
+                  accept='application/pdf'
+                  type='file'
+                  onChange={async (_) => {
+                    const fileItem = _.target.files[0];
+                    if (fileItem) {
+                      const base64 = await getBase64(fileItem);
 
-          <div style={{ display: 'flex', gap: '15px' }}>
-            <div className='cb_load_image cb_mb_2 cb_text_center'>
-              <label className='cb_choose_image' style={{ width: '100px', height: '100px' }}>
-                {!methods.watch('marriage_file') && (
-                  <input
-                    accept='application/pdf'
-                    type='file'
-                    onChange={async (_) => {
-                      const base64 = await getBase64(_.target.files[0]);
-                      methods.setValue('marriage_file', base64);
-                    }}
-                    disabled={disabled}
-                  />
-                )}
-                {renderFile('marriage_file')}
-              </label>
-              <p>Giấy đăng ký kết hôn</p>
-            </div>
-          </div>
+                      const file = {
+                        individual_file_url: base64,
+                        individual_file_extension: fileItem.name.slice(fileItem.name.lastIndexOf('.') + 1),
+                        individual_file_name: fileItem.name.slice(0, fileItem.name.lastIndexOf('.')),
+                      };
 
-          <div style={{ display: 'flex', gap: '15px' }}>
-            <div className='cb_load_image cb_mb_2 cb_text_center'>
-              <label className='cb_choose_image' style={{ width: '100px', height: '100px' }}>
-                {!methods.watch('appoint_file') && (
-                  <input
-                    accept='application/pdf'
-                    type='file'
-                    onChange={async (_) => {
-                      const base64 = await getBase64(_.target.files[0]);
-                      methods.setValue('appoint_file', base64);
-                    }}
-                    disabled={disabled}
-                  />
-                )}
-                {renderFile('appoint_file')}
+                      append(file);
+                    }
+                  }}
+                  disabled={disabled}
+                />
+                {renderFile()}
               </label>
-              <p>Quyết định bổ nhiệm</p>
             </div>
           </div>
         </div>
+
+        <div className='cb_col_6'></div>
       </div>
     </Accordion>
   );

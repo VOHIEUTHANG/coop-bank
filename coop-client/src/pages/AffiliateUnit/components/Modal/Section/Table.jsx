@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import DataTable from 'components/shared/DataTable/index';
-import { PositionOptions } from 'pages/Representative/utils/constants';
 
 const RepresentativeTable = ({
   data,
@@ -29,12 +28,7 @@ const RepresentativeTable = ({
       {
         header: 'Chức vụ',
         classNameHeader: 'cb_text_center',
-        formatter: (item, index) => (
-          <span>
-            {PositionOptions.find((position) => position.value === item.representative_position)?.label ||
-              'Không xác định'}
-          </span>
-        ),
+        accessor: 'representative_position',
       },
       {
         header: 'Căn cước công dân',

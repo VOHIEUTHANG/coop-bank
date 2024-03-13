@@ -169,6 +169,7 @@ const SideBar = () => {
       key: 'CHANGE_PASSWORD',
       label: (
         <span
+          key={1}
           onClick={() => {
             setModalChangePassword(true);
           }}
@@ -183,6 +184,7 @@ const SideBar = () => {
       key: 'LOG_OUT',
       label: (
         <span
+          key={2}
           style={{ display: 'inline-block', width: '100%' }}
           className='header-menu'
           onClick={(e) => {
@@ -210,14 +212,16 @@ const SideBar = () => {
     <div id='sidebar__left' className='cb_sidebar'>
       <div
         className='cb_logo'
-        style={{
-          position: 'absolute',
-          bottom: 10,
-          left: 10,
-          right: 10,
-          background: 'var(--grayColor)',
-          borderRadius: 4,
-        }}>
+        style={
+          {
+            // position: 'absolute',
+            // bottom: 10,
+            // left: 10,
+            // right: 10,
+            // background: 'var(--grayColor)',
+            // borderRadius: 4,
+          }
+        }>
         <a className='cb_main_logo' style={{ margin: '0 auto' }}>
           <Link to='/'>
             <img src={logo} />

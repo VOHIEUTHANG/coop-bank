@@ -53,16 +53,28 @@ export class AffiliateUnitController {
     let wordBuffer: any;
     switch (query.export_type) {
       case EXPORT_TYPE.AFFILATE_CONTRACT:
-        wordBuffer = await this.service.exportAffilateContract(affilateUnitId, request.user.sub);
+        wordBuffer = await this.service.exportAffilateContract(
+          affilateUnitId,
+          request.user.sub,
+          query
+        );
         break;
       case EXPORT_TYPE.SERVICE_CONTRACT:
-        wordBuffer = await this.service.exportServicentract(affilateUnitId, request.user.sub);
+        wordBuffer = await this.service.exportServicentract(
+          affilateUnitId,
+          request.user.sub,
+          query
+        );
         break;
       case EXPORT_TYPE.ASSIGN_PAY:
-        wordBuffer = await this.service.exportAssignPay(affilateUnitId, request.user.sub);
+        wordBuffer = await this.service.exportAssignPay(affilateUnitId, request.user.sub, query);
         break;
       case EXPORT_TYPE.PERIODICAL_CHECK:
-        wordBuffer = await this.service.exportPeriodicalCheck(affilateUnitId, request.user.sub);
+        wordBuffer = await this.service.exportPeriodicalCheck(
+          affilateUnitId,
+          request.user.sub,
+          query
+        );
         break;
     }
     response.send(wordBuffer);

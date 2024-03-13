@@ -25,8 +25,8 @@ export class Representative {
   representative_name: string;
   @Column({ nullable: true })
   representative_email: string;
-  @Column({ nullable: true })
-  representative_position: number;
+  @Column()
+  representative_position: string;
   @Column({ nullable: true })
   phone_number: string;
   @Column({ nullable: true })
