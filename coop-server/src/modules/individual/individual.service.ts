@@ -47,7 +47,7 @@ export class IndividualService {
     this.fileService.saveFileField(data, 'id_front_image');
     this.fileService.saveFileField(data, 'id_back_image');
 
-    data.individual_files.forEach((file) => {
+    data.individual_files?.forEach((file) => {
       this.fileService.saveFileField(file, 'individual_file_url');
     });
 
