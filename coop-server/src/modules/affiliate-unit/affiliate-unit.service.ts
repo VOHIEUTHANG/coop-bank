@@ -38,7 +38,7 @@ export class AffiliateUnitService {
     this.fileService.saveFileField(createData, 'affiliate_unit_image_3');
     this.fileService.saveFileField(createData, 'affiliate_unit_image_4');
 
-    createData.affiliate_unit_files.forEach((file) => {
+    createData.affiliate_unit_files?.forEach((file) => {
       this.fileService.saveFileField(file, 'affiliate_unit_file_url');
     });
 
@@ -96,7 +96,7 @@ export class AffiliateUnitService {
     this.fileService.saveFileField(updateData, 'affiliate_unit_image_3');
     this.fileService.saveFileField(updateData, 'affiliate_unit_image_4');
 
-    updateData.affiliate_unit_files.forEach((file) => {
+    updateData.affiliate_unit_files?.forEach((file) => {
       this.fileService.saveFileField(file, 'affiliate_unit_file_url');
     });
 
