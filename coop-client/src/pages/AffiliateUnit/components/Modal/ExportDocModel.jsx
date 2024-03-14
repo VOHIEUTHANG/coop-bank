@@ -112,7 +112,7 @@ function ExportDoc({ setShowModal, affiliateUnit }) {
                   </div>
 
                   <Divider />
-                  <FormItem label='Loại giấy tờ' isRequired className='cb_col_12'>
+                  <FormItem label='In các biểu mẫu' isRequired className='cb_col_12'>
                     <FormRadioGroup
                       custom
                       style={{ marginBottom: '8px', marginTop: '2px' }}

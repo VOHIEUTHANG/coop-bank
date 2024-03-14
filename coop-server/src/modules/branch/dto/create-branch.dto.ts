@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsArray, IsNumber, IsOptional, IsPhoneNumber, IsString, Max, Min } from 'class-validator';
+import { IsArray, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsPhoneNumber } from 'src/common/validation';
 import { BankRepresentative } from 'src/modules/bank-representative/bank-representative.entity';
 import { User } from 'src/modules/users/users.entity';
 
@@ -28,10 +29,10 @@ export class CreateBranchDto {
   @IsString()
   branch_province: string;
   @ApiProperty()
-  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  @IsPhoneNumber()
   phone_number_main: string;
   @ApiProperty()
-  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  @IsPhoneNumber()
   @IsOptional()
   phone_number_sub: string;
   @IsOptional()

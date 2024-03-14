@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsArray, IsNumber, IsOptional, IsPhoneNumber, IsString, Max, Min } from 'class-validator';
+import { IsArray, IsNumber, IsOptional, IsString, Max, Min } from 'class-validator';
+import { IsPhoneNumber } from 'src/common/validation';
 import { BankRepresentative } from 'src/modules/bank-representative/bank-representative.entity';
 import { Branch } from 'src/modules/branch/branch.entity';
 import { User } from 'src/modules/users/users.entity';
@@ -21,15 +22,11 @@ export class CreateTransactionRoomDto {
   @ApiProperty()
   @IsString()
   bank_number: string;
-  @ApiPropertyOptional()
-  @IsString()
-  @IsOptional()
-  transaction_room_fax: string;
   @ApiProperty()
-  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  @IsPhoneNumber()
   phone_number_main: string;
   @ApiProperty()
-  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  @IsPhoneNumber()
   @IsOptional()
   phone_number_sub: string;
   @IsOptional()

@@ -29,8 +29,7 @@ export class TransactionRoom {
   interest_rate: number;
   @Column()
   bank_number: string;
-  @Column()
-  transaction_room_fax: string;
+
   @Column()
   phone_number_main: string;
   @Column({ nullable: true })

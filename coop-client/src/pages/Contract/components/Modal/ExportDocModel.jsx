@@ -22,6 +22,13 @@ const DataTableStyled = styled.div`
   }
 `;
 
+const FormRadioGroupStyled = styled.div`
+  .cb_radio {
+    color: #19376d;
+    font-weight: 500;
+  }
+`;
+
 function ExportDoc({ closeModal, contractId, defaultExportData, refreshData }) {
   const methods = useForm({
     defaultValues: defaultExportData || {
@@ -101,7 +108,7 @@ function ExportDoc({ closeModal, contractId, defaultExportData, refreshData }) {
               </div>
               <span className='cb_close_modal fi fi-rr-cross-small' onClick={() => closeModal(false)} />
             </div>
-            <div className='cb_main_modal'>
+            <FormRadioGroupStyled className='cb_main_modal'>
               <Accordion>
                 <div className='cb_row'>
                   {representatives?.length > 0 && (
@@ -126,7 +133,7 @@ function ExportDoc({ closeModal, contractId, defaultExportData, refreshData }) {
                     </React.Fragment>
                   )}
 
-                  <FormItem label='Loại giấy tờ' isRequired className='cb_col_12'>
+                  <FormItem label='In các biểu mẫu' isRequired className='cb_col_12'>
                     <FormRadioGroup
                       style={{ marginBottom: '10px', marginTop: '2px', width: '33%' }}
                       custom
@@ -137,7 +144,7 @@ function ExportDoc({ closeModal, contractId, defaultExportData, refreshData }) {
                   </FormItem>
                 </div>
               </Accordion>
-            </div>
+            </FormRadioGroupStyled>
             <div
               className='cb_footer_modal cb_flex cb_justify_content_right cb_align_items_center'
               style={{
