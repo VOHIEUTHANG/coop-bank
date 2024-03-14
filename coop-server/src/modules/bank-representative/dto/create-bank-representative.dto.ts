@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEmail, IsEnum, IsNumber, IsOptional, IsPhoneNumber, IsString } from 'class-validator';
+import { IsPhoneNumber } from 'src/common/validation';
+import { IsEmail, IsEnum, IsNumber, IsOptional, IsString } from 'class-validator';
 import { IsDateFormat } from 'src/common/validation';
 import { User } from 'src/modules/users/users.entity';
 import { Gender } from 'src/types/data-type';
@@ -18,7 +19,7 @@ export class CreateBankRepresentativeDto {
   bank_representative_email: string;
 
   @ApiProperty()
-  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  @IsPhoneNumber()
   phone_number: string;
 
   @ApiProperty()

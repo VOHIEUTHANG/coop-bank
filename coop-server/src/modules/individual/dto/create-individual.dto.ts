@@ -1,8 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsEnum, IsOptional, IsPhoneNumber, IsString, IsNumber, IsInt } from 'class-validator';
+import { IsEnum, IsOptional, IsString, IsNumber, IsInt } from 'class-validator';
 import { IsDateFormat } from 'src/common/validation';
 import { AffiliateUnit } from 'src/modules/affiliate-unit/entity/affiliate-unit.entity';
+import { IsPhoneNumber } from 'src/common/validation';
 import { User } from 'src/modules/users/users.entity';
 import { Gender } from 'src/types/data-type';
 import { IndividualFile } from '../entity/individual-file.entity';
@@ -47,7 +48,7 @@ export class CreateIndividualDto {
   total_income: number;
 
   @ApiProperty()
-  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  @IsPhoneNumber()
   phone_number: string;
 
   @ApiPropertyOptional()
@@ -136,7 +137,7 @@ export class CreateIndividualDto {
   heir_address: string;
 
   @ApiPropertyOptional()
-  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  @IsPhoneNumber()
   @IsOptional()
   heir_phone: string;
 }

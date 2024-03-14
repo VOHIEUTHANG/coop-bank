@@ -1,14 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsBoolean,
-  IsEmail,
-  IsNotEmpty,
-  IsOptional,
-  IsPhoneNumber,
-  IsString,
-  MinLength
-} from 'class-validator';
+import { IsBoolean, IsEmail, IsNotEmpty, IsOptional, IsString, MinLength } from 'class-validator';
 import { Branch } from 'src/modules/branch/branch.entity';
+import { IsPhoneNumber } from 'src/common/validation';
 import { TransactionRoom } from 'src/modules/transaction-room/transaction-room.entity';
 
 export class CreateUserDto {
@@ -27,7 +20,7 @@ export class CreateUserDto {
   email: string;
   @ApiProperty()
   @IsOptional()
-  @IsPhoneNumber('VN', { message: 'Số điện thoại không đúng định dạng' })
+  @IsPhoneNumber()
   phone_number: string;
   @ApiProperty()
   @IsString()
