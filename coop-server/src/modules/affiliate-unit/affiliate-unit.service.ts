@@ -116,7 +116,10 @@ export class AffiliateUnitService {
       .createQueryBuilder('affiliateUnit')
       .select([
         'affiliateUnit.affiliate_unit_id AS value',
-        'affiliateUnit.affiliate_unit_name AS label'
+        'affiliateUnit.affiliate_unit_name AS label',
+        'affiliateUnit.affiliate_unit_code AS affiliate_unit_code',
+        'affiliateUnit.affiliate_unit_code AS affiliate_unit_code',
+        'affiliateUnit.affiliate_unit_address AS affiliate_unit_address'
       ])
       .getRawMany();
   }
@@ -124,6 +127,7 @@ export class AffiliateUnitService {
   async getBranchData(userId: number): Promise<any> {
     const getBranchQuery = `
       SELECT 
+        user.full_name,
         branch.branch_name,
         branch.address AS branch_address,
         branch.branch_province AS branch_province,
@@ -160,6 +164,7 @@ export class AffiliateUnitService {
       userId
     ]);
     const serializedData = {
+      user_full_name: branchData.full_name,
       branch_name: branchData.branch_name,
       branch_address: branchData.branch_address,
       branch_fax: branchData.branch_fax,
@@ -184,9 +189,11 @@ export class AffiliateUnitService {
     const getAffiliateUnitQuery = `
     SELECT
       au.affiliate_unit_name,
+      au.affiliate_unit_code,
       au.affiliate_unit_address,
       au.affiliate_unit_phone,
-      au.affiliate_unit_fax
+      au.affiliate_unit_fax,
+      au.affiliate_contract_code
     FROM
       affiliate_unit AS au
     WHERE
@@ -223,6 +230,8 @@ export class AffiliateUnitService {
 
     const serializedAffiliateData = {
       unit_name: affiliateData.affiliate_unit_name,
+      unit_code: affiliateData.affiliate_unit_code,
+      contract_code: affiliateData.affiliate_contract_code,
       unit_name_upper: affiliateData.affiliate_unit_name?.toUpperCase(),
       unit_address: affiliateData.affiliate_unit_address,
       unit_phone: affiliateData.affiliate_unit_phone,
@@ -337,6 +346,34 @@ export class AffiliateUnitService {
 
     const templateContent = fs.readFileSync(
       'src/template/doc/DVLK_kiem_tra_dinh_ky.docx',
+      'binary'
+    );
+    const zip = new PizZip(templateContent);
+    const doc = new Docxtemplater(zip);
+    doc.setData(docData);
+    doc.render();
+    const buffer = doc.getZip().generate({ type: 'nodebuffer' });
+    return buffer;
+  }
+
+  // Xuất kiểm tra đơn vị liên kết
+  async exportOverallCheck(
+    affiliateUnitId: string,
+    userId: number,
+    query: ExportFormAffilateUnitDto
+  ): Promise<Buffer> {
+    const branchData = await this.getBranchData(userId);
+    const affiliateData = await this.getAffiliateUnitData(affiliateUnitId, query.representative_id);
+
+    const docData = {
+      ...branchData,
+      ...affiliateData,
+      branch_note: query.branch_note || '',
+      affiliate_note: query.affiliate_note || ''
+    };
+
+    const templateContent = fs.readFileSync(
+      'src/template/doc/DCLK_kiem_tra_tong_the.docx',
       'binary'
     );
     const zip = new PizZip(templateContent);

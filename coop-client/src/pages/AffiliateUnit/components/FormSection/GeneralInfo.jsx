@@ -98,6 +98,12 @@ const Infomation = ({ disabled, title, id }) => {
             />
           </FormItem>
         </div>
+
+        <div className='cb_col_6'>
+          <FormItem label='Số hợp đồng liên kết' disabled={disabled}>
+            <FormInput type='text' field='affiliate_contract_code' placeholder='Nhập số hợp đồng liên kết' />
+          </FormItem>
+        </div>
       </div>
     </Accordion>
   );

@@ -63,7 +63,7 @@ const Images = ({ disabled, title, id }) => {
         </div>
       );
     },
-    [watch('gift_image_1'), watch('gift_image_2'), watch('gift_image_3')],
+    [watch('gift_image_1'), watch('gift_image_2'), watch('gift_image_3'), watch('gift_image_4')],
   );
 
   return (
@@ -119,6 +119,23 @@ const Images = ({ disabled, title, id }) => {
                   />
                 )}
                 {renderImage('gift_image_3')}
+              </label>
+            </div>
+
+            <div className='cb_load_image cb_mb_2 cb_text_center'>
+              <label className='cb_choose_image'>
+                {!methods.watch('gift_image_4') && (
+                  <input
+                    accept='image/*'
+                    type='file'
+                    onChange={async (_) => {
+                      const base64 = await getBase64(_.target.files[0]);
+                      methods.setValue('gift_image_4', base64);
+                    }}
+                    disabled={disabled}
+                  />
+                )}
+                {renderImage('gift_image_4')}
               </label>
             </div>
           </div>

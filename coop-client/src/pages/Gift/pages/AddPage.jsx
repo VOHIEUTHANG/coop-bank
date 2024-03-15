@@ -5,8 +5,12 @@ import { useLocation, useParams } from 'react-router-dom';
 
 import { create, update, getById } from 'services/gift.service';
 import GeneralInfomation from '../components/FormSection/GeneralInfo';
+import GiftList from '../components/FormSection/GiftList';
 import Images from '../components/FormSection/Images';
 import { showToast } from 'utils/helpers';
+import { exportForm } from 'services/gift.service';
+import { handleToastError } from 'utils';
+import moment from 'moment';
 
 const AddPage = () => {
   const methods = useForm();
@@ -16,6 +20,10 @@ const AddPage = () => {
   const disabled = useMemo(() => pathname.includes('/detail'), [pathname]);
 
   const onSubmit = async (payload) => {
+    if (!payload.gifts || payload.gifts?.length === 0) {
+      return showToast.warning('Phần quà tặng là bắt buộc !');
+    }
+
     try {
       let label;
       if (gift_id) {
@@ -53,7 +61,13 @@ const AddPage = () => {
       title: 'Thông tin chung',
       id: 'general-info',
       component: GeneralInfomation,
-      fieldActive: ['gift_content', 'giver_user_id', 'affiliate_unit_id'],
+      fieldActive: ['gifts', 'giver_user_id', 'affiliate_unit_id'],
+    },
+    {
+      id: 'gift_list',
+      title: 'Danh quà tặng',
+      fieldActive: ['gifts'],
+      component: GiftList,
     },
     {
       title: 'Hình ảnh quà tặng',
@@ -65,9 +79,31 @@ const AddPage = () => {
 
   useEffect(loadDetail, [loadDetail]);
 
+  const actions = [
+    {
+      icon: 'ti-printer',
+      submit: false,
+      content: 'In giấy đề nghị tặng quà',
+      className: 'cb_btn cb_btn_outline cb_btn_outline_success',
+      onClick: () => {
+        exportForm(gift_id)
+          .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response?.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            const configDate = moment().format('DDMMYYYY');
+            link.setAttribute('download', `gifts_${configDate}.docx`);
+            document.body.appendChild(link);
+            link.click();
+          })
+          .catch((err) => handleToastError(err));
+      },
+    },
+  ];
+
   return (
     <FormProvider {...methods}>
-      <FormSection detailForm={detailForm} onSubmit={onSubmit} disabled={disabled} />
+      <FormSection actions={actions} detailForm={detailForm} onSubmit={onSubmit} disabled={disabled} />
     </FormProvider>
   );
 };

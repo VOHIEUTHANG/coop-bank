@@ -33,6 +33,7 @@ export class SpecialDayService {
       currentDate,
       remainingDays
     );
+
     const foundingDateAffiliateUnits = await this._getListFoundingDateAffiliateUnit(
       currentDate,
       remainingDays
@@ -56,8 +57,8 @@ export class SpecialDayService {
   async _getListBirthDayRepresentative(currentDate: Date, remainingDays: number) {
     const representatives = await this.representativeRepo
       .createQueryBuilder('rep')
-      .where('rep.representative_position = :position', {
-        position: RepresentativePosition.PRINCIPAL
+      .where('rep.representative_position like :position', {
+        position: `%hieu truong%`
       })
       .andWhere(
         new Brackets((qb) =>
@@ -144,8 +145,8 @@ export class SpecialDayService {
   async _getListEffectiveDateFromRepresentative(currentDate: Date, remainingDays: number) {
     const representatives = await this.representativeRepo
       .createQueryBuilder('rep')
-      .where('rep.representative_position = :position', {
-        position: RepresentativePosition.PRINCIPAL
+      .where('rep.representative_position like :position', {
+        position: `%hieu truong%`
       })
       .andWhere(
         new Brackets((qb) =>
@@ -191,8 +192,8 @@ export class SpecialDayService {
   async _getListEffectiveDateEndRepresentative(currentDate: Date, remainingDays: number) {
     const representatives = await this.representativeRepo
       .createQueryBuilder('rep')
-      .where('rep.representative_position = :position', {
-        position: RepresentativePosition.PRINCIPAL
+      .where('rep.representative_position like :position', {
+        position: `%hieu truong%`
       })
       .andWhere(
         new Brackets((qb) =>

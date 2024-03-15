@@ -18,10 +18,20 @@ import { AffiliateUnit } from 'src/modules/affiliate-unit/entity/affiliate-unit.
 export class Gift {
   @PrimaryColumn()
   gift_id: string;
-  @Column({ nullable: false })
-  gift_content: string;
-  @Column({ nullable: false })
-  gift_description: string;
+
+  @Transform(({ value }) => {
+    try {
+      return value && JSON.parse(value);
+    } catch (error) {
+      console.error('Parse json export data field error !');
+    }
+  })
+  @Column({ nullable: true, length: 2000 })
+  gifts: string;
+
+  @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
+  @Column({ type: 'datetime', nullable: true })
+  proposed_date: string;
 
   @Transform(({ value }) => value && moment(value).format(DATE_FORMAT_DDMMYYYY))
   @Column({ type: 'datetime', nullable: true })
@@ -36,6 +46,9 @@ export class Gift {
   @Column({ nullable: true })
   gift_image_3: string;
 
+  @Column({ nullable: true })
+  gift_image_4: string;
+
   @Exclude()
   @ManyToOne(() => AffiliateUnit, { eager: true })
   @JoinColumn({ name: 'affiliate_unit_id' })
@@ -45,6 +58,11 @@ export class Gift {
   @ManyToOne(() => User, { eager: true })
   @JoinColumn({ name: 'giver_user_id' })
   giver_user: User;
+
+  @Exclude()
+  @ManyToOne(() => User, { eager: true })
+  @JoinColumn({ name: 'proposed_user_id' })
+  proposed_user: User;
 
   @Transform(({ value }) => value && moment(value).format(DATE_TIME_FORMAT))
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
@@ -75,6 +93,14 @@ export class Gift {
   @Transform(({ obj }) => obj.giver_user?.user_id)
   @Expose()
   giver_user_id: number;
+
+  @Transform(({ obj }) => obj.proposed_user?.user_id)
+  @Expose()
+  proposed_user_id: number;
+
+  @Transform(({ obj }) => obj.proposed_user?.full_name)
+  @Expose()
+  proposed_user_name: number;
 
   @Transform(({ obj }) => obj.giver_user?.full_name)
   @Expose()

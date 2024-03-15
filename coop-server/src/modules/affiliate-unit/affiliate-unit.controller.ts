@@ -76,6 +76,9 @@ export class AffiliateUnitController {
           query
         );
         break;
+      case EXPORT_TYPE.CHECKING:
+        wordBuffer = await this.service.exportOverallCheck(affilateUnitId, request.user.sub, query);
+        break;
     }
     response.send(wordBuffer);
   }

@@ -5,7 +5,10 @@ class ExcelHelper {
     data: any[],
     isNumbered = false,
     startCol = 1,
-    defaultWidth = 20
+    startRow = 3,
+    defaultWidth = 20,
+    isExportForGift = false,
+    dateData: any = {}
   ) {
     const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -43,26 +46,48 @@ class ExcelHelper {
       }
     };
     const headerStyle = {
-      fill: {
-        type: 'pattern',
-        patternType: 'solid',
-        bgColor: '#d7d9db', // gray color
-        fgColor: '#d7d9db' // gray color
-      },
-      font: { bold: true },
+      // fill: {
+      //   type: 'pattern',
+      //   patternType: 'solid',
+      //   bgColor: '#d7d9db', // gray color
+      //   fgColor: '#d7d9db' // gray color
+      // },
+      font: { bold: true, name: 'Times New Roman' },
       alignment: { horizontal: 'center' }
     };
 
+    if (isExportForGift) {
+      ws.cell(4, 1, 4, 11, true)
+        .string('DANH SÁCH TẶNG QUÀ')
+        .style({
+          alignment: {
+            horizontal: 'center',
+            vertical: 'center'
+          },
+          font: { bold: true, size: 14, name: 'Times New Roman' }
+        });
+
+      ws.cell(5, 1, 5, 11, true)
+        .string(`TỪ NGÀY ${dateData.date_from || '...'} ĐẾN NGÀY ${dateData.date_to || '...'}`)
+        .style({
+          alignment: {
+            horizontal: 'center',
+            vertical: 'center'
+          },
+          font: { bold: true, size: 14, name: 'Times New Roman' }
+        });
+    }
+
     // create head row
     configs.forEach((config, index) => {
-      ws.cell(1, index + startCol)
+      ws.cell(startRow, index + startCol)
         .string(config.required ? `${config.title} *`.toUpperCase() : config.title.toUpperCase())
         .style({ ...borderStyle, ...headerStyle });
     });
 
     // create data rows
     data.forEach((item, index) => {
-      const indexRow = index + 2;
+      const indexRow = index + (startRow + 1);
       let indexCol = startCol;
 
       configs.forEach((config) => {

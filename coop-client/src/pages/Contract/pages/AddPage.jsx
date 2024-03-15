@@ -66,7 +66,7 @@ const AddPage = () => {
       isAdd: !contract_id,
     },
     {
-      title: 'Thông hợp đồng',
+      title: 'Thông hợp đồng vay vốn',
       id: 'contract-info',
       component: GeneralInfomation,
       fieldActive: [
