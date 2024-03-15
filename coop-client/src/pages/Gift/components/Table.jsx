@@ -28,11 +28,6 @@ const RepresentativeTable = ({
         formatter: (_, index) => <span className='cb_text_wrap'>{index + 1}</span>,
       },
       {
-        header: 'Nội dung quà tặng',
-        classNameHeader: 'cb_text_center',
-        accessor: 'gift_content',
-      },
-      {
         header: 'Đơn vị nhận',
         classNameHeader: 'cb_text_center',
         accessor: 'affiliate_unit_name',
@@ -41,6 +36,11 @@ const RepresentativeTable = ({
         header: 'Người tặng',
         classNameHeader: 'cb_text_center',
         accessor: 'giver_user_name',
+      },
+      {
+        header: 'Người đề xuất',
+        classNameHeader: 'cb_text_center',
+        accessor: 'proposed_user_name',
       },
       {
         header: 'Ngày tặng',

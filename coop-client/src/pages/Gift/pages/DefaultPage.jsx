@@ -28,7 +28,7 @@ const ListPage = () => {
   useEffect(getData, [getData]);
 
   const exportExcel = () => {
-    exportGift()
+    exportGift(params)
       .then((response) => {
         const url = window.URL.createObjectURL(new Blob([response?.data]));
         const link = document.createElement('a');

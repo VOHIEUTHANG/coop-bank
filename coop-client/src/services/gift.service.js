@@ -27,3 +27,11 @@ export const exportExcel = (params) => {
   };
   return httpClient.get(`${path}/export-excel`, { params, ...header });
 };
+
+export const exportForm = (giftId, params = {}) => {
+  const header = {
+    responseType: `blob`,
+  };
+
+  return httpClient.get(path + `/export-form/${giftId}`, { params, ...header });
+};

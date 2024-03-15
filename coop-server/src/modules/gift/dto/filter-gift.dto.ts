@@ -15,4 +15,8 @@ export class FilterGiftDto extends PageOptionsDto {
   @IsString()
   @IsOptional()
   created_date_to: string;
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  affiliate_unit_id: string;
 }

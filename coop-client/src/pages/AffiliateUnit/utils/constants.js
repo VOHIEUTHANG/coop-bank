@@ -41,6 +41,7 @@ export const EXPORT_TYPE = {
   SERVICE_CONTRACT: 2,
   ASSIGN_PAY: 3,
   PERIODICAL_CHECK: 4,
+  CHECKING: 5,
 };
 
 export const EXPORT_TYPE_OPTIONS = [
@@ -63,6 +64,11 @@ export const EXPORT_TYPE_OPTIONS = [
     value: EXPORT_TYPE.PERIODICAL_CHECK,
     label: 'Kiểm tra sử dụng vốn',
     file_name: 'giay_kiem_tra_su_dung_von',
+  },
+  {
+    value: EXPORT_TYPE.CHECKING,
+    label: 'Kiểm tra đơn vị liên kết',
+    file_name: 'giay_kiem_tra_don_vi_lien_ket',
   },
 ];
 

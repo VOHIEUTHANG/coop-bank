@@ -27,6 +27,8 @@ export class AffiliateUnit {
   affiliate_unit_id: string;
   @Column({ nullable: false })
   affiliate_unit_name: string;
+  @Column({ nullable: true })
+  affiliate_contract_code: string;
   @Column()
   affiliate_unit_code: string;
   @Column({ nullable: true })

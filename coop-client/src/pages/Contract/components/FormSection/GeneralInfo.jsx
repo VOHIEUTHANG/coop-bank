@@ -4,19 +4,16 @@ import FormItem from 'components/shared/FormControl/FormItem';
 import FormInput from 'components/shared/FormControl/FormInput';
 import FormDatePicker from 'components/shared/FormControl/FormDate';
 import FormNumber from 'components/shared/FormControl/FormNumber';
+import { useFormContext } from 'react-hook-form';
+import { formatPrice } from 'utils';
 
 const Infomation = ({ disabled, title, id }) => {
+  const methods = useFormContext();
+  const { watch } = methods;
+
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <FormItem label='Số hợp đồng' isRequired className='cb_col_6' disabled={disabled}>
-          <FormInput
-            field='contract_number'
-            placeholder='Nhập số hợp đồng'
-            validation={{ required: 'Số hợp đồng là bắt buộc' }}
-          />
-        </FormItem>
-
         <div className='cb_col_6'>
           <FormItem label='Ngày hợp đồng' isRequired disabled={disabled}>
             <FormDatePicker
@@ -33,6 +30,14 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
+        <FormItem label='Số hợp đồng' isRequired className='cb_col_6' disabled={disabled}>
+          <FormInput
+            field='contract_number'
+            placeholder='Nhập số hợp đồng'
+            validation={{ required: 'Số hợp đồng là bắt buộc' }}
+          />
+        </FormItem>
+
         <FormItem label='Mục đích vay vốn' isRequired className='cb_col_6' disabled={disabled}>
           <FormInput
             field='loan_purpose'
@@ -40,26 +45,9 @@ const Infomation = ({ disabled, title, id }) => {
             validation={{ required: 'Mục đích vay vốn là bắt buộc' }}
           />
         </FormItem>
-        <FormItem label='Tổng số vốn cần sử dụng' isRequired className='cb_col_6' disabled={disabled}>
-          <FormNumber
-            field='total_money'
-            addonAfter='VND'
-            validation={{ required: 'Tổng số vốn cần sử dụng là bắt buộc' }}
-          />
-        </FormItem>
-        <FormItem label='Vốn tự có' isRequired className='cb_col_6' disabled={disabled}>
-          <FormNumber field='funds_money' addonAfter='VND' validation={{ required: 'Vốn tự có là bắt buộc' }} />
-        </FormItem>
-        <FormItem label='Tổng số tiền cần vay' isRequired className='cb_col_6' disabled={disabled}>
-          <FormNumber
-            field='loan_money'
-            addonAfter='VND'
-            validation={{ required: 'Tổng số tiền cần vay là bắt buộc' }}
-          />
-        </FormItem>
 
         <div className='cb_col_6'>
-          <FormItem label='Mức lãi suất' isRequired disabled={disabled}>
+          <FormItem label='Lãi suất' isRequired disabled={disabled}>
             <FormNumber
               field='interest_rate'
               placeholder='Nhập mức lãi suất'
@@ -72,6 +60,32 @@ const Infomation = ({ disabled, title, id }) => {
             />
           </FormItem>
         </div>
+
+        <FormItem label='Tổng nhu cầu sử dụng' isRequired className='cb_col_6' disabled={disabled}>
+          <FormNumber
+            field='total_money'
+            addonAfter='VND'
+            validation={{ required: 'Tổng nhu cầu sử dụng là bắt buộc' }}
+          />
+        </FormItem>
+        <FormItem label='Tổng số tiền cần vay' isRequired className='cb_col_6' disabled={disabled}>
+          <FormNumber
+            field='loan_money'
+            addonAfter='VND'
+            validation={{ required: 'Tổng số tiền cần vay là bắt buộc' }}
+          />
+        </FormItem>
+        <FormItem label='Vốn tự có' isRequired className='cb_col_6' disabled={disabled}>
+          <FormNumber field='funds_money' addonAfter='VND' validation={{ required: 'Vốn tự có là bắt buộc' }} />
+        </FormItem>
+
+        <FormItem label='Tỷ lệ trên tổng nhu cầu' isRequired className='cb_col_6' disabled>
+          <FormInput
+            value={`${formatPrice(watch('funds_money') || 0)} / ${formatPrice(watch('total_money'))} = ${Math.round(
+              (watch('funds_money') / watch('total_money')) * 100,
+            )}%`}
+          />
+        </FormItem>
 
         <div className='cb_col_6'>
           <FormItem label='Số tháng trả góp' isRequiredq disabled={disabled}>
@@ -135,6 +149,21 @@ const Infomation = ({ disabled, title, id }) => {
           </FormItem>
         </div>
 
+        <FormItem label='Số tiền kỳ đầu' isRequired className='cb_col_6' disabled={disabled}>
+          <FormNumber
+            field='first_period_money'
+            addonAfter='VND'
+            validation={{ required: 'Số tiền kỳ đầu là bắt buộc' }}
+          />
+        </FormItem>
+        <FormItem label='Số tiền kỳ cuối' isRequired className='cb_col_6' disabled={disabled}>
+          <FormNumber
+            field='last_period_money'
+            addonAfter='VND'
+            validation={{ required: 'Số tiền kỳ cuối là bắt buộc' }}
+          />
+        </FormItem>
+
         <div className='cb_col_6'>
           <FormItem label='Ngày trả tiền đầu tiên' isRequired disabled={disabled}>
             <FormDatePicker
@@ -150,21 +179,6 @@ const Infomation = ({ disabled, title, id }) => {
             />
           </FormItem>
         </div>
-
-        <FormItem label='Số tiền trả kỳ đầu tiên' isRequired className='cb_col_6' disabled={disabled}>
-          <FormNumber
-            field='first_period_money'
-            addonAfter='VND'
-            validation={{ required: 'Số tiền trả kỳ đầu tiên là bắt buộc' }}
-          />
-        </FormItem>
-        <FormItem label='Số tiền trả kỳ cuối cùng' isRequired className='cb_col_6' disabled={disabled}>
-          <FormNumber
-            field='last_period_money'
-            addonAfter='VND'
-            validation={{ required: 'Số tiền trả kỳ cuối cùng là bắt buộc' }}
-          />
-        </FormItem>
 
         <FormItem label='Số tài khoản vay' isRequired className='cb_col_6' disabled={disabled}>
           <FormInput

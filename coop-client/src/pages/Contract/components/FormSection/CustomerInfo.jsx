@@ -21,19 +21,38 @@ const CustomerInfomation = ({ disabled, title, id, isAdd }) => {
 
   useEffect(() => {
     const individualId = watch('individual_id');
-    if (individualId && isAdd) {
-      const selectedIndividual = individualOptions?.find((individual) => individual.value === individualId);
-      const exportData = selectedIndividual.export_data && JSON.parse(selectedIndividual.export_data);
 
-      if (exportData) {
-        methods.reset({ ...methods.getValues(), ...exportData });
+    if (individualId) {
+      const selectedIndividual = individualOptions?.find((individual) => individual.value === individualId);
+      const exportData = selectedIndividual?.export_data && JSON.parse(selectedIndividual?.export_data);
+
+      if (isAdd) {
+        if (exportData) {
+          methods.reset({
+            ...methods.getValues(),
+            ...exportData,
+            affiliate_unit_name: selectedIndividual.affiliate_unit_name,
+            affiliate_unit_code: selectedIndividual.affiliate_unit_code,
+            individual_code: selectedIndividual.individual_code,
+            individual_position: selectedIndividual.individual_position,
+          });
+        } else {
+          setValue('individual_bank_number', selectedIndividual.individual_bank_number);
+          setValue('individual_cic', selectedIndividual.individual_cic);
+          setValue('individual_cic_rank', selectedIndividual.individual_cic_rank);
+          setValue('individual_cic_score', selectedIndividual.individual_cic_score);
+          setValue('declared_total_income', selectedIndividual.total_income);
+          setValue('paid_date', selectedIndividual.paid_date);
+          setValue('affiliate_unit_name', selectedIndividual.affiliate_unit_name);
+          setValue('affiliate_unit_code', selectedIndividual.affiliate_unit_code);
+          setValue('individual_code', selectedIndividual.individual_code);
+          setValue('individual_position', selectedIndividual.individual_position);
+        }
       } else {
-        setValue('individual_bank_number', selectedIndividual.individual_bank_number);
-        setValue('individual_cic', selectedIndividual.individual_cic);
-        setValue('individual_cic_rank', selectedIndividual.individual_cic_rank);
-        setValue('individual_cic_score', selectedIndividual.individual_cic_score);
-        setValue('declared_total_income', selectedIndividual.total_income);
-        setValue('paid_date', selectedIndividual.paid_date);
+        setValue('affiliate_unit_name', selectedIndividual.affiliate_unit_name);
+        setValue('affiliate_unit_code', selectedIndividual.affiliate_unit_code);
+        setValue('individual_code', selectedIndividual.individual_code);
+        setValue('individual_position', selectedIndividual.individual_position);
       }
     }
   }, [individualOptions, watch('individual_id'), isAdd]);
@@ -41,67 +60,78 @@ const CustomerInfomation = ({ disabled, title, id, isAdd }) => {
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
-        <FormItem label='Cá nhân vay vốn' isRequired className='cb_col_6' disabled={disabled}>
+        <FormItem label='Tên khách hàng' isRequired className='cb_col_6' disabled={!isAdd}>
           <FormSelect
             field='individual_id'
             list={individualOptions}
-            validation={{ required: 'Cá nhân vay vốn là bắt buộc' }}
+            validation={{ required: 'Tên khách hàng là bắt buộc' }}
           />
         </FormItem>
 
         <div className='cb_col_6'>
-          <FormItem label='Số tài khoản thanh toán' isRequired disabled={disabled}>
-            <FormInput
-              type='text'
-              field='individual_bank_number'
-              placeholder='Nhập số tài khoản thanh toán'
-              validation={{
-                required: 'Số tài khoản thanh toán là bắt buộc',
-              }}
-            />
+          <FormItem label='Tên đơn vị' isRequired disabled>
+            <FormInput type='text' field='affiliate_unit_name' />
           </FormItem>
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Điểm tín dụng CIC' isRequired disabled={disabled}>
+          <FormItem label='Mã khách hàng' isRequired disabled>
+            <FormInput type='text' field='individual_code' />
+          </FormItem>
+        </div>
+
+        <div className='cb_col_6'>
+          <FormItem label='Mã đơn vị' isRequired disabled>
+            <FormInput type='text' field='affiliate_unit_code' />
+          </FormItem>
+        </div>
+
+        <div className='cb_col_6'>
+          <FormItem label='Điểm XHTD' isRequired disabled={disabled}>
             <FormNumber
               field='individual_cic_score'
               addonAfter='điểm'
-              placeholder='Nhập thông tin điểm tín dụng CIC'
+              placeholder='Nhập thông tin điểm XHTD'
               validation={{
-                required: 'Điểm tín dụng CIC là bắt buộc',
+                required: 'Điểm XHTD là bắt buộc',
               }}
             />
           </FormItem>
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Xếp hạng tín dụng' disabled={disabled} isRequired>
+          <FormItem label='Hạng tín dụng' disabled={disabled} isRequired>
             <FormInput
               type='text'
               field='individual_cic_rank'
-              placeholder='Nhập thông tin xếp hạng tín dụng'
+              placeholder='Nhập thông tin hạng tín dụng'
               validation={{
-                required: 'Xếp hạng tín dụng là bắt buộc',
+                required: 'Hạng tín dụng là bắt buộc',
               }}
             />
           </FormItem>
         </div>
 
-        <div className='cb_col_12'>
-          <FormItem label='Tình trạng tín dụng CIC' isRequired disabled={disabled}>
+        <div className='cb_col_6'>
+          <FormItem label='Thông tin CIC' isRequired disabled={disabled}>
             <FormTextArea
               field='individual_cic'
               placeholder='Nhập thông tin tín dụng CIC'
               validation={{
-                required: 'Tình trạng tín dụng CIC là bắt buộc',
+                required: 'Thông tin CIC là bắt buộc',
               }}
             />
           </FormItem>
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Tổng thu nhập ' disabled={disabled} isRequired>
+          <FormItem label='Chức vụ' isRequired disabled>
+            <FormInput type='text' field='individual_position' />
+          </FormItem>
+        </div>
+
+        <div className='cb_col_6'>
+          <FormItem label='Tổng thu nhập khai báo' disabled={disabled} isRequired>
             <FormNumber
               field='declared_total_income'
               addonAfter='VNĐ'

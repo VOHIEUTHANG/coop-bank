@@ -1,18 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import FilterSearchBar from 'components/shared/FilterSearchBar/index';
 import FormInput from 'components/shared/FormControl/FormInput';
 import FormDateRange from 'components/shared/FormControl/FormDateRange';
 import { DefaultFilter } from '../utils/constants';
+import FormSelect from 'components/shared/FormControl/FormSelect';
+import { getOptions } from 'services/affiliate-unit.service';
 
 const BankRepresentativeFilter = ({ onChange }) => {
   const methods = useForm(DefaultFilter);
+  const [affiliateUnits, setAffiliateUnits] = useState([]);
 
   const onClear = () => {
     methods.reset(DefaultFilter);
     onChange(DefaultFilter);
   };
+
+  useEffect(() => {
+    getOptions().then(setAffiliateUnits);
+  }, []);
 
   return (
     <FormProvider {...methods}>
@@ -40,6 +47,10 @@ const BankRepresentativeFilter = ({ onChange }) => {
                 format={'DD/MM/YYYY'}
               />
             ),
+          },
+          {
+            title: 'Đơn vị nhận',
+            component: <FormSelect allowClear={true} field='affiliate_unit_id' list={affiliateUnits || []} />,
           },
         ]}
       />

@@ -36,9 +36,15 @@ export class GiftController {
   }
 
   @Get('export-excel')
-  async exportExcel(@Response() res) {
-    const wb = await this.service.exportExcel();
+  async exportExcel(@Response() res, @Query() filter: FilterGiftDto) {
+    const wb = await this.service.exportExcel(filter);
     wb.write('gift.xlsx', res);
+  }
+
+  @Get('export-form/:id')
+  async exportForm(@Param('id') giftId: string, @Response() response, @Request() request) {
+    const wordBuffer = await this.service.exportProposedForm(giftId);
+    response.send(wordBuffer);
   }
 
   @Get(':id')
