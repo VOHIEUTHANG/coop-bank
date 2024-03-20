@@ -73,19 +73,35 @@ export class GiftService {
     return object;
   }
 
-  async find(filter: FilterGiftDto) {
+  async find(filter: FilterGiftDto, currentUser: User) {
     const queryBuilder = this.repo.createQueryBuilder('gift');
 
     queryBuilder
       .where(
-        new Brackets(
-          (qb) =>
-            qb.where('gift.gift_id like :search', {
-              search: `%${filter.search}%`
-            })
-          // .orWhere('gift.gift_description like :search', {
-          //   search: `%${filter.search}%`
-          // })
+        new Brackets((qb) =>
+          qb.where('gift.gift_id like :search', {
+            search: `%${filter.search}%`
+          })
+        )
+      )
+      .andWhere(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'created_user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'created_user.transaction_room_id = :transaction_room_id'
+                    : 'created_user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
         )
       )
       .andWhere(!!filter.created_date_from && 'gift.created_at >= :created_date_from', {
@@ -118,9 +134,9 @@ export class GiftService {
     return this.repo.save(object);
   }
 
-  async exportExcel(filter: FilterGiftDto) {
+  async exportExcel(filter: FilterGiftDto, currentUser: User) {
     filter.limit = 100000;
-    const data = await this.find(filter);
+    const data = await this.find(filter, currentUser);
     // mapping data
     const serilizedData = data.items?.reduce((acc, gift) => {
       const giftList = (gift.gifts && JSON.parse(gift.gifts)) || [];

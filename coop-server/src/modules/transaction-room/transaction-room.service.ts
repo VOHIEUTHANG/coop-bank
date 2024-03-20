@@ -24,13 +24,16 @@ export class TransactionRoomService {
     return this.repo.save(branch);
   }
 
-  async getOptions() {
+  async getOptions(branchId: string) {
     return this.repo
       .createQueryBuilder('transaction_room')
       .select([
         'transaction_room.transaction_room_id AS value',
         'transaction_room.transaction_room_name AS label'
       ])
+      .where(!!branchId && 'transaction_room.branch_id = :branchId', {
+        branchId: branchId
+      })
       .getRawMany();
   }
 

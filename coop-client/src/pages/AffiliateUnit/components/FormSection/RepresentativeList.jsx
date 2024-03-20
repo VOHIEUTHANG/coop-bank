@@ -3,11 +3,13 @@ import { useFormContext, useFieldArray } from 'react-hook-form';
 import DataTable from 'components/shared/DataTable/index';
 import Accordion from 'components/shared/Accordion/index';
 import ModalAddCustomer from '../Modal/RepresentativeModel';
+import { useAuth } from 'context/AuthProvider';
 
 const RepresentativeList = ({ disabled, title }) => {
   const methods = useFormContext();
   const [openModel, setOpenModel] = useState(false);
   const { control } = methods;
+  const { user } = useAuth();
 
   const { remove, fields } = useFieldArray({
     control,
@@ -54,6 +56,7 @@ const RepresentativeList = ({ disabled, title }) => {
         onClick: () => {
           setOpenModel(true);
         },
+        hidden: user?.is_admin,
       },
       {
         icon: 'ti-eye',
@@ -71,6 +74,7 @@ const RepresentativeList = ({ disabled, title }) => {
             remove(index);
           }
         },
+        hidden: user?.is_admin,
       },
     ],
     [],

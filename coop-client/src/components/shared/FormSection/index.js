@@ -85,11 +85,11 @@ const FormSection = ({
             .map((props, i) => (
               <Button className='mr-2' key={i} {...props} />
             ))}
-          <CheckAccess permission={PERMISSION?.edit}>
-            <button type='button' className='cb_btn_outline cb_btn_outline_success' onClick={goToEditPath}>
-              Chỉnh sửa
-            </button>
-          </CheckAccess>
+          {/* <CheckAccess permission={PERMISSION?.edit}> */}
+          <button type='button' className='cb_btn_outline cb_btn_outline_success' onClick={goToEditPath}>
+            Chỉnh sửa
+          </button>
+          {/* </CheckAccess> */}
         </>
       );
     } else if (isAdd || isEdit) {
@@ -100,11 +100,11 @@ const FormSection = ({
             .map((props, i) => (
               <Button className='mr-2' key={i} {...props} />
             ))}
-          <CheckAccess permission={isEdit ? PERMISSION?.edit : PERMISSION?.add}>
-            <button type='submit' className='cb_btn cb_btn_success'>
-              <span className='ti-check'></span>Hoàn tất {isEdit ? 'chỉnh sửa' : 'thêm mới'}
-            </button>
-          </CheckAccess>
+          {/* <CheckAccess permission={isEdit ? PERMISSION?.edit : PERMISSION?.add}> */}
+          <button type='submit' className='cb_btn cb_btn_success'>
+            <span className='ti-check'></span>Hoàn tất {isEdit ? 'chỉnh sửa' : 'thêm mới'}
+          </button>
+          {/* </CheckAccess> */}
         </>
       );
     }

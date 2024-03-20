@@ -83,7 +83,7 @@ export class ContractService {
     return object;
   }
 
-  async find(filter: FilterContractDto) {
+  async find(filter: FilterContractDto, currentUser: User) {
     const queryBuilder = this.repo.createQueryBuilder('contract');
 
     queryBuilder
@@ -92,6 +92,26 @@ export class ContractService {
           qb.where('contract.contract_number like :search', {
             search: `%${filter.search}%`
           })
+        )
+      )
+      .andWhere(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'user.transaction_room_id = :transaction_room_id'
+                    : 'user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
         )
       )
       .andWhere(!!filter.created_date_from && 'contract.created_at >= :created_date_from', {
@@ -183,7 +203,7 @@ export class ContractService {
       ctd: `${contractDay}`.padStart(2, '0'),
       ctm: `${contractMonth}`.padStart(2, '0'),
       cty: contractYear,
-      heir_full_name_uc: individualData.heir_full_name.toUpperCase(),
+      heir_full_name_uc: individualData?.heir_full_name?.toUpperCase() || '',
       individual_cic: contractData.individual_cic,
       individual_cic_rank: contractData.individual_cic_rank,
       individual_cic_score: contractData.individual_cic_score,
@@ -194,8 +214,8 @@ export class ContractService {
       end_date: moment(contractData.end_date).format(DATE_FORMAT_DDMMYYYY),
       first_pay_date: moment(contractData.first_pay_date).format(DATE_FORMAT_DDMMYYYY),
       loan_purpose: contractData.loan_purpose,
-      branch_name_uc: branchData.branch_name.toUpperCase(),
-      branch_province_uc: branchData.branch_province.toUpperCase(),
+      branch_name_uc: branchData.branch_name?.toUpperCase(),
+      branch_province_uc: branchData.branch_province?.toUpperCase(),
       dd: `${day}`.padStart(2, '0'),
       mm: `${month}`.padStart(2, '0'),
       year,
@@ -204,10 +224,10 @@ export class ContractService {
       secure_money: formatCurrency(
         contractData.declared_total_income * contractData.month_count * 0.7
       ),
-      individual_fullname: individualData.individual_fullname.toUpperCase(),
+      individual_fullname: individualData.individual_fullname?.toUpperCase(),
       individual_fullname_lc: individualData.individual_fullname,
       affiliate_unit_name: individualData.affiliate_unit_name,
-      affiliate_unit_name_uc: individualData.affiliate_unit_name.toUpperCase(),
+      affiliate_unit_name_uc: individualData.affiliate_unit_name?.toUpperCase(),
       funds: formatCurrency(contractData.funds_money),
       loan_money_text: readCurrency(contractData.loan_money.toString()),
       month_count: contractData.month_count,
@@ -239,7 +259,7 @@ export class ContractService {
       branch_gender_name: branchData.bank_representative_gender === Gender.Male ? 'Ông' : 'Bà',
       director_sign: branchData.transaction_room_id ? '' : 'GIÁM ĐỐC',
       transaction_location_title: branchData.transaction_room_id
-        ? `TP. ${branchData.transaction_room_name}`.toUpperCase()
+        ? `TP. ${branchData.transaction_room_name}`?.toUpperCase()
         : 'TP. KHÁCH HÀNG DN VÀ CÁ NHÂN ĐỀ NGHỊ',
       balance,
       contract_extra_data:
@@ -408,7 +428,7 @@ export class ContractService {
         await this.bankRepresentativeService.findOne(bankRepresentativeId);
 
       bankRepresentative.room_representative_name =
-        bankRepresentativeData.bank_representative_name.toUpperCase();
+        bankRepresentativeData.bank_representative_name?.toUpperCase();
       bankRepresentative.room_representative_gender = bankRepresentativeData.gender;
       bankRepresentative.room_representative_position =
         bankRepresentativeData.bank_representative_position;

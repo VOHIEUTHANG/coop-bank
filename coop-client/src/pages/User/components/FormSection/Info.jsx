@@ -27,8 +27,11 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
 
   useEffect(() => {
     getBranchOptoins().then(setBranchOptions);
-    getTransactionRoomOptions().then(setTransactionRoomOptions);
   }, []);
+
+  useEffect(() => {
+    getTransactionRoomOptions({ branch_id: methods.watch('branch_id') }).then(setTransactionRoomOptions);
+  }, [methods.watch('branch_id')]);
 
   return (
     <Accordion title={title} id={id}>
@@ -47,16 +50,24 @@ const UserInfo = ({ disabled, title, id, is_add }) => {
           </FormItem>
         </div>
         <div className='cb_col_6'>
-          <FormItem disabled={disabled || !is_add} label='Mật khẩu' isRequired>
+          <FormItem disabled={disabled} label='Mật khẩu' isRequired>
             <CustomInput>
               <Input.Password
-                disabled={disabled || !is_add}
+                disabled={disabled}
                 placeholder='*************'
                 field='password'
                 autoComplete={false}
                 minLength={5}
                 value={methods.watch('password') ?? ''}
-                iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                iconRender={(visible) =>
+                  methods.watch('password') && methods.watch('password') !== 'password' ? (
+                    visible ? (
+                      <EyeTwoTone />
+                    ) : (
+                      <EyeInvisibleOutlined />
+                    )
+                  ) : null
+                }
                 onChange={(e) => {
                   methods.setValue('password', e.target.value);
                 }}

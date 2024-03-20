@@ -117,6 +117,7 @@ function ExportDoc({ closeModal, contractId, defaultExportData, refreshData }) {
                       <div className='cb_col_12'>
                         <DataTableStyled>
                           <DataTable
+                            defaultDataSelect={representatives?.length > 0 ? [representatives[0]] : []}
                             uniqueSelect
                             onChangeSelect={(dataSelect) => {
                               methods.setValue('bank_representative_id', dataSelect?.[0]?.bank_representative_id);

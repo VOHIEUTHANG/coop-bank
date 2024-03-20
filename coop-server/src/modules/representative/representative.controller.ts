@@ -16,6 +16,9 @@ import { UpdateRepresentativeDto } from './dto/update-representative.dto';
 import { CreateRepresentativeDto } from './dto/create-representative.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { FilterRepresentativeDto } from './dto/filter-representative.dto';
+import { CurrentUserInterceptor } from '../users/interceptors/current-user.interceptor';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { User } from '../users/users.entity';
 
 @ApiTags('Representative')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -29,9 +32,10 @@ export class RepresentativeController {
     return this.representativeService.create(createData, request.user.sub);
   }
 
+  @UseInterceptors(CurrentUserInterceptor)
   @Get()
-  getList(@Query() filter: FilterRepresentativeDto) {
-    return this.representativeService.find(filter);
+  getList(@Query() filter: FilterRepresentativeDto, @CurrentUser() currentUser: User) {
+    return this.representativeService.find(filter, currentUser);
   }
 
   @Get(':representative_id')

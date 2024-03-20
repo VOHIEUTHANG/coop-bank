@@ -41,11 +41,14 @@ const BranchInfo = ({ disabled, title, id }) => {
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Ngày bắt đầu hiệu lực' disabled={disabled}>
+          <FormItem label='Ngày bắt đầu hiệu lực' required disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
               field='effective_date_from'
               placeholder={'dd/mm/yyyy'}
+              validation={{
+                required: 'Ngày bắt đầu hiệu lực là bắt buộc.',
+              }}
               style={{
                 width: '100%',
               }}
@@ -56,7 +59,7 @@ const BranchInfo = ({ disabled, title, id }) => {
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Ngày kết thúc hiệu lực' disabled={disabled}>
+          <FormItem label='Ngày kết thúc hiệu lực' isRequired disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
               field='effective_date_to'
@@ -64,6 +67,9 @@ const BranchInfo = ({ disabled, title, id }) => {
               style={{
                 width: '100%',
               }}
+              validation={{
+                required: 'Ngày kết thúc hiệu lực là bắt buộc.',
+              }}
               bordered={false}
               allowClear
             />
@@ -71,19 +77,19 @@ const BranchInfo = ({ disabled, title, id }) => {
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Nơi quyết định (huyện)' isRequired disabled={disabled}>
+          <FormItem label='Nơi quyết định (huyện)' disabled={disabled}>
             <FormInput type='text' field='decision_district' placeholder='Nhập nơi quyết định' />
           </FormItem>
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Người quyết định' isRequired disabled={disabled}>
+          <FormItem label='Người quyết định' disabled={disabled}>
             <FormInput type='text' field='decider_name' placeholder='Nhập người quyết định' />
           </FormItem>
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Chức vụ người quyết định' isRequired disabled={disabled}>
+          <FormItem label='Chức vụ người quyết định' disabled={disabled}>
             <FormInput type='text' field='decider_position' placeholder='Nhập chức vụ người quyết định' />
           </FormItem>
         </div>

@@ -1,5 +1,5 @@
 import FormItem from 'components/shared/FormControl/FormItem';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { exportForm } from 'services/affiliate-unit.service';
 import Accordion from 'components/shared/Accordion';
@@ -97,6 +97,11 @@ function ExportDoc({ setShowModal, affiliateUnit }) {
                   <div className='cb_col_12'>
                     <DataTableStyled>
                       <DataTable
+                        defaultDataSelect={
+                          originMethods.watch('representatives')?.length > 0
+                            ? [originMethods.watch('representatives')[0]]
+                            : []
+                        }
                         uniqueSelect
                         onChangeSelect={(dataSelect) => {
                           methods.setValue('representative_id', dataSelect?.[0]?.representative_id);

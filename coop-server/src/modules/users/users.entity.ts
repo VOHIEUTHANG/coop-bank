@@ -20,13 +20,13 @@ export class User {
   user_id: number;
   @Column({ unique: true, nullable: false })
   username: string;
-  @Column()
+  @Column({ nullable: true })
   email: string;
   @Column()
   phone_number: string;
   @Column({ nullable: false })
   full_name: string;
-  @Exclude()
+  // @Exclude()
   @Column({ nullable: false })
   password: string;
   @Column({ default: false })

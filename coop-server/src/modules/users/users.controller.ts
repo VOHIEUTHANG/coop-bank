@@ -15,6 +15,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { FilterUserDto } from './dto/filter-user.dto';
 import { ChangePasswordDto } from './dto/change-password.dto';
+import { DUMMY_PASSWORD } from './user.constant';
 
 @ApiTags('User')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -34,8 +35,11 @@ export class UsersController {
   }
 
   @Get(':userId')
-  getById(@Param('userId') userId: number) {
-    return this.usersService.findOneBy({ user_id: userId });
+  async getById(@Param('userId') userId: number) {
+    const user = await this.usersService.findOneBy({ user_id: userId });
+    // secret data by present dummy data instead
+    user.password = DUMMY_PASSWORD;
+    return user;
   }
 
   @Patch()

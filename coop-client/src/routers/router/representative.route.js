@@ -10,7 +10,7 @@ const FunctionGroupRoutes = [
   {
     path: '/representative',
     exact: true,
-    name: 'Danh sách người đại diện',
+    name: 'Danh sách ban lãnh đạo đơn vị liên kết',
     function: Permissoin.VIEW,
     component: DefaultPage,
     any: true,
@@ -18,7 +18,7 @@ const FunctionGroupRoutes = [
   {
     path: '/representative/add',
     exact: true,
-    name: 'Thêm mới người đại diện',
+    name: 'Thêm mới ban lãnh đạo đơn vị liên kết',
     function: Permissoin.ADD,
     component: AddPage,
     any: true,
@@ -26,7 +26,7 @@ const FunctionGroupRoutes = [
   {
     path: '/representative/detail/:id',
     exact: true,
-    name: 'Chi tiết người đại diện',
+    name: 'Chi tiết ban lãnh đạo đơn vị liên kết',
     function: Permissoin.VIEW,
     component: DetailPage,
     any: true,
@@ -34,7 +34,7 @@ const FunctionGroupRoutes = [
   {
     path: '/representative/edit/:id',
     exact: true,
-    name: 'Chỉnh sửa người đại diện',
+    name: 'Chỉnh sửa ban lãnh đạo đơn vị liên kết',
     function: Permissoin.EDIT,
     component: EditPage,
     any: true,

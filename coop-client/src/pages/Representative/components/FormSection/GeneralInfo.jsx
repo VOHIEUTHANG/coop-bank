@@ -3,17 +3,16 @@ import React from 'react';
 import Accordion from 'components/shared/Accordion/index';
 import FormItem from 'components/shared/FormControl/FormItem';
 import FormInput from 'components/shared/FormControl/FormInput';
-import { GENDER, PositionOptions } from 'pages/Representative/utils/constants';
+import { GENDER } from 'pages/Representative/utils/constants';
 import FormDatePicker from 'components/shared/FormControl/FormDate';
 import FormRadioGroup from 'components/shared/FormControl/FormRadioGroup';
-import FormSelect from 'components/shared/FormControl/FormSelect';
 
 const BranchInfo = ({ disabled, title, id }) => {
   return (
     <Accordion title={title} id={id}>
       <div className='cb_row'>
         <div className='cb_col_6'>
-          <FormItem label='Họ và tên' isRequired disabled={disabled}>
+          <FormItem label='Họ và tên ban lãnh đạo' isRequired disabled={disabled}>
             <FormInput
               type='text'
               field='representative_name'

@@ -10,7 +10,7 @@ const FunctionGroupRoutes = [
   {
     path: '/contract',
     exact: true,
-    name: 'Danh sách hợp đồng vay vốn',
+    name: 'Danh sách hồ sơ vay vốn',
     function: Permissoin.VIEW,
     component: DefaultPage,
     any: true,
@@ -18,7 +18,7 @@ const FunctionGroupRoutes = [
   {
     path: '/contract/add',
     exact: true,
-    name: 'Thêm mới hợp đồng vay vốn',
+    name: 'Thêm mới hồ sơ vay vốn',
     function: Permissoin.ADD,
     component: AddPage,
     any: true,
@@ -26,7 +26,7 @@ const FunctionGroupRoutes = [
   {
     path: '/contract/detail/:id',
     exact: true,
-    name: 'Chi tiết hợp đồng vay vốn',
+    name: 'Chi tiết hồ sơ vay vốn',
     function: Permissoin.VIEW,
     component: DetailPage,
     any: true,
@@ -34,7 +34,7 @@ const FunctionGroupRoutes = [
   {
     path: '/contract/edit/:id',
     exact: true,
-    name: 'Chỉnh sửa hợp đồng vay vốn',
+    name: 'Chỉnh sửa hồ sơ vay vốn',
     function: Permissoin.EDIT,
     component: EditPage,
     any: true,

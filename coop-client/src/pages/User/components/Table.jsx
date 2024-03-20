@@ -44,6 +44,12 @@ const UserTable = ({ loading, data, totalPages, itemsPerPage, page, totalItems, 
         accessor: 'branch_name',
       },
       {
+        header: 'Phòng giao dịch',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
+        accessor: 'transaction_room_name',
+      },
+      {
         header: 'Trạng thái',
         classNameHeader: 'cb_text_center',
         classNameBody: 'cb_text_center',

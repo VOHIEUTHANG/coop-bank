@@ -21,10 +21,6 @@ export class CreateBranchDto {
   @ApiProperty()
   @IsString()
   bank_number: string;
-  @ApiPropertyOptional()
-  @IsString()
-  @IsOptional()
-  branch_fax: string;
   @ApiProperty()
   @IsString()
   branch_province: string;

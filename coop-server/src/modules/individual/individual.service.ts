@@ -57,7 +57,7 @@ export class IndividualService {
     return this.repo.save(individual);
   }
 
-  async getOptions() {
+  async getOptions(currentUser: User) {
     const query = `
     SELECT
       id.individual_id AS value,
@@ -75,12 +75,18 @@ export class IndividualService {
       au.paid_date AS paid_date
     FROM
       individual id
-      LEFT JOIN affiliate_unit au ON id.affiliate_unit_id = au.affiliate_unit_id 
-      AND au.deleted_at IS NULL 
-    WHERE
-      id.deleted_at IS NULL
+      LEFT JOIN user ON user.user_id = id.created_user
+      LEFT JOIN affiliate_unit au ON id.affiliate_unit_id = au.affiliate_unit_id AND au.deleted_at IS NULL 
+    WHERE id.deleted_at IS NULL
+    AND (? = 1 OR (user.branch_id = ? AND user.transaction_room_id ${
+      currentUser?.transaction_room?.transaction_room_id ? `= ?` : `IS NULL`
+    }) )
     `;
-    const individualList = await this.dataSource.query(query, []);
+    const individualList = await this.dataSource.query(query, [
+      currentUser.is_admin ? 1 : 0,
+      currentUser.branch?.branch_id,
+      currentUser?.transaction_room?.transaction_room_id
+    ]);
     return individualList;
   }
 
@@ -95,7 +101,7 @@ export class IndividualService {
     return object;
   }
 
-  async find(filter: FilterIndividualDto) {
+  async find(filter: FilterIndividualDto, currentUser: User) {
     const queryBuilder = this.repo.createQueryBuilder('individual');
 
     queryBuilder
@@ -111,6 +117,26 @@ export class IndividualService {
             .orWhere('individual.id_number like :search', {
               search: `%${filter.search}%`
             })
+        )
+      )
+      .andWhere(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'user.transaction_room_id = :transaction_room_id'
+                    : 'user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
         )
       )
       .andWhere(!!filter.created_date_from && 'individual.created_at >= :created_date_from', {

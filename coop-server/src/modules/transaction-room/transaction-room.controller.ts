@@ -35,8 +35,8 @@ export class TransactionRoomController {
   }
 
   @Get('options')
-  getOptions() {
-    return this.service.getOptions();
+  getOptions(@Query('branch_id') branchId?: string) {
+    return this.service.getOptions(branchId);
   }
 
   @Get(':transaction_room_id')
