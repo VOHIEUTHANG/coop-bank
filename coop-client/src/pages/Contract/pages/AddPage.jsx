@@ -42,7 +42,13 @@ const AddPage = () => {
   const loadDetail = useCallback(() => {
     if (contract_id) {
       getById(contract_id).then((value) => {
-        methods.reset(value);
+        methods.reset({
+          ...value,
+          affiliate_unit_name: methods.getValues('affiliate_unit_name'),
+          affiliate_unit_code: methods.getValues('affiliate_unit_code'),
+          individual_code: methods.getValues('individual_code'),
+          individual_position: methods.getValues('individual_position'),
+        });
       });
     } else {
       methods.reset({
@@ -66,7 +72,7 @@ const AddPage = () => {
       isAdd: !contract_id,
     },
     {
-      title: 'Thông hợp đồng vay vốn',
+      title: 'Thông hồ sơ vay vốn',
       id: 'contract-info',
       component: GeneralInfomation,
       fieldActive: [

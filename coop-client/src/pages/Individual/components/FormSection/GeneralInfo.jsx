@@ -10,9 +10,11 @@ import { GENDER } from 'pages/BankRepresentative/utils/constants';
 import { getOptions } from 'services/affiliate-unit.service';
 import FormTextArea from 'components/shared/FormControl/FormTextArea';
 import FormNumber from 'components/shared/FormControl/FormNumber';
+import { useAuth } from 'context/AuthProvider';
 
 const Infomation = ({ disabled, title, id }) => {
   const [affiliateUnitOptions, setAffiliateUnitOptions] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     getOptions().then(setAffiliateUnitOptions);
@@ -117,7 +119,7 @@ const Infomation = ({ disabled, title, id }) => {
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Chức vụ' disabled={disabled}>
+          <FormItem label='Chức vụ' isRequired disabled={disabled}>
             <FormInput
               type='text'
               field='individual_position'
@@ -152,7 +154,7 @@ const Infomation = ({ disabled, title, id }) => {
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Chọn đơn vị công tác' isRequired disabled={disabled}>
+          <FormItem label='Chọn đơn vị công tác' isRequired disabled={disabled || user.is_admin}>
             <FormSelect
               list={affiliateUnitOptions || []}
               field='affiliate_unit_id'

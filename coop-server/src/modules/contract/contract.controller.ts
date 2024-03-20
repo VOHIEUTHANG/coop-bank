@@ -20,6 +20,9 @@ import { FilterContractDto } from './dto/filter-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
 import { ExportFormIndividualDto } from './dto/export-form.dto';
 import { EXPORT_TYPE } from './contract.constant';
+import { CurrentUserInterceptor } from '../users/interceptors/current-user.interceptor';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { User } from '../users/users.entity';
 
 @ApiTags('Contract')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -33,9 +36,10 @@ export class ContractController {
     return this.service.createOrUpdate(createData, request.user.sub);
   }
 
+  @UseInterceptors(CurrentUserInterceptor)
   @Get()
-  getList(@Query() filter: FilterContractDto) {
-    return this.service.find(filter);
+  getList(@Query() filter: FilterContractDto, @CurrentUser() currentUser: User) {
+    return this.service.find(filter, currentUser);
   }
 
   @Get(':id')

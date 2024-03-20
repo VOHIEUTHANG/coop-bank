@@ -3,9 +3,10 @@ import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { showConfirmModal } from 'actions/global';
-import { deleteIndividual } from 'services/individual.service';
+import { deleteContract } from 'services/contract.service';
 import DataTable from 'components/shared/DataTable/index';
 import { formatPrice } from 'utils';
+import { useAuth } from 'context/AuthProvider';
 
 const RepresentativeTable = ({
   loading,
@@ -18,6 +19,7 @@ const RepresentativeTable = ({
   onRefresh,
 }) => {
   const dispatch = useDispatch();
+  const { user } = useAuth();
   const columns = useMemo(
     () => [
       {
@@ -83,7 +85,7 @@ const RepresentativeTable = ({
 
   const handleDelete = useCallback(
     async (Id) => {
-      await deleteIndividual(Id);
+      await deleteContract(Id);
       onRefresh();
     },
     [onRefresh],
@@ -97,6 +99,7 @@ const RepresentativeTable = ({
         type: 'success',
         content: 'Thêm mới',
         onClick: () => window._$g.rdr(`contract/add`),
+        hidden: user?.is_admin,
       },
       {
         icon: 'ti-write',

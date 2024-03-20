@@ -10,6 +10,7 @@ import { Branch } from '../branch/branch.entity';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import PasswordHelper from 'src/helper/hash-password.helper';
 import { TransactionRoom } from '../transaction-room/transaction-room.entity';
+import { DUMMY_PASSWORD } from './user.constant';
 
 @Injectable()
 export class UsersService {
@@ -69,6 +70,7 @@ export class UsersService {
         created_date_to: filter.created_date_to
       })
       .leftJoinAndSelect('user.branch', 'branch')
+      .leftJoinAndSelect('user.transaction_room', 'transaction_room')
       .orderBy('user.created_at', filter.order)
       .skip(filter.skip)
       .take(filter.limit);
@@ -82,7 +84,12 @@ export class UsersService {
   async update(updateData: UpdateUserDto) {
     const user = await this.findOneBy({ user_id: updateData.user_id });
 
-    delete updateData.password;
+    if (updateData.password && updateData.password !== DUMMY_PASSWORD) {
+      updateData.password = PasswordHelper.hashPassword(updateData.password);
+    } else {
+      delete updateData.password;
+    }
+
     Object.assign(user, updateData);
 
     if (updateData.branch_id) {

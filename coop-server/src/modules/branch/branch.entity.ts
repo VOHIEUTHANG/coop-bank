@@ -32,8 +32,6 @@ export class Branch {
   @Column()
   bank_number: string;
   @Column()
-  branch_fax: string;
-  @Column()
   phone_number_main: string;
   @Column({ nullable: true })
   phone_number_sub: string;

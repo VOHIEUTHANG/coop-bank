@@ -6,6 +6,7 @@ import { showConfirmModal } from 'actions/global';
 import { deleteGift } from 'services/gift.service';
 import DataTable from 'components/shared/DataTable/index';
 import { Permission } from '../utils/constants';
+import { useAuth } from 'context/AuthProvider';
 
 const RepresentativeTable = ({
   loading,
@@ -19,6 +20,7 @@ const RepresentativeTable = ({
   exportExcel,
 }) => {
   const dispatch = useDispatch();
+  const { user } = useAuth();
   const columns = useMemo(
     () => [
       {
@@ -88,6 +90,7 @@ const RepresentativeTable = ({
         type: 'success',
         content: 'Thêm mới',
         onClick: () => window._$g.rdr(`gift/add`),
+        hidden: user?.is_admin,
       },
       {
         icon: 'ti-write',

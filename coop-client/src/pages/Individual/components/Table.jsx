@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { showConfirmModal } from 'actions/global';
 import { deleteIndividual } from 'services/individual.service';
 import DataTable from 'components/shared/DataTable/index';
+import { useAuth } from 'context/AuthProvider';
 
 const RepresentativeTable = ({
   loading,
@@ -16,6 +17,7 @@ const RepresentativeTable = ({
   onChangePage,
   onRefresh,
 }) => {
+  const { user } = useAuth();
   const dispatch = useDispatch();
   const columns = useMemo(
     () => [
@@ -82,6 +84,7 @@ const RepresentativeTable = ({
         type: 'success',
         content: 'Thêm mới',
         onClick: () => window._$g.rdr(`individual/add`),
+        hidden: user?.is_admin,
       },
       {
         icon: 'ti-write',

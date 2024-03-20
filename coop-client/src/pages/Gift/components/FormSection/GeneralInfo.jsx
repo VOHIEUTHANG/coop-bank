@@ -8,11 +8,13 @@ import { getOptions as getUserOptions } from 'services/user.service';
 import { getOptions as getAffiliateUnitOptions } from 'services/affiliate-unit.service';
 import FormDatePicker from 'components/shared/FormControl/FormDate';
 import FormInput from 'components/shared/FormControl/FormInput';
+import { useAuth } from 'context/AuthProvider';
 
 const Infomation = ({ disabled, title, id }) => {
   const methods = useFormContext();
   const [userOptions, setUserOptions] = useState([]);
   const [affiliateUnitOptions, setAffiliateUnitOptions] = useState([]);
+  const { user } = useAuth();
 
   useEffect(() => {
     getUserOptions().then(setUserOptions);
@@ -35,7 +37,7 @@ const Infomation = ({ disabled, title, id }) => {
     <Accordion title={title} id={id}>
       <div className='cb_row'>
         <div className='cb_col_6'>
-          <FormItem label='Đơn vị nhận' isRequired disabled={disabled}>
+          <FormItem label='Đơn vị nhận' isRequired disabled={disabled || user.is_admin}>
             <FormSelect
               allowClear
               disabled={disabled}

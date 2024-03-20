@@ -27,10 +27,10 @@ export class AuthService {
       throw new BadRequestException('Tên đăng nhập đã được sử dụng');
     }
 
-    const existedSameEmail = await this.repo.findOneBy({ email: userData.email });
-    if (existedSameEmail) {
-      throw new BadRequestException('Email đã được sử dụng');
-    }
+    // const existedSameEmail = await this.repo.findOneBy({ email: userData.email });
+    // if (existedSameEmail) {
+    //   throw new BadRequestException('Email đã được sử dụng');
+    // }
 
     const hashPassword = PasswordHelper.hashPassword(userData.password);
     userData.password = hashPassword;

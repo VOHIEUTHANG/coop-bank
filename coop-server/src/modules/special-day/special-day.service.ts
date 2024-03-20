@@ -10,6 +10,7 @@ import { DATE_TYPE, OBJECT_TYPE } from './special-day.constant';
 import { RepresentativePosition } from '../representative/representative.constant';
 import xl from 'excel4node';
 import excelHelper from 'src/helper/excel.helper';
+import { User } from '../users/users.entity';
 
 @Injectable()
 export class SpecialDayService {
@@ -18,7 +19,7 @@ export class SpecialDayService {
     @InjectRepository(AffiliateUnit) private affiliateUnitRepo: Repository<AffiliateUnit>,
     @InjectRepository(Individual) private individualRepo: Repository<Individual>
   ) {}
-  async getList() {
+  async getList(currentUser: User) {
     const currentDate = new Date();
 
     const daysInCurrentMonth = new Date(
@@ -31,20 +32,24 @@ export class SpecialDayService {
 
     const birthDayRepresentatives = await this._getListBirthDayRepresentative(
       currentDate,
-      remainingDays
+      remainingDays,
+      currentUser
     );
 
     const foundingDateAffiliateUnits = await this._getListFoundingDateAffiliateUnit(
       currentDate,
-      remainingDays
+      remainingDays,
+      currentUser
     );
     const effectiveDateFromRepresentatives = await this._getListEffectiveDateFromRepresentative(
       currentDate,
-      remainingDays
+      remainingDays,
+      currentUser
     );
     const effectiveDateEndRepresentatives = await this._getListEffectiveDateEndRepresentative(
       currentDate,
-      remainingDays
+      remainingDays,
+      currentUser
     );
     return [
       ...birthDayRepresentatives,
@@ -54,12 +59,36 @@ export class SpecialDayService {
     ]?.sort((a, b) => a.day_count - b.day_count);
   }
 
-  async _getListBirthDayRepresentative(currentDate: Date, remainingDays: number) {
+  async _getListBirthDayRepresentative(
+    currentDate: Date,
+    remainingDays: number,
+    currentUser: User
+  ) {
     const representatives = await this.representativeRepo
       .createQueryBuilder('rep')
       .where('rep.representative_position like :position', {
         position: `%hieu truong%`
       })
+      .andWhere(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'user.transaction_room_id = :transaction_room_id'
+                    : 'user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
+        )
+      )
       .andWhere(
         new Brackets((qb) =>
           qb
@@ -83,6 +112,7 @@ export class SpecialDayService {
             )
         )
       )
+      .leftJoin('rep.created_user', 'user')
       .getMany();
 
     return representatives.map((item) => ({
@@ -98,7 +128,11 @@ export class SpecialDayService {
     }));
   }
 
-  async _getListFoundingDateAffiliateUnit(currentDate: Date, remainingDays: number) {
+  async _getListFoundingDateAffiliateUnit(
+    currentDate: Date,
+    remainingDays: number,
+    currentUser: User
+  ) {
     const affiliateUnits = await this.affiliateUnitRepo
       .createQueryBuilder('affiliate_unit')
       .andWhere(
@@ -127,6 +161,27 @@ export class SpecialDayService {
             )
         )
       )
+      .andWhere(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'user.transaction_room_id = :transaction_room_id'
+                    : 'user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
+        )
+      )
+      .leftJoin('affiliate_unit.created_user', 'user')
       .getMany();
 
     return affiliateUnits.map((item) => ({
@@ -142,7 +197,11 @@ export class SpecialDayService {
     }));
   }
 
-  async _getListEffectiveDateFromRepresentative(currentDate: Date, remainingDays: number) {
+  async _getListEffectiveDateFromRepresentative(
+    currentDate: Date,
+    remainingDays: number,
+    currentUser: User
+  ) {
     const representatives = await this.representativeRepo
       .createQueryBuilder('rep')
       .where('rep.representative_position like :position', {
@@ -174,6 +233,27 @@ export class SpecialDayService {
             )
         )
       )
+      .andWhere(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'user.transaction_room_id = :transaction_room_id'
+                    : 'user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
+        )
+      )
+      .leftJoin('rep.created_user', 'user')
       .getMany();
 
     return representatives.map((item) => ({
@@ -189,7 +269,11 @@ export class SpecialDayService {
     }));
   }
 
-  async _getListEffectiveDateEndRepresentative(currentDate: Date, remainingDays: number) {
+  async _getListEffectiveDateEndRepresentative(
+    currentDate: Date,
+    remainingDays: number,
+    currentUser: User
+  ) {
     const representatives = await this.representativeRepo
       .createQueryBuilder('rep')
       .where('rep.representative_position like :position', {
@@ -218,6 +302,27 @@ export class SpecialDayService {
             )
         )
       )
+      .andWhere(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'user.transaction_room_id = :transaction_room_id'
+                    : 'user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
+        )
+      )
+      .leftJoin('rep.created_user', 'user')
       .getMany();
 
     return representatives.map((item) => ({
@@ -233,8 +338,8 @@ export class SpecialDayService {
     }));
   }
 
-  async getListNotify() {
-    const specialDays = await this.getList();
+  async getListNotify(currentUser: User) {
+    const specialDays = await this.getList(currentUser);
 
     const notifys = specialDays.map((item) => ({
       subject: `${
@@ -247,13 +352,13 @@ export class SpecialDayService {
     return notifys;
   }
 
-  async getNotifyCount() {
-    const specialDays = await this.getList();
+  async getNotifyCount(currentUser: User) {
+    const specialDays = await this.getList(currentUser);
     return specialDays.length || 0;
   }
 
-  async exportExcel() {
-    const data = await this.getList();
+  async exportExcel(currentUser: User) {
+    const data = await this.getList(currentUser);
 
     const workbook = new xl.Workbook();
 

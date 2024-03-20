@@ -17,6 +17,9 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { FilterGiftDto } from './dto/filter-gift.dto';
 import { CreateGiftDto } from './dto/create-gift.dto';
 import { UpdateGiftDto } from './dto/update-gift.dto';
+import { CurrentUserInterceptor } from '../users/interceptors/current-user.interceptor';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { User } from '../users/users.entity';
 
 @ApiTags('Gift')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -30,14 +33,20 @@ export class GiftController {
     return this.service.createOrUpdate(createData, request.user.sub);
   }
 
+  @UseInterceptors(CurrentUserInterceptor)
   @Get()
-  getList(@Query() filter: FilterGiftDto) {
-    return this.service.find(filter);
+  getList(@Query() filter: FilterGiftDto, @CurrentUser() currentUser: User) {
+    return this.service.find(filter, currentUser);
   }
 
+  @UseInterceptors(CurrentUserInterceptor)
   @Get('export-excel')
-  async exportExcel(@Response() res, @Query() filter: FilterGiftDto) {
-    const wb = await this.service.exportExcel(filter);
+  async exportExcel(
+    @Response() res,
+    @Query() filter: FilterGiftDto,
+    @CurrentUser() currentUser: User
+  ) {
+    const wb = await this.service.exportExcel(filter, currentUser);
     wb.write('gift.xlsx', res);
   }
 

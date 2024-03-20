@@ -54,7 +54,7 @@ export class AffiliateUnitService {
     return representative;
   }
 
-  async find(filter: FilterAffilicateUnitDto) {
+  async find(filter: FilterAffilicateUnitDto, currentUser: User) {
     const queryBuilder = this.repo.createQueryBuilder('affiliate_unit');
 
     queryBuilder
@@ -67,6 +67,26 @@ export class AffiliateUnitService {
             .orWhere('affiliate_unit.affiliate_unit_code like :search', {
               search: `%${filter.search}%`
             })
+        )
+      )
+      .andWhere(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'user.transaction_room_id = :transaction_room_id'
+                    : 'user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
         )
       )
       .andWhere(!!filter.created_date_from && 'affiliate_unit.created_at >= :created_date_from', {
@@ -111,7 +131,7 @@ export class AffiliateUnitService {
     return this.repo.save(branch);
   }
 
-  async getOptions() {
+  async getOptions(currentUser: User) {
     return this.repo
       .createQueryBuilder('affiliateUnit')
       .select([
@@ -121,6 +141,27 @@ export class AffiliateUnitService {
         'affiliateUnit.affiliate_unit_code AS affiliate_unit_code',
         'affiliateUnit.affiliate_unit_address AS affiliate_unit_address'
       ])
+      .where(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'user.transaction_room_id = :transaction_room_id'
+                    : 'user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
+        )
+      )
+      .leftJoin('affiliateUnit.created_user', 'user')
       .getRawMany();
   }
 
@@ -131,7 +172,6 @@ export class AffiliateUnitService {
         branch.branch_name,
         branch.address AS branch_address,
         branch.branch_province AS branch_province,
-        branch.branch_fax AS branch_fax,
         branch.phone_number_main AS branch_phone_main,
         branch.phone_number_sub AS branch_phone_sub,
         branch.bank_number AS branch_bank_number,
@@ -167,7 +207,7 @@ export class AffiliateUnitService {
       user_full_name: branchData.full_name,
       branch_name: branchData.branch_name,
       branch_address: branchData.branch_address,
-      branch_fax: branchData.branch_fax,
+      branch_fax: '',
       branch_bank_number: branchData.branch_bank_number,
       branch_province: branchData.branch_province,
       branch_phone: joinString([branchData.branch_phone_main, branchData.branch_phone_sub], ' - '),

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { showConfirmModal } from 'actions/global';
 import { deleteRepresentative } from 'services/representative.service';
 import DataTable from 'components/shared/DataTable/index';
-import { Permissoin, PositionOptions } from '../utils/constants';
+import { useAuth } from 'context/AuthProvider';
 
 const RepresentativeTable = ({
   loading,
@@ -17,6 +17,7 @@ const RepresentativeTable = ({
   onChangePage,
   onRefresh,
 }) => {
+  const { user } = useAuth();
   const dispatch = useDispatch();
   const columns = useMemo(
     () => [
@@ -39,12 +40,7 @@ const RepresentativeTable = ({
       {
         header: 'Chức vụ',
         classNameHeader: 'cb_text_center',
-        formatter: (item, index) => (
-          <span>
-            {PositionOptions.find((position) => position.value === item.representative_position)?.label ||
-              'Không xác định'}
-          </span>
-        ),
+        accessor: 'representative_position',
       },
       {
         header: 'Số tài khoản ngân hàng',
@@ -92,6 +88,7 @@ const RepresentativeTable = ({
         type: 'success',
         content: 'Thêm mới',
         onClick: () => window._$g.rdr(`representative/add`),
+        hidden: user?.is_admin,
       },
       {
         icon: 'ti-write',

@@ -2,7 +2,7 @@ import DashboardPage from 'pages/Dashboard/DashboardPage';
 
 const dashboardRoute = [
   {
-    path: '/report',
+    path: '/',
     exact: true,
     name: 'Báo cáo',
     function: 'DASHBOARD_VIEW',

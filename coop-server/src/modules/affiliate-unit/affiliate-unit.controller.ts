@@ -20,6 +20,9 @@ import { FilterAffilicateUnitDto } from './dto/filter-affiliate-unit.dto';
 import { UpdateAffilicateUnitDto } from './dto/update-affiliate-unit.dto';
 import { ExportFormAffilateUnitDto } from './dto/export-form.dto';
 import { EXPORT_TYPE } from './affiliate-unit.constant';
+import { CurrentUserInterceptor } from '../users/interceptors/current-user.interceptor';
+import { CurrentUser } from 'src/decorators/current-user.decorator';
+import { User } from '../users/users.entity';
 
 @ApiTags('Affiliate Unit')
 @UseInterceptors(ClassSerializerInterceptor)
@@ -33,14 +36,16 @@ export class AffiliateUnitController {
     return this.service.create(createData, request.user.sub);
   }
 
+  @UseInterceptors(CurrentUserInterceptor)
   @Get()
-  getList(@Query() filter: FilterAffilicateUnitDto) {
-    return this.service.find(filter);
+  getList(@Query() filter: FilterAffilicateUnitDto, @CurrentUser() currentUser: User) {
+    return this.service.find(filter, currentUser);
   }
 
+  @UseInterceptors(CurrentUserInterceptor)
   @Get('options')
-  getOptions() {
-    return this.service.getOptions();
+  getOptions(@CurrentUser() currentUser: User) {
+    return this.service.getOptions(currentUser);
   }
 
   @Get('export-form/:id')

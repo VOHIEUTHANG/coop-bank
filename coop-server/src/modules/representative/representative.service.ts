@@ -52,7 +52,7 @@ export class RepresentativeService {
     return representative;
   }
 
-  async find(filter: FilterRepresentativeDto) {
+  async find(filter: FilterRepresentativeDto, currentUser: User) {
     const queryBuilder = this.repo.createQueryBuilder('representative');
 
     queryBuilder
@@ -68,6 +68,26 @@ export class RepresentativeService {
             .orWhere('representative.phone_number like :search', {
               search: `%${filter.search}%`
             })
+        )
+      )
+      .andWhere(
+        new Brackets((qb) =>
+          qb.where(`${currentUser.is_admin} = 1`).orWhere(
+            new Brackets((qbc) =>
+              qbc
+                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
+                  branch_id: currentUser.branch.branch_id
+                })
+                .andWhere(
+                  currentUser?.transaction_room?.transaction_room_id
+                    ? 'user.transaction_room_id = :transaction_room_id'
+                    : 'user.transaction_room_id IS NULL',
+                  {
+                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
+                  }
+                )
+            )
+          )
         )
       )
       .andWhere(!!filter.created_date_from && 'representative.created_at >= :created_date_from', {

@@ -10,7 +10,7 @@ const FunctionGroupRoutes = [
   {
     path: '/individual',
     exact: true,
-    name: 'Danh sách cá nhân vay vốn',
+    name: 'Danh sách thông tin khách hàng',
     function: Permissoin.VIEW,
     component: DefaultPage,
     any: true,
@@ -18,7 +18,7 @@ const FunctionGroupRoutes = [
   {
     path: '/individual/add',
     exact: true,
-    name: 'Thêm mới cá nhân vay vốn',
+    name: 'Thêm mới thông tin khách hàng',
     function: Permissoin.ADD,
     component: AddPage,
     any: true,
@@ -26,7 +26,7 @@ const FunctionGroupRoutes = [
   {
     path: '/individual/detail/:id',
     exact: true,
-    name: 'Chi tiết cá nhân vay vốn',
+    name: 'Chi tiết thông tin khách hàng',
     function: Permissoin.VIEW,
     component: DetailPage,
     any: true,
@@ -34,7 +34,7 @@ const FunctionGroupRoutes = [
   {
     path: '/individual/edit/:id',
     exact: true,
-    name: 'Chỉnh sửa cá nhân vay vốn',
+    name: 'Chỉnh sửa thông tin khách hàng',
     function: Permissoin.EDIT,
     component: EditPage,
     any: true,

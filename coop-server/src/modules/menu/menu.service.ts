@@ -6,7 +6,7 @@ export class MenuService {
     const defaultMenuList = [
       {
         menu_id: '1',
-        menu_name: 'HỢP ĐỒNG VAY VỐN',
+        menu_name: 'HỒ SƠ VAY VỐN',
         module_id: null,
         module_name: null,
         link_menu: '/contract',
@@ -21,7 +21,7 @@ export class MenuService {
       },
       {
         menu_id: '4',
-        menu_name: 'CÁ NHÂN VAY VỐN',
+        menu_name: 'TT KHÁCH HÀNG',
         module_id: null,
         module_name: null,
         link_menu: '/individual',
@@ -31,21 +31,6 @@ export class MenuService {
         is_system: 0,
         is_business: 0,
         order_index: '7',
-        description: null,
-        function_name: null
-      },
-      {
-        menu_id: '10',
-        menu_name: 'NGƯỜI ĐẠI DIỆN',
-        module_id: null,
-        module_name: null,
-        link_menu: '/representative',
-        icon_path: 'ti-id-badge',
-        parent_id: '0',
-        is_active: 1,
-        is_system: 0,
-        is_business: 0,
-        order_index: '11',
         description: null,
         function_name: null
       },
@@ -65,8 +50,24 @@ export class MenuService {
         function_name: null
       },
       {
+        menu_id: '10',
+        menu_name: 'BAN LÃNH ĐẠO ĐVLK',
+        module_id: null,
+        module_name: null,
+        link_menu: '/representative',
+        icon_path: 'ti-id-badge',
+        parent_id: '0',
+        is_active: 1,
+        is_system: 0,
+        is_business: 0,
+        order_index: '11',
+        description: null,
+        function_name: null
+      },
+
+      {
         menu_id: '20',
-        menu_name: 'CHĂM SÓC KH',
+        menu_name: 'CHĂM SÓC ĐVLK',
         module_id: null,
         module_name: null,
         link_menu: '/customer-care',
@@ -109,13 +110,14 @@ export class MenuService {
       },
       {
         menu_id: '23',
-        menu_name: 'Báo cáo',
+        menu_name: 'BÁO CÁO',
         module_id: null,
+        icon_path: 'ti-layout-cta-left',
         module_name: null,
-        link_menu: '/report',
-        parent_id: '20',
+        link_menu: '/',
         is_active: 1,
         is_system: 0,
+        parent_id: '0',
         is_business: 0,
         order_index: '0',
         description: null,

@@ -26,6 +26,8 @@ const CustomerInfomation = ({ disabled, title, id, isAdd }) => {
       const selectedIndividual = individualOptions?.find((individual) => individual.value === individualId);
       const exportData = selectedIndividual?.export_data && JSON.parse(selectedIndividual?.export_data);
 
+      if (!selectedIndividual) return;
+
       if (isAdd) {
         if (exportData) {
           methods.reset({

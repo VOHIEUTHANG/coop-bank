@@ -88,7 +88,7 @@ const Infomation = ({ disabled, title, id }) => {
         </FormItem>
 
         <div className='cb_col_6'>
-          <FormItem label='Số tháng trả góp' isRequiredq disabled={disabled}>
+          <FormItem label='Số tháng trả góp' isRequired disabled={disabled}>
             <FormNumber
               field='month_count'
               placeholder='Nhập số tháng trả góp'
