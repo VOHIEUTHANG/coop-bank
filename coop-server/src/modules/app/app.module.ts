@@ -19,6 +19,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { SpecialDayModule } from '../special-day/special-day.module';
 import { TransactionRoomModule } from '../transaction-room/transaction-room.module';
 import { ContractModule } from '../contract/contract.module';
+import { DocumentModule } from '../document/document.module';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { ContractModule } from '../contract/contract.module';
     GiftModule,
     SpecialDayModule,
     TransactionRoomModule,
-    ContractModule
+    ContractModule,
+    DocumentModule
   ],
   providers: [
     {
