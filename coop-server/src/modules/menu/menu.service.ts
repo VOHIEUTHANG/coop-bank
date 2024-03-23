@@ -109,6 +109,20 @@ export class MenuService {
         function_name: null
       },
       {
+        menu_id: '98',
+        menu_name: 'Tài liệu',
+        module_id: null,
+        module_name: null,
+        link_menu: '/document',
+        parent_id: '20',
+        is_active: 1,
+        is_system: 0,
+        is_business: 0,
+        order_index: '7',
+        description: null,
+        function_name: null
+      },
+      {
         menu_id: '23',
         menu_name: 'BÁO CÁO',
         module_id: null,

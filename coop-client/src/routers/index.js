@@ -10,6 +10,7 @@ import specialDayRoute from './router/special-day.route';
 import branchRoute from './router/branch.route';
 import transactionRoute from './router/transaction-room.route';
 import contractRoute from './router/contract.route';
+import documentRoute from './router/document.route';
 
 const notFoundPages = [
   {
@@ -33,6 +34,7 @@ const routes = [
   ...specialDayRoute,
   ...transactionRoute,
   ...contractRoute,
+  ...documentRoute,
 ];
 
 export default routes;
