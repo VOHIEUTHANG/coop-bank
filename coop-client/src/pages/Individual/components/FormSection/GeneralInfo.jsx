@@ -46,7 +46,7 @@ const Infomation = ({ disabled, title, id }) => {
               ]}
               disabled={disabled}
               validation={{
-                require: 'Giới tính là bắt buộc',
+                required: 'Giới tính là bắt buộc',
               }}
             />
           </FormItem>

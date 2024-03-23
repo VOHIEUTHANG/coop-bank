@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { showConfirmModal } from 'actions/global';
 import { deleteAffiliateUnit } from 'services/affiliate-unit.service';
 import DataTable from 'components/shared/DataTable/index';
-import { AffiliateUnitLevelOptions } from '../utils/constants';
+import { useAuth } from 'context/AuthProvider';
 
 const RepresentativeTable = ({
   loading,
@@ -17,6 +17,8 @@ const RepresentativeTable = ({
   onChangePage,
   onRefresh,
 }) => {
+  const { user } = useAuth();
+
   const dispatch = useDispatch();
   const columns = useMemo(
     () => [
@@ -99,6 +101,9 @@ const RepresentativeTable = ({
         icon: 'fi ti-trash',
         color: 'red',
         title: 'Xóa',
+        hidden: (x) => {
+          return user.is_admin ? false : x.created_username !== user.username;
+        },
         onClick: (_, d) =>
           dispatch(
             showConfirmModal(['Bạn có thực sự muốn xóa?', 'Bạn sẽ mất dữ liệu này và các dữ liệu liên quan.'], () =>

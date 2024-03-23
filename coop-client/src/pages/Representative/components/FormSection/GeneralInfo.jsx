@@ -34,7 +34,7 @@ const BranchInfo = ({ disabled, title, id }) => {
               ]}
               disabled={disabled}
               validation={{
-                require: 'Giới tính là bắt buộc',
+                required: 'Giới tính là bắt buộc',
               }}
             />
           </FormItem>
@@ -73,7 +73,7 @@ const BranchInfo = ({ disabled, title, id }) => {
         </div>
 
         <div className='cb_col_6'>
-          <FormItem label='Ngày sinh' disabled={disabled}>
+          <FormItem label='Ngày sinh' isRequired disabled={disabled}>
             <FormDatePicker
               format={'DD/MM/YYYY'}
               field='birth_date'
@@ -83,6 +83,9 @@ const BranchInfo = ({ disabled, title, id }) => {
               }}
               bordered={false}
               allowClear
+              validation={{
+                required: 'Ngày sinh là bắt buộc !',
+              }}
             />
           </FormItem>
         </div>

@@ -106,6 +106,9 @@ const RepresentativeTable = ({
         icon: 'fi ti-trash',
         color: 'red',
         title: 'Xóa',
+        hidden: (x) => {
+          return user.is_admin ? false : x.created_username !== user.username;
+        },
         onClick: (_, d) =>
           dispatch(
             showConfirmModal(['Bạn có thực sự muốn xóa?', 'Bạn sẽ mất dữ liệu này và các dữ liệu liên quan.'], () =>

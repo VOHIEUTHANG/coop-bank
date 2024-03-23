@@ -6,6 +6,7 @@ import { showConfirmModal } from 'actions/global';
 import { deleteBranch } from 'services/branch.service';
 import DataTable from 'components/shared/DataTable/index';
 import { Tooltip } from 'antd';
+import { useAuth } from 'context/AuthProvider';
 
 const AccountingPeriodTable = ({
   loading,
@@ -17,6 +18,7 @@ const AccountingPeriodTable = ({
   onChangePage,
   onRefresh,
 }) => {
+  const { user } = useAuth();
   const dispatch = useDispatch();
   const columns = useMemo(
     () => [
@@ -101,6 +103,9 @@ const AccountingPeriodTable = ({
         icon: 'fi ti-trash',
         color: 'red',
         title: 'Xóa',
+        hidden: (x) => {
+          return user.is_admin ? false : x.created_username !== user.username;
+        },
         onClick: (_, d) =>
           dispatch(
             showConfirmModal(['Bạn có thực sự muốn xóa?', 'Bạn sẽ mất dữ liệu này và các dữ liệu liên quan.'], () =>

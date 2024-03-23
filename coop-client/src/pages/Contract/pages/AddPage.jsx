@@ -84,6 +84,7 @@ const AddPage = () => {
         'interest_rate',
         'month_count',
       ],
+      isAdd: !contract_id,
     },
     {
       title: 'Trạng thái hợp đồng',
@@ -118,7 +119,6 @@ const AddPage = () => {
             setRefresh((prev) => !prev);
           }}
           contractId={contract_id}
-          defaultExportData={methods.watch('export_data')}
         />
       )}
     </FormProvider>
