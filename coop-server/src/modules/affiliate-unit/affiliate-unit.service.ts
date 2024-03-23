@@ -39,7 +39,7 @@ export class AffiliateUnitService {
     this.fileService.saveFileField(createData, 'affiliate_unit_image_4');
 
     createData.affiliate_unit_files?.forEach((file) => {
-      this.fileService.saveFileField(file, 'affiliate_unit_file_url');
+      this.fileService.saveFileField(file, 'affiliate_unit_file_url', 'pdf');
     });
 
     const affiliateUnit = this.repo.create(createData);
@@ -117,7 +117,7 @@ export class AffiliateUnitService {
     this.fileService.saveFileField(updateData, 'affiliate_unit_image_4');
 
     updateData.affiliate_unit_files?.forEach((file) => {
-      this.fileService.saveFileField(file, 'affiliate_unit_file_url');
+      this.fileService.saveFileField(file, 'affiliate_unit_file_url', 'pdf');
     });
 
     Object.assign(affiliateUnit, updateData);

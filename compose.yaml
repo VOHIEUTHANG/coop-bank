@@ -25,6 +25,8 @@ services:
       - 3001
     depends_on:
       - database
+    volumes:
+      - ./coop-server/public:/coop-bank/coop-server/public
   client:
     build:
       context: ./coop-client
