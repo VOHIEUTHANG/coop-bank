@@ -1,6 +1,6 @@
 import FormItem from 'components/shared/FormControl/FormItem';
-import React, { useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import React, { useEffect, useMemo, useState } from 'react';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { exportForm } from 'services/contract.service';
 import Accordion from 'components/shared/Accordion';
 import { Spin } from 'antd';
@@ -13,7 +13,9 @@ import DataTable from 'components/shared/DataTable';
 
 import { getListByUser } from 'services/bank-representative.service';
 import { PositionOptions } from 'pages/BankRepresentative/utils/constants';
+import { useLocalStorage } from '@uidotdev/usehooks';
 import { showToast } from 'utils/helpers';
+import { useAuth } from 'context/AuthProvider';
 
 const DataTableStyled = styled.div`
   margin-bottom: 10px;
@@ -29,15 +31,36 @@ const FormRadioGroupStyled = styled.div`
   }
 `;
 
-function ExportDoc({ closeModal, contractId, defaultExportData, refreshData }) {
+function ExportDoc({ closeModal, contractId, refreshData }) {
+  const { user } = useAuth();
+  const [storage, saveStorage] = useLocalStorage(process.env.REACT_APP_LOCAL_STORAGE_KEY, []);
+
+  // save previous export data
+  const savedExportForm = storage?.find(
+    (savedRecord) => savedRecord.contract_id === contractId && savedRecord.username === user.username,
+  );
+
   const methods = useForm({
-    defaultValues: defaultExportData || {
-      export_type: EXPORT_TYPE.CUSTOMER_SURVEY_FORM,
+    defaultValues: {
+      export_type: savedExportForm?.export_type || EXPORT_TYPE.CUSTOMER_SURVEY_FORM,
     },
   });
+
   const { handleSubmit } = methods;
   const [loading, setLoading] = useState(false);
   const [representatives, setRepresentatives] = useState([]);
+
+  const defaultSelectRepresentative = useMemo(() => {
+    if (savedExportForm && representatives?.length > 0) {
+      const selectedRepresentative = representatives.find(
+        (rep) => rep.bank_representative_id === savedExportForm.bank_representative_id,
+      );
+      if (selectedRepresentative) {
+        return [selectedRepresentative];
+      }
+    }
+    return representatives?.length > 0 ? [representatives[0]] : [];
+  }, [savedExportForm, representatives]);
 
   useEffect(() => {
     getListByUser().then(setRepresentatives);
@@ -65,6 +88,22 @@ function ExportDoc({ closeModal, contractId, defaultExportData, refreshData }) {
       })
       .catch((err) => handleToastError(err))
       .finally(() => setLoading(false));
+
+    if (savedExportForm) {
+      savedExportForm.export_type = values.export_type;
+      savedExportForm.bank_representative_id = values.bank_representative_id;
+
+      saveStorage(storage);
+    } else {
+      saveStorage(
+        storage?.concat({
+          export_type: values.export_type,
+          contract_id: contractId,
+          bank_representative_id: values.bank_representative_id,
+          username: user.username,
+        }),
+      );
+    }
   };
 
   const columns = [
@@ -117,7 +156,7 @@ function ExportDoc({ closeModal, contractId, defaultExportData, refreshData }) {
                       <div className='cb_col_12'>
                         <DataTableStyled>
                           <DataTable
-                            defaultDataSelect={representatives?.length > 0 ? [representatives[0]] : []}
+                            defaultDataSelect={defaultSelectRepresentative}
                             uniqueSelect
                             onChangeSelect={(dataSelect) => {
                               methods.setValue('bank_representative_id', dataSelect?.[0]?.bank_representative_id);

@@ -260,10 +260,7 @@ export class AffiliateUnitService {
     AND deleted_at IS NULL
     `;
 
-    const [affiliateData] = await this.dataSource.query(getAffiliateUnitQuery, [
-      RepresentativePosition.PRINCIPAL,
-      affiliateUnitId
-    ]);
+    const [affiliateData] = await this.dataSource.query(getAffiliateUnitQuery, [affiliateUnitId]);
     const [representativeData] = await this.dataSource.query(getRepresentativeQuery, [
       representativeId
     ]);
@@ -271,7 +268,7 @@ export class AffiliateUnitService {
     const serializedAffiliateData = {
       unit_name: affiliateData.affiliate_unit_name,
       unit_code: affiliateData.affiliate_unit_code,
-      contract_code: affiliateData.affiliate_contract_code,
+      contract_code: affiliateData.affiliate_contract_code || '',
       unit_name_upper: affiliateData.affiliate_unit_name?.toUpperCase(),
       unit_address: affiliateData.affiliate_unit_address,
       unit_phone: affiliateData.affiliate_unit_phone,

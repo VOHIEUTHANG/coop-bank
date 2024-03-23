@@ -65,7 +65,7 @@ export class IndividualService {
       au.affiliate_unit_name AS affiliate_unit_name,
       au.affiliate_unit_code AS affiliate_unit_code,
       id.individual_position AS individual_position,
-      id.individual_fullname AS label,
+      CONCAT(id.individual_fullname, ' - CCCD: ', id.id_number) AS label,
       id.individual_bank_number,
       id.individual_cic_score,
       id.individual_cic_rank,

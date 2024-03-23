@@ -100,14 +100,6 @@ const RepresentativeTable = ({
     [],
   );
 
-  const handleDelete = useCallback(
-    async (Id) => {
-      await deleteGift(Id);
-      onRefresh();
-    },
-    [onRefresh],
-  );
-
   const actions = useMemo(() => {
     return [
       {

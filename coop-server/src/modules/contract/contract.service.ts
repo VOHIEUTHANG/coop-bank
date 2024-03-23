@@ -157,6 +157,7 @@ export class ContractService {
       DATE_FORMAT( IV.birth_date, '%d/%m/%Y' ) AS birth_date,
       AU.affiliate_unit_address,
       AU.affiliate_unit_name,
+      AU.affiliate_unit_phone,
       AU.paid_date
     FROM
       individual IV
@@ -180,8 +181,6 @@ export class ContractService {
     // get balance at NHHT
     if (match) {
       balance = match[0].split(' ')?.pop();
-    } else {
-      console.log('No match found.');
     }
 
     const contractDay = moment(contractData.contract_date).date();
@@ -234,15 +233,6 @@ export class ContractService {
       period_count: contractData.period_count,
       paid_period: formatCurrency(contractData.first_period_money),
       last_paid_period: formatCurrency(contractData.last_period_money),
-      // paid_period: formatCurrency(
-      //   Math.round(contractData.loan_money / contractData.period_count / 10000) * 10000
-      // ),
-      // last_paid_period: formatCurrency(
-      //   contractData.loan_money -
-      //     Math.round(contractData.loan_money / contractData.period_count / 10000) *
-      //       10000 *
-      //       (contractData.period_count - 1)
-      // ),
       paid_period_text: readCurrency(`${contractData.last_period_money}`),
       total_money: formatCurrency(contractData.total_money),
       loan_money: formatCurrency(contractData.loan_money),
@@ -258,9 +248,12 @@ export class ContractService {
       gender_name: individualData.gender === Gender.Male ? 'Ông' : 'Bà',
       branch_gender_name: branchData.bank_representative_gender === Gender.Male ? 'Ông' : 'Bà',
       director_sign: branchData.transaction_room_id ? '' : 'GIÁM ĐỐC',
+      debt_receive_sign: branchData.transaction_room_id
+        ? `TP.${branchData.transaction_room_name}`
+        : 'Giám đốc',
       transaction_location_title: branchData.transaction_room_id
-        ? `TP. ${branchData.transaction_room_name}`?.toUpperCase()
-        : 'TP. KHÁCH HÀNG DN VÀ CÁ NHÂN ĐỀ NGHỊ',
+        ? `TP.${branchData.transaction_room_name}`?.toUpperCase()
+        : 'TP.KHÁCH HÀNG DN VÀ CÁ NHÂN ĐỀ NGHỊ',
       balance,
       contract_extra_data:
         contractData.month_count === contractData.period_count

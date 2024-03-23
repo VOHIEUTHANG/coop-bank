@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Accordion from 'components/shared/Accordion/index';
 import FormItem from 'components/shared/FormControl/FormItem';
 import FormInput from 'components/shared/FormControl/FormInput';
@@ -7,9 +7,28 @@ import FormNumber from 'components/shared/FormControl/FormNumber';
 import { useFormContext } from 'react-hook-form';
 import { formatPrice } from 'utils';
 
-const Infomation = ({ disabled, title, id }) => {
+const Infomation = ({ disabled, title, id, isAdd }) => {
   const methods = useFormContext();
-  const { watch } = methods;
+  const { watch, setValue } = methods;
+
+  const handleTotalMoneyChange = useCallback(() => {
+    if (watch('total_money') && watch('loan_money') && isAdd) {
+      setValue('funds_money', watch('total_money') - watch('loan_money'));
+    }
+  }, [watch('loan_money'), watch('total_money'), isAdd]);
+
+  useEffect(handleTotalMoneyChange, [handleTotalMoneyChange]);
+
+  const handleToPeriodChange = useCallback(() => {
+    if (watch('period_count') > 0 && watch('first_period_money') > 0 && watch('loan_money') > 0 && isAdd) {
+      const lastPeriodMoney = watch('loan_money') - watch('first_period_money') * (watch('period_count') - 1);
+      methods.setValue('last_period_money', lastPeriodMoney > 0 ? lastPeriodMoney : 0);
+    }
+  }, [watch('period_count'), watch('first_period_money'), watch('loan_money'), isAdd]);
+
+  useEffect(handleToPeriodChange, [handleToPeriodChange]);
+
+  console.log();
 
   return (
     <Accordion title={title} id={id}>
@@ -81,9 +100,9 @@ const Infomation = ({ disabled, title, id }) => {
 
         <FormItem label='Tỷ lệ trên tổng nhu cầu' isRequired className='cb_col_6' disabled>
           <FormInput
-            value={`${formatPrice(watch('funds_money') || 0)} / ${formatPrice(watch('total_money'))} = ${Math.round(
-              (watch('funds_money') / watch('total_money')) * 100,
-            )}%`}
+            value={`${formatPrice(watch('funds_money') || 0)} / ${formatPrice(watch('total_money'))} = ${
+              Math.round((watch('funds_money') / watch('total_money')) * 100) || 0
+            }%`}
           />
         </FormItem>
 
