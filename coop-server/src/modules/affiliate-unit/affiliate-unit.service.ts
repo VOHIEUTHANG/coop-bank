@@ -5,19 +5,25 @@ import { AffiliateUnit } from './entity/affiliate-unit.entity';
 import { CreateAffilicateUnitDto } from './dto/create-affiliate-unit.dto';
 import { PageDto } from 'src/common/dto/page.dto';
 import { FilterAffilicateUnitDto } from './dto/filter-affiliate-unit.dto';
-import { generateId, joinString } from 'src/utils/string.util';
+import { formatCurrency, generateId, joinString } from 'src/utils/string.util';
 import { User } from '../users/users.entity';
-import { transformDate } from 'src/utils/date.util';
+import { stringifyDate, transformDate } from 'src/utils/date.util';
 import { FileService } from 'src/helper/file.helper';
 import fs from 'fs';
 import Docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
+import xl from 'excel4node';
+import excelHelper from 'src/helper/excel.helper';
+
 import {
   BankRepresentativePosition,
   getBankRepresentativePositionName
 } from '../bank-representative/bank-representative.constant';
 import { RepresentativePosition } from '../representative/representative.constant';
 import { ExportFormAffilateUnitDto } from './dto/export-form.dto';
+import { EXPORT_LIMIT } from 'src/constant/pagination.constant';
+import moment from 'moment';
+import { DATE_FORMAT_DDMMYYYY } from 'src/constant/date.constant';
 
 @Injectable()
 export class AffiliateUnitService {
@@ -419,5 +425,82 @@ export class AffiliateUnitService {
     doc.render();
     const buffer = doc.getZip().generate({ type: 'nodebuffer' });
     return buffer;
+  }
+
+  async exportExcel(filter: FilterAffilicateUnitDto, currentUser: User) {
+    filter.limit = EXPORT_LIMIT;
+    const data = await this.find(filter, currentUser);
+    const workbook = new xl.Workbook();
+
+    const BUDGET_SHEETS_NAME = 'Tổng hợp đơn vị liên kết';
+    const WorkSheet = workbook.addWorksheet(BUDGET_SHEETS_NAME);
+
+    const columns = [
+      {
+        key: 'created_at',
+        title: 'Ngày LK',
+        transform: (value: any) => stringifyDate(value)
+      },
+      {
+        key: 'affiliate_contract_code',
+        title: 'Số HĐ LK'
+      },
+      {
+        key: 'affiliate_unit_code',
+        title: 'Mã đơn vị'
+      },
+      {
+        key: 'affiliate_unit_name',
+        title: 'Tên đơn vị',
+        width: 50
+      },
+      {
+        key: 'affiliate_unit_phone',
+        title: 'SĐT Đơn vị'
+      },
+      {
+        key: 'affiliate_unit_address',
+        title: 'Địa chỉ đơn vị',
+        width: 60
+      },
+      {
+        key: 'founding_date',
+        title: 'Ngày thành lập ĐV',
+        transform: (value: any) => stringifyDate(value),
+        width: 40
+      },
+      {
+        key: 'affiliate_unit_email',
+        title: 'Email đơn vị'
+      },
+      {
+        key: 'paid_date',
+        title: 'Ngày trả nợ'
+      }
+    ];
+
+    const NUMBERED = true;
+    const START_COL = 1;
+    const START_ROW = 7;
+    const COL_WIDTH = 20;
+
+    excelHelper.createTableData(
+      WorkSheet,
+      columns,
+      data.items,
+      NUMBERED,
+      START_COL,
+      START_ROW,
+      COL_WIDTH,
+      {
+        title: 'TỔNG HỢP ĐƠN VỊ LIÊN KẾT',
+        date_from:
+          filter.created_date_from && moment(filter.created_date_from).format(DATE_FORMAT_DDMMYYYY),
+        date_to:
+          filter.created_date_to && moment(filter.created_date_to).format(DATE_FORMAT_DDMMYYYY)
+      }
+    );
+
+    return workbook;
   }
 }

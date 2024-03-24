@@ -48,6 +48,17 @@ export class AffiliateUnitController {
     return this.service.getOptions(currentUser);
   }
 
+  @UseInterceptors(CurrentUserInterceptor)
+  @Get('export-excel')
+  async exportExcel(
+    @Response() res,
+    @Query() filter: FilterAffilicateUnitDto,
+    @CurrentUser() currentUser: User
+  ) {
+    const wb = await this.service.exportExcel(filter, currentUser);
+    wb.write('gift.xlsx', res);
+  }
+
   @Get('export-form/:id')
   async exportForm(
     @Param('id') affilateUnitId: string,

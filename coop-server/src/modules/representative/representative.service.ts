@@ -7,8 +7,14 @@ import { PageDto } from 'src/common/dto/page.dto';
 import { FilterRepresentativeDto } from './dto/filter-representative.dto';
 import { generateId } from 'src/utils/string.util';
 import { User } from '../users/users.entity';
-import { transformDate } from 'src/utils/date.util';
+import { stringifyDate, transformDate } from 'src/utils/date.util';
 import { FileService } from 'src/helper/file.helper';
+import { EXPORT_LIMIT } from 'src/constant/pagination.constant';
+import xl from 'excel4node';
+import excelHelper from 'src/helper/excel.helper';
+import moment from 'moment';
+import { DATE_FORMAT_DDMMYYYY } from 'src/constant/date.constant';
+import { Gender } from 'src/types/data-type';
 
 @Injectable()
 export class RepresentativeService {
@@ -128,5 +134,103 @@ export class RepresentativeService {
 
     branch.deleted_at = new Date().toISOString();
     return this.repo.save(branch);
+  }
+
+  async exportExcel(filter: FilterRepresentativeDto, currentUser: User) {
+    filter.limit = EXPORT_LIMIT;
+    const data = await this.find(filter, currentUser);
+    const workbook = new xl.Workbook();
+
+    const BUDGET_SHEETS_NAME = 'Tổng hợp ban lãnh đạo';
+    const WorkSheet = workbook.addWorksheet(BUDGET_SHEETS_NAME);
+
+    const columns = [
+      {
+        key: 'representative_name',
+        title: 'Tên BLĐ'
+      },
+      {
+        key: 'phone_number',
+        title: 'SĐT BLD'
+      },
+      {
+        key: 'representative_position',
+        title: 'Chức vụ'
+      },
+      {
+        key: 'birth_date',
+        title: 'Ngày sinh BLĐ',
+        transform: (value: any) => stringifyDate(value)
+      },
+      {
+        key: 'gender',
+        title: 'Giới tính',
+        transform: (value: any) => (value == Gender.Female ? 'Nam' : 'Nữ')
+      },
+      {
+        key: 'id_number',
+        title: 'CCCD'
+      },
+      {
+        key: 'id_issued_date',
+        title: 'Ngày cấp CCCD',
+        transform: (value: any) => stringifyDate(value)
+      },
+      {
+        key: 'address',
+        title: 'Địa chỉ BLĐ',
+        width: 50
+      },
+      {
+        key: 'representative_email',
+        title: 'Email BLĐ'
+      },
+      {
+        key: 'decision_number',
+        title: 'SỐ QĐ BLD'
+      },
+      {
+        key: 'decision_date',
+        title: 'NGÀY QĐ BD',
+        transform: (value: any) => stringifyDate(value)
+      },
+      {
+        key: 'effective_date_to',
+        title: 'NGÀY QĐ KẾT THÚC',
+        transform: (value: any) => stringifyDate(value)
+      },
+      {
+        key: 'decision_district',
+        title: 'NƠI CẤP QĐ'
+      },
+      {
+        key: 'decider_name',
+        title: 'NGƯỜI RA QĐ'
+      }
+    ];
+
+    const NUMBERED = true;
+    const START_COL = 1;
+    const START_ROW = 7;
+    const COL_WIDTH = 20;
+
+    excelHelper.createTableData(
+      WorkSheet,
+      columns,
+      data.items,
+      NUMBERED,
+      START_COL,
+      START_ROW,
+      COL_WIDTH,
+      {
+        title: 'Tổng hợp ban lãnh đạo',
+        date_from:
+          filter.created_date_from && moment(filter.created_date_from).format(DATE_FORMAT_DDMMYYYY),
+        date_to:
+          filter.created_date_to && moment(filter.created_date_to).format(DATE_FORMAT_DDMMYYYY)
+      }
+    );
+
+    return workbook;
   }
 }

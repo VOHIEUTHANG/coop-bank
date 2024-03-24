@@ -35,6 +35,12 @@ const RepresentativeTable = ({
         accessor: 'contract_number',
       },
       {
+        header: 'Ngày hợp đồng',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
+        accessor: 'contract_date',
+      },
+      {
         header: 'Tên khách hàng',
         classNameHeader: 'cb_text_center',
         accessor: 'individual_fullname',
@@ -73,12 +79,12 @@ const RepresentativeTable = ({
         classNameBody: 'cb_text_center',
         accessor: 'end_date',
       },
-      // {
-      //   header: 'Người tạo',
-      //   accessor: 'created_fullname',
-      //   classNameHeader: 'cb_text_center',
-      //   classNameBody: 'cb_text_center',
-      // },
+      {
+        header: 'Ngày tạo',
+        accessor: 'created_at',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
+      },
     ],
     [],
   );

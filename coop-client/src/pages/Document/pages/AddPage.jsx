@@ -7,9 +7,11 @@ import { create, update, getById } from 'services/document.service';
 import GeneralInfomation from '../components/FormSection/GeneralInfo';
 import Files from '../components/FormSection/Files';
 import { showToast } from 'utils/helpers';
+import { useAuth } from 'context/AuthProvider';
 
 const AddPage = () => {
   const methods = useForm();
+  const { user } = useAuth();
 
   const { pathname } = useLocation();
   const { id: document_id } = useParams();
@@ -67,7 +69,12 @@ const AddPage = () => {
 
   return (
     <FormProvider {...methods}>
-      <FormSection detailForm={detailForm} onSubmit={onSubmit} disabled={disabled} />
+      <FormSection
+        detailForm={detailForm}
+        onSubmit={onSubmit}
+        disabled={disabled}
+        enableEditButton={Boolean(user.is_admin)}
+      />
     </FormProvider>
   );
 };

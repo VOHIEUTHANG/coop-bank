@@ -32,3 +32,10 @@ export const exportForm = (affiliateId, params = {}) => {
 
   return httpClient.get(path + `/export-form/${affiliateId}`, { params, ...header });
 };
+
+export const exportExcel = (params) => {
+  const header = {
+    responseType: `blob`,
+  };
+  return httpClient.get(`${path}/export-excel`, { params, ...header });
+};

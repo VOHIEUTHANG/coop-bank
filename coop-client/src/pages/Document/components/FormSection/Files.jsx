@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import Accordion from 'components/shared/Accordion/index';
 import { useFieldArray, useFormContext } from 'react-hook-form';
@@ -45,9 +45,7 @@ const Files = ({ disabled, title, id }) => {
                 style={{ width: '100%', height: '100%' }}
                 src={PdfImage}
                 onClick={() => {
-                  if (!disabled) {
-                    downloadPDF(file.document_file_url, `${file.document_file_name}.${file.document_file_extension}`);
-                  }
+                  downloadPDF(file.document_file_url, `${file.document_file_name}.${file.document_file_extension}`);
                 }}
               />
             </Tooltip>

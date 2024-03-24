@@ -20,3 +20,10 @@ export const update = (params) => {
 export const deleteRepresentative = (id) => {
   return httpClient.delete(`${path}/${id}`);
 };
+
+export const exportExcel = (params) => {
+  const header = {
+    responseType: `blob`,
+  };
+  return httpClient.get(`${path}/export-excel`, { params, ...header });
+};

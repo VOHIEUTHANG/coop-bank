@@ -207,7 +207,7 @@ export class GiftService {
     const NUMBERED = true;
     const START_COL = 1;
     const START_ROW = 7;
-    const IS_EXPORT_FOR_GIFT = true;
+    const COL_WIDTH = 20;
     excelHelper.createTableData(
       WorkSheet,
       columns,
@@ -215,9 +215,9 @@ export class GiftService {
       NUMBERED,
       START_COL,
       START_ROW,
-      20,
-      IS_EXPORT_FOR_GIFT,
+      COL_WIDTH,
       {
+        title: 'DANH SÁCH QUÀ TẶNG',
         date_from:
           filter.created_date_from && moment(filter.created_date_from).format(DATE_FORMAT_DDMMYYYY),
         date_to:

@@ -65,6 +65,7 @@ const RepresentativeTable = ({
         type: 'success',
         content: 'Thêm mới',
         onClick: () => window._$g.rdr(`document/add`),
+        hidden: !user.is_admin,
       },
       {
         icon: 'ti-write',
@@ -73,6 +74,7 @@ const RepresentativeTable = ({
         onClick: (p) => {
           window._$g.rdr(`document/edit/${p?.document_id}`);
         },
+        hidden: !user.is_admin,
       },
       {
         icon: 'ti-eye',
