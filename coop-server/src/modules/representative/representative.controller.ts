@@ -9,7 +9,8 @@ import {
   Query,
   UseInterceptors,
   ClassSerializerInterceptor,
-  Request
+  Request,
+  Response
 } from '@nestjs/common';
 import { RepresentativeService } from './representative.service';
 import { UpdateRepresentativeDto } from './dto/update-representative.dto';
@@ -25,31 +26,42 @@ import { User } from '../users/users.entity';
 @Controller('representative')
 @ApiBearerAuth()
 export class RepresentativeController {
-  constructor(private representativeService: RepresentativeService) {}
+  constructor(private service: RepresentativeService) {}
 
   @Post()
   create(@Body() createData: CreateRepresentativeDto, @Request() request) {
-    return this.representativeService.create(createData, request.user.sub);
+    return this.service.create(createData, request.user.sub);
   }
 
   @UseInterceptors(CurrentUserInterceptor)
   @Get()
   getList(@Query() filter: FilterRepresentativeDto, @CurrentUser() currentUser: User) {
-    return this.representativeService.find(filter, currentUser);
+    return this.service.find(filter, currentUser);
+  }
+
+  @UseInterceptors(CurrentUserInterceptor)
+  @Get('export-excel')
+  async exportExcel(
+    @Response() res,
+    @Query() filter: FilterRepresentativeDto,
+    @CurrentUser() currentUser: User
+  ) {
+    const wb = await this.service.exportExcel(filter, currentUser);
+    wb.write('gift.xlsx', res);
   }
 
   @Get(':representative_id')
   getById(@Param('representative_id') representative_id: string) {
-    return this.representativeService.findOne(representative_id);
+    return this.service.findOne(representative_id);
   }
 
   @Patch()
   update(@Body() updateData: UpdateRepresentativeDto) {
-    return this.representativeService.update(updateData);
+    return this.service.update(updateData);
   }
 
   @Delete(':representative_id')
   delete(@Param('representative_id') representative_id: string) {
-    return this.representativeService.delete(representative_id);
+    return this.service.delete(representative_id);
   }
 }

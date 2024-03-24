@@ -6,7 +6,7 @@ import { PageDto } from 'src/common/dto/page.dto';
 import { FilterContractDto } from './dto/filter-contract.dto';
 import { formatCurrency, generateId, readCurrency } from 'src/utils/string.util';
 import { User } from '../users/users.entity';
-import { transformDate } from 'src/utils/date.util';
+import { stringifyDate, transformDate } from 'src/utils/date.util';
 import fs from 'fs';
 import Docxtemplater from 'docxtemplater';
 import PizZip from 'pizzip';
@@ -17,6 +17,10 @@ import { Gender } from 'src/types/data-type';
 import { DATE_FORMAT_DDMMYYYY } from 'src/constant/date.constant';
 import { BankRepresentativeService } from '../bank-representative/bank-representative.service';
 import { getBankRepresentativePositionName } from '../bank-representative/bank-representative.constant';
+import xl from 'excel4node';
+import excelHelper from 'src/helper/excel.helper';
+import { EXPORT_LIMIT } from 'src/constant/pagination.constant';
+import { AffiliateUnit } from '../affiliate-unit/entity/affiliate-unit.entity';
 
 @Injectable()
 export class ContractService {
@@ -120,8 +124,10 @@ export class ContractService {
       .andWhere(!!filter.created_date_to && 'contract.created_at <= :created_date_to', {
         created_date_to: filter.created_date_to
       })
-      .leftJoinAndSelect('contract.created_user', 'user')
       .leftJoinAndSelect('contract.individual', 'individual')
+      .leftJoinAndSelect('individual.affiliate_unit', 'affiliate_unit')
+      .leftJoinAndSelect('contract.created_user', 'user')
+
       .orderBy('contract.created_at', filter.order)
       .skip(filter.skip)
       .take(filter.limit);
@@ -460,5 +466,153 @@ export class ContractService {
     doc.render();
     const buffer = doc.getZip().generate({ type: 'nodebuffer' });
     return buffer;
+  }
+
+  async exportExcel(filter: FilterContractDto, currentUser: User) {
+    filter.limit = EXPORT_LIMIT;
+    const data = await this.find(filter, currentUser);
+    const workbook = new xl.Workbook();
+
+    const BUDGET_SHEETS_NAME = 'Danh sách hợp đồng vay vốn';
+    const WorkSheet = workbook.addWorksheet(BUDGET_SHEETS_NAME);
+
+    const columns = [
+      {
+        key: 'individual',
+        title: 'Mã KH',
+        transform: (value: any) => value?.individual_code
+      },
+      {
+        key: 'contract_date',
+        title: 'Ngày vay',
+        transform: (value: any) => stringifyDate(value)
+      },
+      {
+        key: 'individual',
+        title: 'Tên khách hàng',
+        transform: (value: any) => value?.individual_fullname
+      },
+      {
+        key: 'individual',
+        title: 'Ngày sinh',
+        transform: (value: any) => value?.birth_date && stringifyDate(value?.birth_date)
+      },
+      {
+        key: 'individual',
+        title: 'Số điện thoại',
+        transform: (value: any) => value?.phone_number
+      },
+      {
+        key: 'individual',
+        title: 'Giới tính',
+        transform: (value: any) => (value?.gender === Gender.Male ? 'Nam' : 'Nữ')
+      },
+      {
+        key: 'individual',
+        title: 'Chức vụ',
+        transform: (value: any) => value?.individual_position
+      },
+      {
+        key: 'individual',
+        title: 'CCCD',
+        transform: (value: any) => value?.id_number
+      },
+      {
+        key: 'individual',
+        title: 'Ngày cấp CCCD',
+        transform: (value: any) => value?.id_issued_date && stringifyDate(value?.id_issued_date)
+      },
+      {
+        key: 'individual',
+        title: 'Địa chỉ KH',
+        transform: (value: any) => value?.current_address || value?.origin_address
+      },
+      {
+        key: 'contract_number',
+        title: 'Số hợp đồng'
+      },
+      {
+        key: 'loan_money',
+        title: 'Số tiền vay',
+        transform: (value: any) => formatCurrency(value)
+      },
+      {
+        key: 'start_date',
+        title: 'Ngày bắt đầu',
+        transform: (value: any) => stringifyDate(value)
+      },
+      {
+        key: 'end_date',
+        title: 'Ngày kết thúc',
+        transform: (value: any) => stringifyDate(value)
+      },
+      {
+        key: 'interest_rate',
+        title: 'Lãi suất',
+        transform: (value: any) => value + '%'
+      },
+      {
+        key: 'month_count',
+        title: 'Số tháng trả góp'
+      },
+      {
+        key: 'period_count',
+        title: 'Số kỳ trả góp'
+      },
+      {
+        key: 'first_period_money',
+        title: 'Số kỳ đầu',
+        transform: (value: any) => formatCurrency(value)
+      },
+      {
+        key: 'last_period_money',
+        title: 'Số tiền kỳ cuối',
+        transform: (value: any) => formatCurrency(value)
+      },
+      {
+        key: 'individual_cic_score',
+        title: 'Điểm XHTD'
+      },
+      {
+        key: 'estimated_total_income',
+        title: 'Tổng thu nhập',
+        transform: (value: any) => formatCurrency(value)
+      },
+      {
+        key: 'individual',
+        title: 'Mã đơn vị',
+        transform: (value: any) => value?.affiliate_unit?.affiliate_unit_code
+      },
+      {
+        key: 'individual',
+        title: 'Tên đơn vị',
+        transform: (value: any) => value?.affiliate_unit?.affiliate_unit_name,
+        width: 50
+      }
+    ];
+
+    const NUMBERED = true;
+    const START_COL = 1;
+    const START_ROW = 7;
+    const COL_WIDTH = 20;
+
+    excelHelper.createTableData(
+      WorkSheet,
+      columns,
+      data.items,
+      NUMBERED,
+      START_COL,
+      START_ROW,
+      COL_WIDTH,
+      {
+        title: 'DANH SÁCH HỢP ĐỒNG VAY VỐN',
+        date_from:
+          filter.created_date_from && moment(filter.created_date_from).format(DATE_FORMAT_DDMMYYYY),
+        date_to:
+          filter.created_date_to && moment(filter.created_date_to).format(DATE_FORMAT_DDMMYYYY)
+      }
+    );
+
+    return workbook;
   }
 }

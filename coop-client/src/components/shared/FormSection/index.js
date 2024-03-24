@@ -33,6 +33,7 @@ const FormSection = ({
   noPadding,
   style,
   customerClose,
+  enableEditButton = true,
 }) => {
   const methods = useFormContext();
   const {
@@ -86,9 +87,12 @@ const FormSection = ({
               <Button className='mr-2' key={i} {...props} />
             ))}
           {/* <CheckAccess permission={PERMISSION?.edit}> */}
-          <button type='button' className='cb_btn_outline cb_btn_outline_success' onClick={goToEditPath}>
-            Chỉnh sửa
-          </button>
+          {enableEditButton && (
+            <button type='button' className='cb_btn_outline cb_btn_outline_success' onClick={goToEditPath}>
+              Chỉnh sửa
+            </button>
+          )}
+
           {/* </CheckAccess> */}
         </>
       );
@@ -203,7 +207,7 @@ FormSection.propTypes = {
   ),
   onSubmit: PropTypes.func,
   disabled: PropTypes.bool,
-
+  enableEditButton: PropTypes.bool,
   noActions: PropTypes.bool,
   actions: PropTypes.arrayOf(
     PropTypes.shape({
@@ -225,6 +229,7 @@ FormSection.defaultProps = {
   onSubmit: () => {},
   disabled: false,
   noActions: false,
+  enableEditButton: true,
 };
 
 export default FormSection;

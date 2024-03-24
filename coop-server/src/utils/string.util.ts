@@ -25,7 +25,7 @@ export function joinString(list: string[], separator: string): string {
 }
 
 export const formatCurrency = (value: number, seperator: string = '.') => {
-  return value.toLocaleString()?.replaceAll(',', seperator);
+  return value && value.toLocaleString()?.replaceAll(',', seperator);
 };
 
 export function readCurrency(money: string | bigint, unit: string = 'đồng') {

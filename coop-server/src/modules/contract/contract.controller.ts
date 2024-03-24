@@ -42,6 +42,17 @@ export class ContractController {
     return this.service.find(filter, currentUser);
   }
 
+  @UseInterceptors(CurrentUserInterceptor)
+  @Get('export-excel')
+  async exportExcel(
+    @Response() res,
+    @Query() filter: FilterContractDto,
+    @CurrentUser() currentUser: User
+  ) {
+    const wb = await this.service.exportExcel(filter, currentUser);
+    wb.write('gift.xlsx', res);
+  }
+
   @Get(':id')
   getById(@Param('id') id: string) {
     return this.service.findOne(id);

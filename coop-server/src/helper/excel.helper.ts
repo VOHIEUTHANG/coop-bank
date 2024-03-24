@@ -6,9 +6,12 @@ class ExcelHelper {
     isNumbered = false,
     startCol = 1,
     startRow = 3,
-    defaultWidth = 20,
-    isExportForGift = false,
-    dateData: any = {}
+    defaultWidth: number = 20,
+    headData?: {
+      title: string;
+      date_from: string;
+      date_to: string;
+    }
   ) {
     const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -56,9 +59,9 @@ class ExcelHelper {
       alignment: { horizontal: 'center' }
     };
 
-    if (isExportForGift) {
+    if (headData) {
       ws.cell(4, 1, 4, 11, true)
-        .string('DANH SÁCH TẶNG QUÀ')
+        .string(headData.title.toUpperCase())
         .style({
           alignment: {
             horizontal: 'center',
@@ -68,7 +71,7 @@ class ExcelHelper {
         });
 
       ws.cell(5, 1, 5, 11, true)
-        .string(`TỪ NGÀY ${dateData.date_from || '...'} ĐẾN NGÀY ${dateData.date_to || '...'}`)
+        .string(`TỪ NGÀY ${headData.date_from || '...'} ĐẾN NGÀY ${headData.date_to || '...'}`)
         .style({
           alignment: {
             horizontal: 'center',

@@ -78,7 +78,7 @@ const RepresentativeTable = ({
     return [
       {
         globalAction: true,
-        icon: 'fi fi-rr-inbox-out',
+        icon: 'ti-export',
         type: 'success',
         content: 'Xuất excel',
         outline: true,

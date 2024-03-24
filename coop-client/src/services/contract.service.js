@@ -28,3 +28,10 @@ export const exportForm = (contractId, params = {}) => {
 
   return httpClient.get(path + `/export-form/${contractId}`, { params, ...header });
 };
+
+export const exportExcel = (params) => {
+  const header = {
+    responseType: `blob`,
+  };
+  return httpClient.get(`${path}/export-excel`, { params, ...header });
+};
