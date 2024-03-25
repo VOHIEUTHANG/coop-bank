@@ -103,6 +103,7 @@ export class RepresentativeService {
         created_date_to: filter.created_date_to
       })
       .leftJoinAndSelect('representative.created_user', 'user')
+      .leftJoinAndSelect('representative.affiliateUnits', 'affiliateUnits')
       .orderBy('representative.created_at', filter.order)
       .skip(filter.skip)
       .take(filter.limit);

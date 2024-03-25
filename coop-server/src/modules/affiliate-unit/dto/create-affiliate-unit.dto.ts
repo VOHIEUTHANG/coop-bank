@@ -22,6 +22,11 @@ export class CreateAffilicateUnitDto {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
+  affiliate_note: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
   affiliate_unit_code: string;
 
   @ApiPropertyOptional()

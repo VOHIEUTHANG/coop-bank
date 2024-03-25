@@ -7,6 +7,7 @@ import FormSelect from 'components/shared/FormControl/FormSelect';
 import { AffiliateUnitLevelOptions } from 'pages/AffiliateUnit/utils/constants';
 import FormDatePicker from 'components/shared/FormControl/FormDate';
 import FormNumber from 'components/shared/FormControl/FormNumber';
+import FormTextArea from 'components/shared/FormControl/FormTextArea';
 
 const Infomation = ({ disabled, title, id }) => {
   return (
@@ -102,6 +103,12 @@ const Infomation = ({ disabled, title, id }) => {
         <div className='cb_col_6'>
           <FormItem label='Số hợp đồng liên kết' disabled={disabled}>
             <FormInput type='text' field='affiliate_contract_code' placeholder='Nhập số hợp đồng liên kết' />
+          </FormItem>
+        </div>
+
+        <div className='cb_col_6'>
+          <FormItem label='Ghi chú' disabled={disabled}>
+            <FormTextArea field='affiliate_note' placeholder='Nhập ghi chú' />
           </FormItem>
         </div>
       </div>

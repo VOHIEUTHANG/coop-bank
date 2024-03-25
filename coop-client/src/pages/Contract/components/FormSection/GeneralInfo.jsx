@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import Accordion from 'components/shared/Accordion/index';
 import FormItem from 'components/shared/FormControl/FormItem';
 import FormInput from 'components/shared/FormControl/FormInput';
@@ -6,6 +6,7 @@ import FormDatePicker from 'components/shared/FormControl/FormDate';
 import FormNumber from 'components/shared/FormControl/FormNumber';
 import { useFormContext } from 'react-hook-form';
 import { formatPrice } from 'utils';
+import { showToast } from 'utils/helpers';
 
 const Infomation = ({ disabled, title, id, isAdd }) => {
   const methods = useFormContext();
@@ -28,7 +29,9 @@ const Infomation = ({ disabled, title, id, isAdd }) => {
 
   useEffect(handleToPeriodChange, [handleToPeriodChange]);
 
-  console.log();
+  const loanRate = useMemo(() => {
+    return Math.round((watch('funds_money') / watch('total_money')) * 100) || 0;
+  }, [watch('funds_money'), watch('total_money')]);
 
   return (
     <Accordion title={title} id={id}>
@@ -95,14 +98,17 @@ const Infomation = ({ disabled, title, id, isAdd }) => {
           />
         </FormItem>
         <FormItem label='Vốn tự có' isRequired className='cb_col_6' disabled={disabled}>
-          <FormNumber field='funds_money' addonAfter='VND' validation={{ required: 'Vốn tự có là bắt buộc' }} />
+          <FormNumber
+            field='funds_money'
+            addonAfter='VND'
+            validation={{ required: 'Vốn tự có là bắt buộc' }}
+            onBlur={() => (!loanRate || loanRate < 30 ? showToast.warning('Tỷ lệ phải tối thiểu bằng 30%') : null)}
+          />
         </FormItem>
 
         <FormItem label='Tỷ lệ trên tổng nhu cầu' isRequired className='cb_col_6' disabled>
           <FormInput
-            value={`${formatPrice(watch('funds_money') || 0)} / ${formatPrice(watch('total_money'))} = ${
-              Math.round((watch('funds_money') / watch('total_money')) * 100) || 0
-            }%`}
+            value={`${formatPrice(watch('funds_money') || 0)} / ${formatPrice(watch('total_money'))} = ${loanRate}%`}
           />
         </FormItem>
 
