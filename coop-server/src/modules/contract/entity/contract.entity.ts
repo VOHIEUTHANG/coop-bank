@@ -26,16 +26,16 @@ export class Contract {
   loan_purpose: string;
   @Column()
   loan_bank_number: string;
-  @Column()
+  @Column({ type: 'bigint' })
   total_money: number;
-  @Column()
+  @Column({ type: 'bigint' })
   loan_money: number;
 
   @Column()
   first_period_money: number;
   @Column()
   last_period_money: number;
-  @Column()
+  @Column({ type: 'bigint' })
   funds_money: number;
 
   @Column()
