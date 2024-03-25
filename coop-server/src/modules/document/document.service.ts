@@ -36,7 +36,7 @@ export class DocumentService {
     return document;
   }
 
-  async find(filter: FilterDocumentDto, currentUser: User) {
+  async find(filter: FilterDocumentDto) {
     const queryBuilder = this.repo.createQueryBuilder('document');
 
     queryBuilder
@@ -45,26 +45,6 @@ export class DocumentService {
           qb.where('document.document_name like :search', {
             search: `%${filter.search}%`
           })
-        )
-      )
-      .andWhere(
-        new Brackets((qb) =>
-          qb.where(`${currentUser.is_admin} = 1`).orWhere(
-            new Brackets((qbc) =>
-              qbc
-                .where(!!currentUser.branch.branch_id && 'user.branch_id = :branch_id', {
-                  branch_id: currentUser.branch.branch_id
-                })
-                .andWhere(
-                  currentUser?.transaction_room?.transaction_room_id
-                    ? 'user.transaction_room_id = :transaction_room_id'
-                    : 'user.transaction_room_id IS NULL',
-                  {
-                    transaction_room_id: currentUser?.transaction_room?.transaction_room_id
-                  }
-                )
-            )
-          )
         )
       )
       .andWhere(!!filter.created_date_from && 'document.created_at >= :created_date_from', {

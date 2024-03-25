@@ -32,10 +32,10 @@ export class DocumentController {
     return this.service.create(createData, request.user.sub);
   }
 
-  @UseInterceptors(CurrentUserInterceptor)
+  // @UseInterceptors(CurrentUserInterceptor)
   @Get()
-  getList(@Query() filter: FilterDocumentDto, @CurrentUser() currentUser: User) {
-    return this.service.find(filter, currentUser);
+  getList(@Query() filter: FilterDocumentDto) {
+    return this.service.find(filter);
   }
 
   @Get(':id')
