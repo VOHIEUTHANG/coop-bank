@@ -31,6 +31,8 @@ export class AffiliateUnit {
   affiliate_contract_code: string;
   @Column()
   affiliate_unit_code: string;
+  @Column({ nullable: true, length: 1000 })
+  affiliate_note: string;
   @Column({ nullable: true })
   affiliate_unit_level: string;
   @Column({ nullable: true })

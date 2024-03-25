@@ -43,24 +43,40 @@ const RepresentativeTable = ({
         accessor: 'representative_position',
       },
       {
-        header: 'Số tài khoản ngân hàng',
+        header: 'Mã đơn vị',
         classNameHeader: 'cb_text_center',
-        accessor: 'bank_number',
+        formatter: (record) => record?.affiliateUnits?.[0]?.affiliate_unit_code,
       },
       {
-        header: 'Tên ngân hàng',
+        header: 'Tên đơn vị',
         classNameHeader: 'cb_text_center',
-        accessor: 'bank_name',
+        formatter: (record) => record?.affiliateUnits?.[0]?.affiliate_unit_name,
       },
       {
-        header: 'Căn cước công dân',
+        header: 'Số quyết định',
         classNameHeader: 'cb_text_center',
-        accessor: 'id_number',
+        accessor: 'decision_number',
       },
       {
-        header: 'Ngày cấp',
+        header: 'Ngày hiệu lực',
         classNameHeader: 'cb_text_center',
-        accessor: 'id_issued_date',
+        accessor: 'effective_date_from',
+      },
+      {
+        header: 'Ngày hết hiệu lực',
+        classNameHeader: 'cb_text_center',
+        accessor: 'effective_date_to',
+      },
+      {
+        header: 'Cấp đơn vị',
+        classNameHeader: 'cb_text_center',
+        formatter: (record) => record?.affiliateUnits?.[0]?.affiliate_unit_level,
+      },
+      {
+        header: 'Người tạo',
+        accessor: 'created_fullname',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_center',
       },
       {
         header: 'Ngày tạo',

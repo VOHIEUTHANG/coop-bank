@@ -256,7 +256,7 @@ export class ContractService {
       director_sign: branchData.transaction_room_id ? '' : 'GIÁM ĐỐC',
       debt_receive_sign: branchData.transaction_room_id ? '' : 'Giám đốc',
       debt_receive_title: branchData.transaction_room_id
-        ? `TP.${branchData.transaction_room_name}`
+        ? `TP.${branchData.transaction_room_name}`.toUpperCase()
         : 'Trưởng phòng',
       transaction_location_title: branchData.transaction_room_id
         ? `TP.${branchData.transaction_room_name}`?.toUpperCase()
