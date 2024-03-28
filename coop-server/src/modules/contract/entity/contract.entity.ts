@@ -13,6 +13,7 @@ import {
 } from 'typeorm';
 import { User } from 'src/modules/users/users.entity';
 import { Individual } from 'src/modules/individual/entity/individual.entity';
+import { AffiliateUnit } from 'src/modules/affiliate-unit/entity/affiliate-unit.entity';
 
 @Entity()
 export class Contract {
@@ -117,4 +118,12 @@ export class Contract {
   @Expose()
   @Transform(({ obj }) => obj.individual?.id_number)
   individual_id_number: string;
+
+  @Expose()
+  @Transform(({ obj }) => obj.individual?.affiliate_unit?.affiliate_unit_name)
+  affiliate_unit_name: string;
+
+  @Expose()
+  @Transform(({ obj }) => obj.individual?.affiliate_unit?.affiliate_unit_code)
+  affiliate_unit_code: string;
 }

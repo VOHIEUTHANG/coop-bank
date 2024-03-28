@@ -48,6 +48,11 @@ const RepresentativeTable = ({
         accessor: 'current_address',
       },
       {
+        header: 'Mã đơn vị',
+        classNameHeader: 'cb_text_center',
+        accessor: 'affiliate_unit_code',
+      },
+      {
         header: 'Nơi công tác',
         classNameHeader: 'cb_text_center',
         accessor: 'affiliate_unit_name',

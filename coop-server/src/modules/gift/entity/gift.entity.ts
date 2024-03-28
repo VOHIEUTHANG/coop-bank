@@ -113,4 +113,8 @@ export class Gift {
   @Transform(({ obj }) => obj.affiliate_unit?.affiliate_unit_name)
   @Expose()
   affiliate_unit_name: string;
+
+  @Transform(({ obj }) => obj.affiliate_unit?.affiliate_unit_code)
+  @Expose()
+  affiliate_unit_code: string;
 }

@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { showConfirmModal } from 'actions/global';
 import { deleteGift } from 'services/gift.service';
 import DataTable from 'components/shared/DataTable/index';
-import { Permission } from '../utils/constants';
 import { useAuth } from 'context/AuthProvider';
+import { formatPrice } from 'utils';
 
 const RepresentativeTable = ({
   loading,
@@ -33,6 +33,22 @@ const RepresentativeTable = ({
         header: 'Đơn vị nhận',
         classNameHeader: 'cb_text_center',
         accessor: 'affiliate_unit_name',
+      },
+      {
+        header: 'Mã đơn vị nhận',
+        classNameHeader: 'cb_text_center',
+        accessor: 'affiliate_unit_code',
+      },
+      {
+        header: 'Tổng số tiền quà',
+        classNameHeader: 'cb_text_center',
+        classNameBody: 'cb_text_right',
+        formatter: (item) =>
+          formatPrice(
+            item?.gifts?.reduce((acc, gift) => acc + gift.gift_price * gift.gift_quantity, 0),
+            true,
+            '.',
+          ),
       },
       {
         header: 'Người tặng',
