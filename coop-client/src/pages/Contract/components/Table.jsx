@@ -80,6 +80,16 @@ const RepresentativeTable = ({
         accessor: 'end_date',
       },
       {
+        header: 'Tên đơn vị',
+        classNameHeader: 'cb_text_center',
+        accessor: 'affiliate_unit_name',
+      },
+      {
+        header: 'Mã đơn vị',
+        classNameHeader: 'cb_text_center',
+        accessor: 'affiliate_unit_code',
+      },
+      {
         header: 'Ngày tạo',
         accessor: 'created_at',
         classNameHeader: 'cb_text_center',

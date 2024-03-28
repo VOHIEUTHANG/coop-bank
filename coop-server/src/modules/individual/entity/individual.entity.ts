@@ -99,6 +99,10 @@ export class Individual {
   @Expose()
   affiliate_unit_name: string;
 
+  @Transform(({ obj }) => obj.affiliate_unit?.affiliate_unit_code)
+  @Expose()
+  affiliate_unit_code: string;
+
   @Transform(({ value }) => value && moment(value).format(DATE_TIME_FORMAT))
   @DeleteDateColumn({ type: 'timestamp', nullable: true })
   deleted_at: string;

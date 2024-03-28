@@ -191,8 +191,8 @@ export const toObject = (arr = [], key, addon = {}) => {
 };
 
 export function formatPrice(x, isShow = false, type = '.') {
-  if (!x) return '0' + (isShow ? ' VND' : '');
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, type) + (isShow ? ' VND' : '');
+  if (!x) return '0' + (isShow ? ' đ' : '');
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, type) + (isShow ? ' đ' : '');
 }
 
 export function formatVND(number) {
